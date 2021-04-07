@@ -8,7 +8,7 @@ Client for the SIAT project
 
 ## Running the app
 
-```
+```bash
     # development 
     $ ng serve
 
@@ -18,7 +18,7 @@ Client for the SIAT project
 
 ## Testing
 
-```
+```bash
     # unit tests 
     $ ng test
 
