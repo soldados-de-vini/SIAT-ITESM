@@ -1,4 +1,4 @@
-import { hashPass } from '../../utils/security.utils';
+import securityUtils from '../../utils/security.utils';
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 
 @Entity('users')
@@ -30,7 +30,7 @@ export class UsersEntity {
   password: string;
 
   @BeforeInsert() async hashPassword() {
-    this.password = await hashPass(this.password);
+    this.password = await securityUtils.hashPass(this.password);
   }
 
   constructor(

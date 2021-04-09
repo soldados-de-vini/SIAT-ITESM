@@ -16,3 +16,4 @@ lerna-debug.log*
 
 # Environmental Variables
 ormconfig.*
+*.env

@@ -6,4 +6,8 @@ async function hashPass(password: string) {
   return bcrypt.hash(password, saltOrRounds);
 }
 
-export { hashPass };
+async function comparePass(password: string, hash: string) {
+  return await bcrypt.compare(password, hash);
+}
+
+export default { hashPass, comparePass };
