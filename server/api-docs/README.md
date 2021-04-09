@@ -5,3 +5,4 @@ In this section, each endpoint is described with the parameters needed and examp
 
 ### Auth
 - **[<code>POST</code> Register](/auth/POST_register.md)**
+- **[<code>POST</code> Login](/auth/POST_login.md)**

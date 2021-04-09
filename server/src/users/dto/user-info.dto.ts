@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsEmail } from 'class-validator';
 
 /**
- * DTO used as a return result of the user that ommits it's password.
+ * DTO that contains all the information in the database of the user.
  */
-export class UserDTO {
+export class UserInfoDTO {
   @IsNotEmpty()
   id: string;
 
@@ -16,4 +16,7 @@ export class UserDTO {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  @IsNotEmpty()
+  hash: string;
 }

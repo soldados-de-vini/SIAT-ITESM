@@ -5,6 +5,9 @@ import { UsersEntity } from '../users/entity/users.entity';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { HttpStatus } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import mockedJwtService from '../utils/mocks/jwt-mock';
+import securityUtils from '../utils/security.utils';
 
 describe('AuthService', () => {
   describe('register', () => {
@@ -26,6 +29,10 @@ describe('AuthService', () => {
         providers: [
           AuthService,
           UsersService,
+          {
+            provide: JwtService,
+            useValue: mockedJwtService,
+          },
           {
             provide: getRepositoryToken(UsersEntity),
             useValue: {
@@ -55,6 +62,10 @@ describe('AuthService', () => {
           AuthService,
           UsersService,
           {
+            provide: JwtService,
+            useValue: mockedJwtService,
+          },
+          {
             provide: getRepositoryToken(UsersEntity),
             useValue: {
               findOne: jest.fn().mockReturnValue({}),
@@ -73,6 +84,93 @@ describe('AuthService', () => {
           message: 'User already exists',
         },
       });
+    });
+  });
+
+  describe('login', () => {
+    let authService: AuthService;
+    const result = {
+      id: 'uuid',
+      email: 'test@test.com',
+      name: 'Test 1',
+      nomina: 'L000000',
+      hash: 'test123',
+    };
+
+    beforeEach(async () => {
+      const module: TestingModule = await Test.createTestingModule({
+        providers: [
+          AuthService,
+          UsersService,
+          {
+            provide: JwtService,
+            useValue: mockedJwtService,
+          },
+          {
+            provide: getRepositoryToken(UsersEntity),
+            useValue: {
+              findOne: jest.fn((input) =>
+                input.where.email == result.email ? result : null,
+              ),
+            },
+          },
+        ],
+      }).compile();
+
+      authService = module.get<AuthService>(AuthService);
+    });
+
+    it('should return user if credentials are correct', async () => {
+      const comparePassSpy = jest
+        .spyOn(securityUtils, 'comparePass')
+        .mockResolvedValue(true);
+      expect(
+        await authService.login({
+          email: 'test@test.com',
+          password: 'test123',
+        }),
+      ).toEqual({
+        status: {
+          statusCode: HttpStatus.ACCEPTED,
+          message: 'Successful login',
+        },
+        result: {
+          access_token: 'secret',
+        },
+      });
+      expect(comparePassSpy).toBeCalled();
+    });
+
+    it('should return unsuccessful when the user does not exist', async () => {
+      expect(
+        await authService.login({
+          email: 'invalid@test.com',
+          password: 'test123',
+        }),
+      ).toEqual({
+        status: {
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'Invalid credentials',
+        },
+      });
+    });
+
+    it('should return unsuccessful when the password is incorrect', async () => {
+      const comparePassSpy = jest
+        .spyOn(securityUtils, 'comparePass')
+        .mockResolvedValue(false);
+      expect(
+        await authService.login({
+          email: 'test@test.com',
+          password: 'invalid',
+        }),
+      ).toEqual({
+        status: {
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'Invalid credentials',
+        },
+      });
+      expect(comparePassSpy).toBeCalled();
     });
   });
 });
