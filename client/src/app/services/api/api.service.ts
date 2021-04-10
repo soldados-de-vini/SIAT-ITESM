@@ -12,13 +12,30 @@ export class ApiService {
   private options = {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: null
+      Authorization: ''
     }
   };
 
   constructor(
     private http: HttpClient,
   ) { }
+
+  /**
+   * Delete authorization token in the headers of the requests
+   *
+   */
+   public deleteAccessToken(): void{
+    this.options.headers.Authorization = null;
+  }
+
+  /**
+   * Set authorization token in the headers of the requests
+   *
+   * @param token the token that is being set
+   */
+  public setAccessToken(token: string): void{
+    this.options.headers.Authorization = token;
+  }
 
   /**
    * Perform a get request given an endpoint
