@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class ApiService {
   };
 
   constructor(
+    private eventService: EventService,
     private http: HttpClient,
   ) { }
 
@@ -35,6 +37,7 @@ export class ApiService {
    */
   public setAccessToken(token: string): void{
     this.options.headers.Authorization = token;
+    this.eventService.publish('user:logged');
   }
 
   /**
