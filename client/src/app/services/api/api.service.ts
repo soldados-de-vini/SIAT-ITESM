@@ -25,7 +25,7 @@ export class ApiService {
    *
    */
    public deleteAccessToken(): void{
-    this.options.headers.Authorization = null;
+    this.options.headers.Authorization = '';
   }
 
   /**
@@ -99,4 +99,3 @@ export class ApiService {
     return throwError(errorMessage);
   }
 }
-
