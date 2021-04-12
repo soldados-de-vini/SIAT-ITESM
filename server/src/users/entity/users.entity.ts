@@ -1,5 +1,13 @@
 import securityUtils from '../../utils/security.utils';
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  OneToMany,
+} from 'typeorm';
+import { CourseEntity } from '../../course/entity/course.entity';
+import { ModuleEntity } from '../../Module/entity/module.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -32,6 +40,12 @@ export class UsersEntity {
   @BeforeInsert() async hashPassword() {
     this.password = await securityUtils.hashPass(this.password);
   }
+
+  @OneToMany(() => CourseEntity, (CourseEntity) => CourseEntity.user)
+  courses: CourseEntity[];
+
+  @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
+  modules: ModuleEntity[];
 
   constructor(
     id: string,
