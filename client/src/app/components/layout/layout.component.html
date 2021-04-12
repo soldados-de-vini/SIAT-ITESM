@@ -1,0 +1,62 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null"
+            nzTheme="light">
+    <div class="sidebar-logo">
+      <a>
+        <img src="assets/images/logo-tec.png" alt="logo" style="border-radius: 100%;">
+        <h1>SIAT</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item [routerLink]="'periodos'">
+        <i nz-icon nzType="compass" nzTheme="fill"></i>
+        <span>Planeación de Periodo</span>
+      </li>
+      <li nz-menu-item [routerLink]="'maestros'">
+        <i nz-icon nzType="idcard" nzTheme="fill"></i>
+        <span>Maestros</span>
+      </li>
+      <li nz-menu-item [routerLink]="'materias'">
+        <i nz-icon nzType="book" nzTheme="fill"></i>
+        <span>Materias</span>
+      </li>
+      <li nz-menu-item [routerLink]="'modulos'">
+        <i nz-icon nzType="appstore" nzTheme="fill"></i>
+        <span>Modulos</span>
+      </li>
+      <li nz-menu-item [routerLink]="'bloques'">
+        <i nz-icon nzType="layout" nzTheme="fill"></i>
+        <span>Bloques</span>
+      </li>
+      <li nz-menu-item [routerLink]="'bloques'">
+        <i nz-icon nzType="home" nzTheme="fill"></i>
+        <span>Salones</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        <span class="header-trigger" style="float:right;">
+          <i class="trigger" nz-icon nzType="user" nzTheme="outline"></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
