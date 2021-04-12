@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { NzButtonSize } from 'ng-zorro-antd';
 
 @Component({
-  selector: 'app-login',
+  selector: 'siat-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
