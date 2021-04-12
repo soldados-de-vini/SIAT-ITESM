@@ -1,0 +1,33 @@
+<div>
+    <div nz-row nzJustify="space-around" nzAlign="middle">
+        <div nz-col>
+            <img class="img-logo" src="../../../assets/images/logo-tec.png" alt="logo-tec">
+        </div>
+    </div>
+    <div nz-row nzJustify="space-around" nzAlign="middle">
+        <div nz-col>
+            <h1 class="header">SIAT</h1>
+        </div>
+    </div>
+    <div nz-row nzJustify="space-around" nzAlign="middle">
+        <div nz-col>
+            <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Por favor ingrese su usuario">
+                    <nz-input-group class="icons" nzPrefixIcon="user">
+                      <input type="text" nz-input formControlName="userName" placeholder="Usuario" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Por favor ingrese su contraseña">
+                    <nz-input-group class="icons" nzPrefixIcon="lock">
+                      <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <button nz-button nzBlock [nzSize]="size" class="login-form-button login-form-margin">Ingresar</button>
+              </form>
+        </div>
+    </div>
+</div>
