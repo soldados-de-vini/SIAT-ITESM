@@ -1,10 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
-import {UsersEntity} from "../../users/entity/users.entity";
-import {ModuleEntity} from "../../module/entity/module.entity";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { UsersEntity } from '../../users/entity/users.entity';
+import { ModuleEntity } from '../../module/entity/module.entity';
 
 @Entity('course')
 export class CourseEntity {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -32,7 +38,7 @@ export class CourseEntity {
   educationalModel: string;
 
   @Column()
-  semester: string; 
+  semester: string;
 
   @Column({
     nullable: false,
@@ -50,14 +56,12 @@ export class CourseEntity {
   @Column()
   typeUF: Array<string>;
 
-  @ManyToOne(() => UsersEntity, UsersEntity => UsersEntity.courses)
-    user: UsersEntity;
-
+  @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.courses)
+  user: UsersEntity;
 
   @ManyToMany(() => ModuleEntity)
   @JoinTable()
   modules: ModuleEntity[];
-
 
   constructor(
     id: string,
@@ -81,6 +85,5 @@ export class CourseEntity {
     this.weeks = weeks;
     this.avenue = avenue;
     this.typeUF = typeUF;
-
   }
 }

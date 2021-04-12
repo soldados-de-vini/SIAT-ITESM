@@ -1,6 +1,12 @@
 import securityUtils from '../../utils/security.utils';
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert,  OneToMany} from 'typeorm';
-import {CourseEntity} from "../../course/entity/course.entity";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  OneToMany,
+} from 'typeorm';
+import { CourseEntity } from '../../course/entity/course.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
 
 @Entity('users')
@@ -35,17 +41,11 @@ export class UsersEntity {
     this.password = await securityUtils.hashPass(this.password);
   }
 
+  @OneToMany(() => CourseEntity, (CourseEntity) => CourseEntity.user)
+  courses: CourseEntity[];
 
-  @OneToMany(() => CourseEntity, CourseEntity => CourseEntity.user)
-    courses: CourseEntity[];
-
-    
-  @OneToMany(() => ModuleEntity, ModuleEntity => ModuleEntity.user)
+  @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];
-
-
- 
-
 
   constructor(
     id: string,

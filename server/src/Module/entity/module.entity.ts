@@ -1,9 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import {UsersEntity} from "../../users/entity/users.entity";
+import { UsersEntity } from '../../users/entity/users.entity';
 
 @Entity('module')
 export class ModuleEntity {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,15 +12,10 @@ export class ModuleEntity {
   })
   name: string;
 
-
-  @ManyToOne(() => UsersEntity, UsersEntity => UsersEntity.modules)
+  @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.modules)
   user: UsersEntity;
 
-
-  constructor(
-    id: string,
-    name: string,
-  ) {
+  constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
   }
