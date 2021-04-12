@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import {UsersEntity} from "../../users/entity/users.entity";
+import {ModuleEntity} from "../../module/entity/module.entity";
 
 @Entity('course')
 export class CourseEntity {
@@ -47,6 +49,14 @@ export class CourseEntity {
 
   @Column()
   typeUF: Array<string>;
+
+  @ManyToOne(() => UsersEntity, UsersEntity => UsersEntity.courses)
+    user: UsersEntity;
+
+
+  @ManyToMany(() => ModuleEntity)
+  @JoinTable()
+  modules: ModuleEntity[];
 
 
   constructor(

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {UsersEntity} from "../../users/entity/users.entity";
 
 @Entity('module')
 export class ModuleEntity {
@@ -11,6 +12,10 @@ export class ModuleEntity {
     nullable: false,
   })
   name: string;
+
+
+  @ManyToOne(() => UsersEntity, UsersEntity => UsersEntity.modules)
+  user: UsersEntity;
 
 
   constructor(
