@@ -10,7 +10,15 @@ describe('EventService', () => {
     service = TestBed.inject(EventService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be able to publish and subscribe to events', () => {
+    let isTesting = false;
+
+    service.subscribe('test', (data) => {
+      isTesting = data;
+    });
+
+    service.publish('test', true);
+
+    expect(isTesting).toBeTrue();
   });
 });

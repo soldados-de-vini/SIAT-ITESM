@@ -27,7 +27,7 @@ describe('AuthService', () => {
       email: 'test@gmail.com',
       password: 'pass123'
     };
-    service.login(userDummy);
+    service.login(userDummy, () => {});
 
     const okResponse = {
       status: {
@@ -55,7 +55,7 @@ describe('AuthService', () => {
       email: 'test@gmail.com',
       password: 'wrong password'
     };
-    service.login(userDummy);
+    service.login(userDummy, () => {});
 
     const okResponse = {
       status: {
