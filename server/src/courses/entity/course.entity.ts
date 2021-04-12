@@ -27,7 +27,7 @@ export class CourseEntity {
   @Column({
     nullable: false,
   })
-  format: string; // SUGESTION: Renaming to: educationalModel
+  educationalModel: string;
 
   @Column()
   semester: string; 
@@ -35,17 +35,12 @@ export class CourseEntity {
   @Column({
     nullable: false,
   })
-  initialPerdiod: number; // SUGESTION: Renaming to: initialWeek
+  initialWeek: number;
 
   @Column({
     nullable: false,
   })
   weeks: number;
-
-  // TODO: Ask about the following data-types
-
-  @Column()
-  matricula: string; 
 
   @Column()
   avenue: string;
@@ -59,11 +54,10 @@ export class CourseEntity {
     key: string,
     name: string,
     capacity: number,
-    format: string,
+    educationalModel: string,
     semester: string,
-    initialPeriod: number,
+    initialWeek: number,
     weeks: number,
-    matricula: string,
     avenue: string,
     typeUF: Array<string>,
   ) {
@@ -71,11 +65,10 @@ export class CourseEntity {
     this.key = key;
     this.name = name;
     this.capacity = capacity;
-    this.format = format;
+    this.educationalModel = educationalModel;
     this.semester = semester;
-    this.initialPerdiod = initialPeriod;
+    this.initialWeek = initialWeek;
     this.weeks = weeks;
-    this.matricula = matricula;
     this.avenue = avenue;
     this.typeUF = typeUF;
 
