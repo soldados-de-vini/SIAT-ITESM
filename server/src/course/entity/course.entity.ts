@@ -7,7 +7,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
-import { ModuleEntity } from '../../module/entity/module.entity';
+import { ModuleEntity } from '../../Module/entity/module.entity';
 
 @Entity('course')
 export class CourseEntity {
