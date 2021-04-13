@@ -6,7 +6,7 @@ import {
   BeforeInsert,
   OneToMany,
 } from 'typeorm';
-import { CourseEntity } from '../../course/entity/course.entity';
+import { CourseEntity } from '../../courses/entity/course.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
 
 @Entity('users')
@@ -46,18 +46,4 @@ export class UsersEntity {
 
   @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];
-
-  constructor(
-    id: string,
-    email: string,
-    name: string,
-    nomina: string,
-    password: string,
-  ) {
-    this.id = id;
-    this.email = email;
-    this.name = name;
-    this.nomina = nomina;
-    this.password = password;
-  }
 }
