@@ -3,12 +3,9 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsersEntity } from './entity/users.entity';
 import { UsersService } from './users.service';
-import { CreateUserDTO } from './dto/user-creation.dto';
 import { HttpException } from '@nestjs/common';
-
-type MockType<T> = {
-  [P in keyof T]?: jest.Mock;
-};
+import { MockType } from '../utils/mocks/mock-type';
+import { userCreateMock, userDtoMock } from '../utils/mocks/users.mock';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -45,20 +42,10 @@ describe('UsersService', () => {
   });
 
   describe('create', () => {
-    const dto = new CreateUserDTO(
-      'test@test.com',
-      'Test 1',
-      'L000000',
-      'pass123',
-    );
+    const dto = userCreateMock;
 
     it('should create a single user', async () => {
-      const noPassEntity = {
-        id: 'uuid',
-        email: 'test@test.com',
-        name: 'Test 1',
-        nomina: 'L000000',
-      };
+      const noPassEntity = userDtoMock;
       repositoryMock.findOne.mockReturnValue(null);
       repositoryMock.create.mockReturnValue(noPassEntity);
       expect(await service.create(dto)).toEqual(noPassEntity);
