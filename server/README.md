@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - [NestJS (Version 7.6)](https://docs.nestjs.com/#installation)
-- [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
+- [Postgresql](https://www.postgresql.org/)
 
 ## Configuration
 For the connection to the database, the API uses TypeORM with a [*ormconfig*](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md) file setup on the root of the project to store the connection options that are going to be used on the running environment, the supported file formats are: `.json`, `.js`, `.ts`, `.env`, `.yml` and `.xml`.
