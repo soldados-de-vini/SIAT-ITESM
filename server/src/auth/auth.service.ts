@@ -80,7 +80,7 @@ export class AuthService {
     const payload = { id: dbUser.id };
     return {
       status: {
-        statusCode: HttpStatus.ACCEPTED,
+        statusCode: HttpStatus.OK,
         message: 'Successful login',
       },
       result: {
