@@ -25,17 +25,17 @@ describe('TableComponent', () => {
 
   describe('Working delete output', () => {
     it('should emit a value', () => {
-      const table = new TableComponent()
+      const table = new TableComponent();
       table.deleteRow(1);
       expect(table.delete.emit).toHaveBeenCalled();
-    })
-  })
+    });
+  });
 
   describe('Working edit output', () => {
     it('should emit a value', () => {
-      const table = new TableComponent()
+      const table = new TableComponent();
       table.editRow(1);
       expect(table.edit.emit).toHaveBeenCalled();
-    })
-  })
+    });
+  });
 });
