@@ -56,7 +56,7 @@ describe('CoursesService', () => {
       courseRepository.create.mockReturnValue(courseWithId);
       expect(await service.create(sampleCourseCreateReq, 'uuid')).toEqual({
         status: {
-          statusCode: HttpStatus.OK,
+          statusCode: HttpStatus.CREATED,
           message: 'Courses successfully created.',
         },
         result: [courseWithId],
