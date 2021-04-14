@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BloquesComponent } from 'src/app/components/bloques/bloques.component';
-import { ModulosComponent } from 'src/app/components/modulos/modulos.component';
-import { SalonesComponent } from 'src/app/components/salones/salones.component';
 import { MaestrosComponent } from '../../components/maestros/maestros.component';
 import { MateriasComponent } from '../../components/materias/materias.component';
+import { ModulosComponent } from '../../components/modulos/modulos.component';
+import { BloquesComponent } from '../../components/bloques/bloques.component';
+import { SalonesComponent } from '../../components/salones/salones.component';
 
 
 const routes: Routes = [
