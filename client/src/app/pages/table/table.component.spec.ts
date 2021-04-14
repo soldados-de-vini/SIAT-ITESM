@@ -25,17 +25,19 @@ describe('TableComponent', () => {
 
   describe('Working delete output', () => {
     it('should emit a value', () => {
-      const table = new TableComponent();
-      table.deleteRow(1);
-      expect(table.delete.emit).toHaveBeenCalled();
+      component.deleteRow(1);
+      spyOn(component.delete, 'emit').and.callThrough();
+      component.deleteRow(1);
+      expect(component.delete.emit).toHaveBeenCalled();
     });
   });
 
   describe('Working edit output', () => {
     it('should emit a value', () => {
-      const table = new TableComponent();
-      table.editRow(1);
-      expect(table.edit.emit).toHaveBeenCalled();
+      component.editRow(1);
+      spyOn(component.edit, 'emit').and.callThrough();
+      component.editRow(1);
+      expect(component.edit.emit).toHaveBeenCalled();
     });
   });
 });
