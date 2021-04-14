@@ -1,0 +1,32 @@
+<div nz-row>
+    <div class="searchbar" nz-col nzSpan="12">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="Buscar" />
+          </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+        </ng-template>
+    </div>
+</div>
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-table #table [nzData]="tableData">
+            <thead>
+              <tr>
+                <th *ngFor="let key of getKeys()">{{ key }}</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of table.data">
+                <td *ngFor="let key of getKeys()">{{data[key]}}</td>
+                <td>
+                  <a>Editar</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a>Borrar</a>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </div>
+</div>
