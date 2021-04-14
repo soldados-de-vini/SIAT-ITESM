@@ -21,9 +21,9 @@
               <tr *ngFor="let data of table.data">
                 <td *ngFor="let key of getKeys()">{{data[key]}}</td>
                 <td>
-                  <a>Editar</a>
+                  <a (click)="editRow(data.id)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
-                  <a>Borrar</a>
+                  <a (click)="deleteRow(data.id)">Borrar</a>
                 </td>
               </tr>
             </tbody>

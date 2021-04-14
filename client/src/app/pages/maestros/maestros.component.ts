@@ -5,6 +5,7 @@ interface Maestro {
   titulo: string;
   materias: string [];
   area: string;
+  id: number;
 }
 
 @Component({
@@ -19,13 +20,15 @@ export class MaestrosComponent implements OnInit {
       nombre: 'Gerardo Salinas',
       titulo: 'Matematico',
       materias: ['Matemáticas 1'],
-      area: 'Matemáticas'
+      area: 'Matemáticas',
+      id: 1
     },
     {
       nombre: 'Guillermo Rivas',
       titulo: 'Físico',
       materias: ['Física 1'],
-      area: 'Física'
+      area: 'Física',
+      id: 2
     }
   ];
 

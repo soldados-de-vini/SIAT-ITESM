@@ -22,12 +22,12 @@ export class TableComponent implements OnInit {
     return (this.selectedData && this.selectedData.length > 0) ?  Object.keys(this.selectedData[0]) : [];
   }
 
-  deleteRow(){
-    this.delete.emit(1);
+  deleteRow(id){
+    this.delete.emit(id);
   }
 
-  editRow(){
-    this.delete.emit(1);
+  editRow(id){
+    this.delete.emit(id);
   }
 
 }
