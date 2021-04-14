@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { NzButtonModule } from 'ng-zorro-antd';
+import { NzButtonModule, NzModalModule } from 'ng-zorro-antd';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
 import { MaestrosComponent } from '../maestros/maestros.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -17,6 +19,7 @@ import { TableComponent } from '../table/table.component';
 @NgModule({
   declarations: [
     DashboardComponent,
+    CsvUploaderComponent,
     MaestrosComponent,
     TableComponent
   ],
@@ -24,6 +27,8 @@ import { TableComponent } from '../table/table.component';
     CommonModule,
     DashboardRoutingModule,
     NzButtonModule,
+    NzUploadModule,
+    NzModalModule
     NzTableModule,
     NzGridModule,
     NzDividerModule,
