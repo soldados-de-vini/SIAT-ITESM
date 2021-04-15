@@ -63,7 +63,8 @@ typeUF | string | [x] | Identifies the type of course.
             "IIC"
         ],
         "typeUF": "TEC21",
-        "educationalModel": "B"
+        "educationalModel": "B",
+        "modules": []
     }
 }
 ```

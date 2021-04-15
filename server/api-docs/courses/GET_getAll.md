@@ -35,7 +35,13 @@ Authorization | Bearer Token
             "avenue": [
                 "IIC"
             ],
-            "typeUF": "TEC21"
+            "typeUF": "TEC21",
+            "modules": [
+                {
+                    "id": "6097eb7e-7740-41d8-9730-87a54beb539c",
+                    "name": "module1"
+                }
+            ]
         },
         {
             "id": "f8e86d7d-a36a-49a4-bf56-f596ad258ec5",
@@ -48,7 +54,8 @@ Authorization | Bearer Token
             "avenue": [
                 "IIC"
             ],
-            "typeUF": "TEC21"
+            "typeUF": "TEC21",
+            "modules": []
         }
     ]
 }

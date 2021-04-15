@@ -8,12 +8,14 @@ import {
   UseGuards,
   Request,
   Put,
+  Patch,
 } from '@nestjs/common';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CoursesService } from './courses.service';
 import { CourseDto } from './dto/course.dto';
 import { CreateCourseReq } from './interfaces/create-course-req.interface';
+import { UpdateCourseModulesDto } from './dto/course-module.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -42,6 +44,20 @@ export class CoursesController {
     @Body() updateCourseDto: CourseDto,
   ) {
     return this.coursesService.update(req.user.id, courseId, updateCourseDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  updateModules(
+    @Request() req: JwtRequest,
+    @Param('id') courseId: string,
+    @Body() updateModulesDto: UpdateCourseModulesDto,
+  ) {
+    return this.coursesService.updateModules(
+      req.user.id,
+      courseId,
+      updateModulesDto,
+    );
   }
 
   @UseGuards(JwtAuthGuard)

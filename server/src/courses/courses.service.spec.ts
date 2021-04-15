@@ -6,11 +6,17 @@ import { MockType } from '../utils/mocks/mock-type';
 import { CoursesService } from './courses.service';
 import { CourseEntity } from './entity/course.entity';
 import { mockUserEntityNoCourses } from '../utils/mocks/users.mock';
-import { mockCourseDto } from '../utils/mocks/courses.mock';
+import {
+  mockCourseDto,
+  mockCourseWithEmptyModules,
+} from '../utils/mocks/courses.mock';
 import { HttpStatus } from '@nestjs/common';
+import { ModuleEntity } from '../module/entity/module.entity';
+import { mockModuleDto, mockModuleEntity } from '../utils/mocks/modules.mock';
 
 describe('CoursesService', () => {
   const sampleCourse = mockCourseDto;
+  const sampleModule = mockModuleDto;
   const sampleCourseCreateReq = {
     courses: [sampleCourse],
   };
@@ -40,6 +46,15 @@ describe('CoursesService', () => {
             save: jest.fn(),
           },
         },
+        {
+          provide: getRepositoryToken(ModuleEntity),
+          useValue: {
+            createQueryBuilder: jest.fn(() => ({
+              where: jest.fn().mockReturnThis(),
+              getMany: jest.fn().mockReturnValue([mockModuleEntity]),
+            })),
+          },
+        },
       ],
     }).compile();
 
@@ -57,12 +72,24 @@ describe('CoursesService', () => {
       expect(await service.create(sampleCourseCreateReq, 'uuid')).toEqual({
         status: {
           statusCode: HttpStatus.CREATED,
-          message: 'Courses successfully created.',
+          message: 'Created successfully.',
         },
         result: [courseWithId],
       });
       expect(userRepository.findOne).toHaveBeenCalled();
       expect(courseRepository.create).toHaveBeenCalledWith(sampleCourse);
+    });
+
+    it('should respond with 204 status code if no data is provided', async () => {
+      const emptyReq = {
+        courses: [],
+      };
+      expect(await service.create(emptyReq, 'uuid')).toEqual({
+        status: {
+          statusCode: HttpStatus.NO_CONTENT,
+          message: 'No create data was provided.',
+        },
+      });
     });
   });
 
@@ -75,7 +102,7 @@ describe('CoursesService', () => {
       expect(await service.findAll('uuid')).toEqual({
         status: {
           statusCode: HttpStatus.OK,
-          message: 'Searched user courses successfully.',
+          message: 'Searched user data successfully.',
         },
         result: sampleCourse,
       });
@@ -94,7 +121,7 @@ describe('CoursesService', () => {
       expect(await service.update(userId, 'id', mockCourseDto)).toEqual({
         status: {
           statusCode: HttpStatus.OK,
-          message: 'Course updated successfully.',
+          message: 'Updated successfully.',
         },
         result: {},
       });
@@ -108,7 +135,7 @@ describe('CoursesService', () => {
       expect(await service.update('ID11', 'id', mockCourseDto)).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Unathorized update.',
+          message: 'Unauthorized update.',
         },
       });
     });
@@ -118,8 +145,27 @@ describe('CoursesService', () => {
       expect(await service.update('uuid', 'id', mockCourseDto)).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
-          message: 'Course to update has not been found.',
+          message: 'Entity to update has not been found.',
         },
+      });
+    });
+  });
+
+  describe('updateModules', () => {
+    it('should add module successfully', async () => {
+      courseRepository.findOne.mockReturnValue(mockCourseWithEmptyModules);
+      const mockResult = { ...mockCourseWithEmptyModules };
+      mockResult.modules = [mockModuleEntity];
+      expect(
+        await service.updateModules('uuid', 'uuid', {
+          modules: [sampleModule],
+        }),
+      ).toEqual({
+        status: {
+          statusCode: HttpStatus.OK,
+          message: 'Modules successfully added.',
+        },
+        result: mockResult,
       });
     });
   });
@@ -149,7 +195,7 @@ describe('CoursesService', () => {
       expect(await service.remove('ID22', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Unathorized deletion.',
+          message: 'Unauthorized deletion.',
         },
       });
     });
@@ -160,7 +206,7 @@ describe('CoursesService', () => {
       expect(await service.remove('id', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
-          message: 'Course to delete has not been found.',
+          message: 'Entity to delete has not been found.',
         },
       });
     });

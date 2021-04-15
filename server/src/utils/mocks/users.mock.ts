@@ -41,10 +41,19 @@ mockUserEntityNoCourses.nomina = nomina;
 mockUserEntityNoCourses.password = password;
 mockUserEntityNoCourses.courses = [];
 
+const mockUserEntityNoModules = new UsersEntity();
+mockUserEntityNoCourses.id = uuid;
+mockUserEntityNoCourses.email = email;
+mockUserEntityNoCourses.name = name;
+mockUserEntityNoCourses.nomina = nomina;
+mockUserEntityNoCourses.password = password;
+mockUserEntityNoCourses.modules = [];
+
 export {
   userCreateMock,
   userDtoMock,
   userInfoMock,
   mockUserEntityNoCourses,
+  mockUserEntityNoModules,
   userLoginMock,
 };

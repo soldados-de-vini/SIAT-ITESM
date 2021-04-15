@@ -2,4 +2,6 @@ const mockedJwtService = {
   sign: () => 'secret',
 };
 
-export default mockedJwtService;
+const jwtRequest = { user: { id: 'uuid' } };
+
+export { mockedJwtService, jwtRequest };

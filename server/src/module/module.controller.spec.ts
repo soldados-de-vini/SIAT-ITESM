@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { JwtStrategy } from '../auth/jwt.strategy';
 import { UsersEntity } from '../users/entity/users.entity';
-import { CoursesController } from './courses.controller';
-import { CoursesService } from './courses.service';
-import { CourseEntity } from './entity/course.entity';
-import { mockCourseDto } from '../utils/mocks/courses.mock';
+import { JwtStrategy } from '../auth/jwt.strategy';
+import { ModuleEntity } from './entity/module.entity';
+import { ModuleController } from './module.controller';
+import { ModuleService } from './module.service';
 import { PassportModule } from '@nestjs/passport';
 import { standardResponse } from '../utils/mocks/standard-response.mock';
 import { jwtRequest } from '../utils/mocks/jwt-mock';
+import { mockModuleDto } from '../utils/mocks/modules.mock';
 
-describe('CoursesController', () => {
-  let controller: CoursesController;
+describe('ModuleController', () => {
+  let controller: ModuleController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-      controllers: [CoursesController],
+      controllers: [ModuleController],
       providers: [
         {
           provide: JwtStrategy,
@@ -25,17 +25,16 @@ describe('CoursesController', () => {
           },
         },
         {
-          provide: CoursesService,
+          provide: ModuleService,
           useValue: {
             create: jest.fn().mockResolvedValue(standardResponse),
-            findAll: jest.fn().mockReturnValue(standardResponse),
-            update: jest.fn().mockReturnValue(standardResponse),
-            updateModules: jest.fn().mockReturnValue(standardResponse),
-            remove: jest.fn().mockReturnValue(standardResponse),
+            findAll: jest.fn().mockResolvedValue(standardResponse),
+            update: jest.fn().mockResolvedValue(standardResponse),
+            remove: jest.fn().mockResolvedValue(standardResponse),
           },
         },
         {
-          provide: getRepositoryToken(CourseEntity),
+          provide: getRepositoryToken(ModuleEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),
@@ -53,13 +52,13 @@ describe('CoursesController', () => {
       ],
     }).compile();
 
-    controller = module.get<CoursesController>(CoursesController);
+    controller = module.get<ModuleController>(ModuleController);
   });
 
   describe('create', () => {
     it('should send back the response of the service', async () => {
       expect(
-        await controller.create(jwtRequest, { courses: [mockCourseDto] }),
+        await controller.create(jwtRequest, { modules: [mockModuleDto] }),
       ).toEqual(standardResponse);
     });
   });
@@ -72,15 +71,9 @@ describe('CoursesController', () => {
 
   describe('update', () => {
     it('should send back the response of the service', async () => {
-      expect(await controller.update(jwtRequest, 'id', mockCourseDto)).toEqual(
+      expect(await controller.update(jwtRequest, 'id', mockModuleDto)).toEqual(
         standardResponse,
       );
-    });
-  });
-
-  describe('updateModules', () => {
-    it('should send back the response of the service', async () => {
-      expect(await controller.updateModules(jwtRequest, 'id', { modules: [] }));
     });
   });
 
