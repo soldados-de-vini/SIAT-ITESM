@@ -46,7 +46,10 @@ export class UsersEntity {
   @OneToMany(() => CourseEntity, (CourseEntity) => CourseEntity.user)
   courses: CourseEntity[];
 
-  @OneToMany(() => ClassroomsEntity, (ClassroomsEntity) => ClassroomsEntity.user)
+  @OneToMany(
+    () => ClassroomsEntity,
+    (ClassroomsEntity) => ClassroomsEntity.user,
+  )
   classrooms: ClassroomsEntity[];
 
   @OneToMany(

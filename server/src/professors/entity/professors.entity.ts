@@ -17,10 +17,11 @@ export class ProfessorsEntity {
   })
   name: string;
 
-  @Column({
+  @Column('text', {
     nullable: false,
+    array: true,
   })
-  area: Array<String>;
+  area: string[];
 
   @Column()
   coordination: string;
