@@ -1,5 +1,5 @@
-<div nz-row>
-    <div class="searchbar" nz-col nzSpan="12">
+<div nz-row *ngIf="hasSearchBar">
+    <div class="searchbar" nz-col nzSpan="24">
         <nz-input-group [nzSuffix]="suffixIconSearch">
             <input type="text" nz-input placeholder="Buscar" />
           </nz-input-group>
@@ -14,13 +14,13 @@
             <thead>
               <tr>
                 <th *ngFor="let column of columns">{{ column }}</th>
-                <th>Acciones</th>
+                <th nzRight *ngIf="hasActions">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of table.data">
                 <td *ngFor="let key of getKeys()">{{data[key]}}</td>
-                <td *ngIf="hasActions">
+                <td *ngIf="hasActions" nzRight>
                   <a (click)="editRow(data.id)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
                   <a (click)="deleteRow(data.id)">Borrar</a>

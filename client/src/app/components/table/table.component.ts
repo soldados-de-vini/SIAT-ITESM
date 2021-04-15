@@ -9,9 +9,10 @@ export class TableComponent implements OnInit {
 
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<number>();
-  @Input() tableData: [];
-  @Input() columns: [];
+  @Input() tableData: Array<any>;
+  @Input() columns: Array<any>;
   @Input() hasActions = true;
+  @Input() hasSearchBar = true;
 
   constructor() { }
 
