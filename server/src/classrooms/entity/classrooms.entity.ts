@@ -30,16 +30,16 @@ export class ClassroomsEntity {
   })
   type: string;
 
-  @Column({})
+  @Column()
   school: string;
 
-  @Column({})
+  @Column()
   entrance: string;
 
-  @Column({})
+  @Column()
   currentDiv: string;
 
-  @Column({})
+  @Column()
   administrator: string;
 
   @Column({
