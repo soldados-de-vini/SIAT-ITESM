@@ -57,7 +57,7 @@ describe('AuthService', () => {
     };
     service.login(userDummy, () => {});
 
-    const okResponse = {
+    const invalid = {
       status: {
         statusCode: 401,
         message: 'Invalid credentials'
@@ -69,8 +69,8 @@ describe('AuthService', () => {
       url: environment.api_url + '/auth/login'
     });
 
-    request.flush(okResponse);
+    request.flush(invalid);
 
-    expect(okResponse.status.statusCode).toBe(401);
+    expect(invalid.status.statusCode).toBe(401);
   });
 });
