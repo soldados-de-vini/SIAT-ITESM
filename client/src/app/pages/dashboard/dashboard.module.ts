@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
 import { NzButtonModule, NzModalModule } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
-import { MaestrosComponent } from '../maestros/maestros.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule } from 'ng-zorro-antd/grid';
