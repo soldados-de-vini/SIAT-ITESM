@@ -6,6 +6,9 @@ import { Repository } from 'typeorm';
 import { CourseDto } from './dto/course.dto';
 import { CourseEntity } from './entity/course.entity';
 import { CreateCourseReq } from './interfaces/create-course-req.interface';
+import * as db from '../utils/db/crud-entity';
+import { UpdateCourseModulesDto } from './dto/course-module.dto';
+import { ModuleEntity } from '../module/entity/module.entity';
 
 @Injectable()
 export class CoursesService {
@@ -14,6 +17,8 @@ export class CoursesService {
     private coursesRepository: Repository<CourseEntity>,
     @InjectRepository(UsersEntity)
     private userRepository: Repository<UsersEntity>,
+    @InjectRepository(ModuleEntity)
+    private moduleRepository: Repository<ModuleEntity>,
   ) {}
 
   /**
@@ -23,29 +28,14 @@ export class CoursesService {
    * @returns A response to send back to the user with the new courses created.
    */
   async create(data: CreateCourseReq, uuid: string): Promise<ResponseStatus> {
-    // Get the user that will have the courses added.
-    const user = await this.userRepository.findOne({
-      where: { id: uuid },
-      relations: ['courses'],
-    });
-    const resultCourses = [];
-    for (let i = 0; i < data.courses.length; i++) {
-      // Create new course object with the provided information.
-      const newCourse = this.coursesRepository.create(data.courses[i]);
-      resultCourses.push(newCourse);
-      await this.coursesRepository.save(newCourse);
-      // Assign the new course to the user that created it.
-      user.courses.push(newCourse);
-    }
-    // Save the relationship on the database.
-    await this.userRepository.save(user);
-    return {
-      status: {
-        statusCode: HttpStatus.CREATED,
-        message: 'Courses successfully created.',
-      },
-      result: resultCourses,
-    };
+    return db.createWithRelation<CourseEntity, CourseDto>(
+      this.userRepository,
+      this.coursesRepository,
+      uuid,
+      ['courses'],
+      data.courses,
+      'courses',
+    );
   }
 
   /**
@@ -54,14 +44,10 @@ export class CoursesService {
    * @returns A response with the result of the lookup in the DB.
    */
   async findAll(uuid: string): Promise<ResponseStatus> {
-    const user = await this.getUserCourses(uuid);
-    return {
-      status: {
-        statusCode: HttpStatus.OK,
-        message: 'Searched user courses successfully.',
-      },
-      result: user.courses,
-    };
+    return db.findAll(uuid, 'courses', this.userRepository, [
+      'courses',
+      'courses.modules',
+    ]);
   }
 
   /**
@@ -71,36 +57,53 @@ export class CoursesService {
    * @param updateCourseDto The data to update.
    * @returns An HTTP response with the new value as a result.
    */
-  async update(userId: string, courseId: string, updateCourseDto: CourseDto) {
-    const toUpdate = await this.coursesRepository.findOne({
+  async update(
+    userId: string,
+    courseId: string,
+    updateCourseDto: CourseDto,
+  ): Promise<ResponseStatus> {
+    return db.update<CourseEntity, CourseDto>(
+      userId,
+      courseId,
+      updateCourseDto,
+      this.coursesRepository,
+      { where: { id: courseId }, relations: ['modules'] },
+    );
+  }
+
+  /**
+   * Update the modules assigned to the course.
+   * If the given moduleId does not belong to the user, it will be ignored.
+   * @param userId The id of the user.
+   * @param courseId The id of the course.
+   * @param updateCourseModulesDto The modules to be added on the course.
+   * @returns A response containing the new result object.
+   */
+  async updateModules(
+    userId: string,
+    courseId: string,
+    updateCourseModulesDto: UpdateCourseModulesDto,
+  ): Promise<ResponseStatus> {
+    const modules = await this.moduleRepository
+      .createQueryBuilder('module')
+      .where(
+        'module.id = ANY(ARRAY[:...ids::uuid]) AND module.userId = :userId',
+        {
+          ids: updateCourseModulesDto.modules,
+          userId: userId,
+        },
+      )
+      .getMany();
+    const course = await this.coursesRepository.findOne({
       where: { id: courseId },
     });
-    const idRetrieved = await this.getCourseUserId(courseId);
-    if (toUpdate) {
-      if (idRetrieved == userId) {
-        const updated = Object.assign(toUpdate, updateCourseDto);
-        const newValue = await this.coursesRepository.save(updated);
-        return {
-          status: {
-            statusCode: HttpStatus.OK,
-            message: 'Course updated successfully.',
-          },
-          result: newValue,
-        };
-      }
-      return {
-        status: {
-          statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Unathorized update.',
-        },
-      };
-    }
-    return {
-      status: {
-        statusCode: HttpStatus.NOT_FOUND,
-        message: 'Course to update has not been found.',
-      },
-    };
+    course.modules = modules;
+    await this.coursesRepository.save(course);
+    return db.createResponseStatus(
+      HttpStatus.OK,
+      'Modules successfully added.',
+      course,
+    );
   }
 
   /**
@@ -110,32 +113,9 @@ export class CoursesService {
    * @returns A response stating success or failure.
    */
   async remove(userId: string, courseId: string): Promise<ResponseStatus> {
-    const idRetrieved = await this.getCourseUserId(courseId);
-    // Verify that the course exists.
-    if (idRetrieved) {
-      // Check if the requested deletion belongs to the user.
-      if (idRetrieved == userId) {
-        await this.coursesRepository.delete({ id: courseId });
-        return {
-          status: {
-            statusCode: HttpStatus.OK,
-            message: 'Successfully deleted.',
-          },
-        };
-      }
-      return {
-        status: {
-          statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Unathorized deletion.',
-        },
-      };
-    }
-    return {
-      status: {
-        statusCode: HttpStatus.NOT_FOUND,
-        message: 'Course to delete has not been found.',
-      },
-    };
+    return db.remove(userId, courseId, this.coursesRepository, {
+      id: courseId,
+    });
   }
 
   /**

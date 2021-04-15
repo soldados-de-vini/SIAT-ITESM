@@ -5,7 +5,7 @@ import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import mockedJwtService from '../utils/mocks/jwt-mock';
+import { mockedJwtService } from '../utils/mocks/jwt-mock';
 import securityUtils from '../utils/security.utils';
 import {
   userCreateMock,

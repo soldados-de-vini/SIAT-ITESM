@@ -5,6 +5,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserLoginDTO } from '../users/dto/user-login.dto';
 import securityUtils from '../utils/security.utils';
+import { createResponseStatus } from '../utils/db/crud-entity';
 
 /**
  * This service handles the logic of the authentication of the users to the API.
@@ -57,12 +58,10 @@ export class AuthService {
     });
     // Verify that the user exists.
     if (!dbUser) {
-      return {
-        status: {
-          statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Invalid credentials',
-        },
-      };
+      return createResponseStatus(
+        HttpStatus.UNAUTHORIZED,
+        'Invalid credentials',
+      );
     }
     // Verify the password with the hash of the DB.
     const correctPass = await securityUtils.comparePass(
@@ -70,22 +69,14 @@ export class AuthService {
       dbUser.hash,
     );
     if (!correctPass) {
-      return {
-        status: {
-          statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'Invalid credentials',
-        },
-      };
+      return createResponseStatus(
+        HttpStatus.UNAUTHORIZED,
+        'Invalid credentials',
+      );
     }
     const payload = { id: dbUser.id };
-    return {
-      status: {
-        statusCode: HttpStatus.OK,
-        message: 'Successful login',
-      },
-      result: {
-        access_token: this.jwtService.sign(payload),
-      },
-    };
+    return createResponseStatus(HttpStatus.OK, 'Successful login', {
+      access_token: this.jwtService.sign(payload),
+    });
   }
 }
