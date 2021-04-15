@@ -11,6 +11,7 @@ export class TableComponent implements OnInit {
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<number>();
   @Input() tableData: [];
+  @Input() columns: [];
 
   constructor() { }
 
@@ -27,7 +28,7 @@ export class TableComponent implements OnInit {
   }
 
   editRow(id){
-    this.delete.emit(id);
+    this.edit.emit(id);
   }
 
 }

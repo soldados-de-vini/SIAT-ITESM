@@ -119,7 +119,7 @@ describe('AuthService', () => {
         }),
       ).toEqual({
         status: {
-          statusCode: HttpStatus.ACCEPTED,
+          statusCode: HttpStatus.OK,
           message: 'Successful login',
         },
         result: {

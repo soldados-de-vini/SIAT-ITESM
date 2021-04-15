@@ -36,7 +36,7 @@ export class ApiService {
    * @param token the token that is being set
    */
   public setAccessToken(token: string): void{
-    this.options.headers.Authorization = token;
+    this.options.headers.Authorization = `Bearer ${token}`;
     this.eventService.publish('user:logged');
   }
 

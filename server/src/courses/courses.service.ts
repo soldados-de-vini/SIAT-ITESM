@@ -41,7 +41,7 @@ export class CoursesService {
     await this.userRepository.save(user);
     return {
       status: {
-        statusCode: HttpStatus.OK,
+        statusCode: HttpStatus.CREATED,
         message: 'Courses successfully created.',
       },
       result: resultCourses,
