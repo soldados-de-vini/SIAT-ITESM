@@ -20,7 +20,7 @@ modules | string[] | [x] | The set of modules that are going to be added to the 
 ## Example
 ### Request
 
-    POST https://[HOST]/courses/c9070e2e-0464-49b6-ae43-30d6f5a0c639
+    PATCH https://[HOST]/courses/c9070e2e-0464-49b6-ae43-30d6f5a0c639
 
 #### Request Body    
 ```json
