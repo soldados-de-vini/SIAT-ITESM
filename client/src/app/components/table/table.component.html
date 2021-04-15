@@ -10,7 +10,7 @@
 </div>
 <div nz-row>
     <div nz-col nzSpan="24">
-        <nz-table #table [nzData]="tableData">
+        <nz-table #table [nzData]="tableData" [nzScroll]="{ x: '100vw' }">
             <thead>
               <tr>
                 <th *ngFor="let column of columns">{{ column }}</th>
@@ -20,7 +20,7 @@
             <tbody>
               <tr *ngFor="let data of table.data">
                 <td *ngFor="let key of getKeys()">{{data[key]}}</td>
-                <td>
+                <td *ngIf="hasActions">
                   <a (click)="editRow(data.id)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
                   <a (click)="deleteRow(data.id)">Borrar</a>

@@ -40,7 +40,7 @@ import { PeriodosComponent } from '../../components/periodos/periodos.component'
     DashboardRoutingModule,
     NzButtonModule,
     NzUploadModule,
-    NzModalModule
+    NzModalModule,
     NzTableModule,
     NzGridModule,
     NzDividerModule,

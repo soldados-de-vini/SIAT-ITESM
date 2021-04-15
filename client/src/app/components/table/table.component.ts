@@ -7,20 +7,19 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  selectedData;
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<number>();
   @Input() tableData: [];
   @Input() columns: [];
+  @Input() hasActions = true;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.selectedData = this.tableData;
   }
 
   getKeys(){
-    return (this.selectedData && this.selectedData.length > 0) ?  Object.keys(this.selectedData[0]) : [];
+    return (this.tableData && this.tableData.length > 0) ?  Object.keys(this.tableData[0]) : [];
   }
 
   deleteRow(id){
