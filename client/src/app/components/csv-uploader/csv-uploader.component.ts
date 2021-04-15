@@ -26,12 +26,21 @@ export class CsvUploaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * We use this method to avoid the default behaviour of the nzuploader which is send a post request directly to a endpoint
+   */
   public beforeUpload = (file: NzUploadFile): boolean => {
     this.file = file;
     this.handleConfirm();
     return false;
   }
 
+  /**
+   * Method to read csv blob and convert to text
+   *
+   * @param file blob file
+   * @returns promise of the string
+   */
   private readFile(file): Promise<string> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -40,15 +49,20 @@ export class CsvUploaderComponent implements OnInit {
     });
   }
 
+  /**
+   * Trigger for modal confirmation of the csv converted to json
+   */
   public async handleConfirm() {
     const csvString = await this.readFile(this.file);
     csv().fromString(csvString).then(object => {
       this.objectToUpload = object;
-      console.log(object);
       this.showConfirmationModal();
     });
   }
 
+  /**
+   * Upload json after confirm in modal
+   */
   public handleUpload() {
     this.loadingUpload = true;
     const object = new Object();
