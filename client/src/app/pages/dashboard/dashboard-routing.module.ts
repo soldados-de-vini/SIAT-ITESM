@@ -5,9 +5,14 @@ import { MateriasComponent } from '../../components/materias/materias.component'
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
+import { PeriodosComponent } from '../../components/periodos/periodos.component';
 
 
 const routes: Routes = [
+  {
+    path: 'periodos',
+    component: PeriodosComponent,
+  },
   {
     path: 'maestros',
     component: MaestrosComponent

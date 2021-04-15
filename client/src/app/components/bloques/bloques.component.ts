@@ -14,6 +14,7 @@ interface Bloque {
 })
 export class BloquesComponent implements OnInit {
 
+  columnsToDisplay = ['Avenida', 'Bloque', 'Materias', 'ID'];
   bloques: Bloque [] = [
     {
       clave: 'BITC',

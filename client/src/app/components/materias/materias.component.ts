@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 interface Materia {
-  clave: string;
-  titulo: string;
-  duracion: number;
-  periodo: number;
   id: number;
+  key: string;
+  name: string;
+  capacity: number;
+  format: string;
+  avenue: string [];
+  typeUF: string;
+  semester: string;
+  initialPeriod: number;
+  weeks: number;
 }
 
 @Component({
@@ -15,27 +20,45 @@ interface Materia {
 })
 export class MateriasComponent implements OnInit {
 
+  columnsToDisplay = [
+    'ID', 'CLAVE', 'Nombre', 'Capacidad', 'Formato',
+    'Avenida(s)', 'Tipo de UF', 'Semestre', 'Periodo inicial', 'Semanas'];
   materias: Materia [] = [
     {
-      clave: 'MA1000',
-      titulo: 'Matemáticas 1',
-      duracion: 5,
-      periodo: 3,
-      id: 1
+      id: 1,
+      key: 'MA1000',
+      name: 'Matemáticas 1',
+      capacity: 30,
+      format: 'Regular',
+      avenue: ['ITC', 'IBT'],
+      typeUF: 'Regular',
+      semester: '5',
+      initialPeriod: 1,
+      weeks: 10
     },
     {
-      clave: 'FA1000',
-      titulo: 'Física 1',
-      duracion: 10,
-      periodo: 2,
-      id: 2
+      id: 2,
+      key: 'FA1000',
+      name: 'Física 1',
+      capacity: 30,
+      format: 'Regular',
+      avenue: ['ITC', 'IBT'],
+      typeUF: 'Regular',
+      semester: '5',
+      initialPeriod: 1,
+      weeks: 10
     },
     {
-      clave: 'TC1000',
-      titulo: 'Estructura de Datos',
-      duracion: 15,
-      periodo: 1,
-      id: 3
+      id: 2,
+      key: 'TC1000',
+      name: 'Estructura de Datos',
+      capacity: 30,
+      format: 'Regular',
+      avenue: ['ITC'],
+      typeUF: 'Regular',
+      semester: '5',
+      initialPeriod: 1,
+      weeks: 15
     },
   ];
 

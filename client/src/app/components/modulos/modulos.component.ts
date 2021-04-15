@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 interface Modulo {
-  clave: string;
-  titulo: string;
-  duracion: number;
+  name: string;
   id: number;
 }
 
@@ -14,24 +12,19 @@ interface Modulo {
 })
 export class ModulosComponent implements OnInit {
 
+  columnsToDisplay = ['ID', 'Nombre'];
   modulos: Modulo [] = [
     {
-      clave: 'MA1000',
-      titulo: 'Matemáticas 1',
-      duracion: 5,
-      id: 1
+      id: 1,
+      name: 'Matemáticas 1'
     },
     {
-      clave: 'FA1000',
-      titulo: 'Física 1',
-      duracion: 10,
-      id: 2
+      id: 2,
+      name: 'Física 1'
     },
     {
-      clave: 'TC1000',
-      titulo: 'Estructura de Datos',
-      duracion: 15,
-      id: 3
+      id: 3,
+      name: 'Estructura de Datos'
     },
   ];
 

@@ -15,6 +15,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
+import { PeriodosComponent } from '../../components/periodos/periodos.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SalonesComponent } from '../../components/salones/salones.component';
     ModulosComponent,
     BloquesComponent,
     SalonesComponent,
+    PeriodosComponent,
   ],
   imports: [
     CommonModule,

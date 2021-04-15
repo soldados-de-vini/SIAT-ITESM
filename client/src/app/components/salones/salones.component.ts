@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 interface Salon {
-  clave: string;
-  edificio: string;
-  piso: number;
-  atributo: string;
-  id: number;
+  classroom: number;
+  building: string;
+  capacity: number;
+  comments: string;
+  type: string;
+  school: string;
+  entrance: string;
+  currentDiv: string;
+  administrator: string;
+  status: string;
 }
 
 @Component({
@@ -15,27 +20,46 @@ interface Salon {
 })
 export class SalonesComponent implements OnInit {
 
+  columnsToDisplay = [
+    'Salón', 'Edificio', 'Capacidad', 'Comentarios', 'Tipo',
+    'Escuela', 'Entrada', 'Division actual', 'Administrador', 'Estatus'
+  ];
   salones: Salon [] = [
     {
-      clave: 'EIC-402',
-      edificio: 'EIAD',
-      piso: 4,
-      atributo: 'Laboratorio de Física',
-      id: 1
+      classroom: 2208,
+      building: '2',
+      capacity: 30,
+      comments: 'No hay',
+      type: 'Regular',
+      school: 'Multiuso',
+      entrance: 'Regular',
+      currentDiv: 'Regular',
+      administrator: 'N/A',
+      status: 'Disponible',
     },
     {
-      clave: 'B-123',
-      edificio: '3',
-      piso: 3,
-      atributo: 'Salon de bloque',
-      id: 2
+      classroom: 3101,
+      building: '3',
+      capacity: 25,
+      comments: 'No hay',
+      type: 'Regular',
+      school: 'Multiuso',
+      entrance: 'Regular',
+      currentDiv: 'Regular',
+      administrator: 'N/A',
+      status: 'Disponible',
     },
     {
-      clave: 'EIC-402',
-      edificio: '3',
-      piso: 3,
-      atributo: 'Default',
-      id: 3
+      classroom: 1104,
+      building: '1',
+      capacity: 40,
+      comments: 'No hay',
+      type: 'Regular',
+      school: 'Multiuso',
+      entrance: 'Regular',
+      currentDiv: 'Regular',
+      administrator: 'N/A',
+      status: 'Disponible',
     },
   ];
 

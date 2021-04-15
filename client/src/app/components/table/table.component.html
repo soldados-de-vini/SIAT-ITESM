@@ -13,7 +13,7 @@
         <nz-table #table [nzData]="tableData">
             <thead>
               <tr>
-                <th *ngFor="let key of getKeys()">{{ key }}</th>
+                <th *ngFor="let column of columns">{{ column }}</th>
                 <th>Acciones</th>
               </tr>
             </thead>
