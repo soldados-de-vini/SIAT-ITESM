@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Maestro } from 'src/app/models/maestro.model';
 
-interface Maestro {
-  name: string;
-  nomina: string;
-  coordination: string;
-  area: string [];
-  email: string;
-  loadlimit: number;
-  id: number;
-}
 
 @Component({
   selector: 'siat-maestros',

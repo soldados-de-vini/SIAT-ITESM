@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Bloque } from 'src/app/models/bloque.model';
 
-interface Bloque {
-  clave: string;
-  titulo: string;
-  modulos: string [];
-  id: number;
-}
 
 @Component({
   selector: 'siat-bloques',
@@ -14,25 +9,37 @@ interface Bloque {
 })
 export class BloquesComponent implements OnInit {
 
-  columnsToDisplay = ['Avenida', 'Bloque', 'Materias', 'ID'];
+  columnsToDisplay = [
+    'ID', 'Número', 'ID de Curso', 'ID de Periodo', 'Fecha de inicio',
+    'Fecha de fin', 'Matrícula'
+  ];
   bloques: Bloque [] = [
     {
-      clave: 'BITC',
-      titulo: 'Bloque ITC',
-      modulos: ['Matemáticas 1, Programación, Programación, Reto, Física'],
-      id: 1
+      id: 1,
+      number: 100,
+      courseId: 1,
+      periodId: 100,
+      startDate: 0,
+      endDate: 50,
+      matricula: 'A01634433'
     },
     {
-      clave: 'BIBT',
-      titulo: 'Bloque IBT',
-      modulos: ['Física 1, Química, Matemáticas 1, Programación, Reto'],
-      id: 2
+      id: 2,
+      number: 101,
+      courseId: 2,
+      periodId: 100,
+      startDate: 0,
+      endDate: 50,
+      matricula: 'A01633932'
     },
     {
-      clave: 'BIMT',
-      titulo: 'Bloque IMT',
-      modulos: ['Física 1, Física 1, Matemáticas 1, Programación, Reto'],
-      id: 2
+      id: 3,
+      number: 102,
+      courseId: 3,
+      periodId: 100,
+      startDate: 0,
+      endDate: 50,
+      matricula: 'A01635051'
     },
   ];
 

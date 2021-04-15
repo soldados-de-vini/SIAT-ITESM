@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Periodo } from 'src/app/models/periodo.model';
 
-interface Periodo {
-  id: number;
-  name: string;
-  startDate: number;
-  endDate: number;
-  vacations: Date[];
-}
 
 @Component({
   selector: 'siat-periodos',

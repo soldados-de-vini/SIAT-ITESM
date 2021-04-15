@@ -1,17 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Salon {
-  classroom: number;
-  building: string;
-  capacity: number;
-  comments: string;
-  type: string;
-  school: string;
-  entrance: string;
-  currentDiv: string;
-  administrator: string;
-  status: string;
-}
+import { Salon } from 'src/app/models/salon.model';
 
 @Component({
   selector: 'siat-salones',

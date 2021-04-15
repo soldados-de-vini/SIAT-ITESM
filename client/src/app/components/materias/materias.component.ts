@@ -1,17 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Materia } from 'src/app/models/materia.model';
 
-interface Materia {
-  id: number;
-  key: string;
-  name: string;
-  capacity: number;
-  format: string;
-  avenue: string [];
-  typeUF: string;
-  semester: string;
-  initialPeriod: number;
-  weeks: number;
-}
 
 @Component({
   selector: 'siat-materias',
