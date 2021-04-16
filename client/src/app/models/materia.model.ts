@@ -1,9 +1,9 @@
 export interface Materia {
-    id?: number;
+    id: number;
     key: string;
     name: string;
     capacity: number;
-    format: string;
+    modules: Object [];
     avenue: string [];
     typeUF: string;
     semester: string;

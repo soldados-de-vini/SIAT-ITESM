@@ -13,13 +13,17 @@
         <nz-table #table [nzData]="tableData" [nzScroll]="{ x: '100vw' }">
             <thead>
               <tr>
-                <th *ngFor="let column of columns">{{ column }}</th>
+                <ng-container *ngFor="let column of columns">
+                  <th *ngIf="column !== 'ID'">{{ column }}</th>
+                </ng-container>
                 <th nzRight *ngIf="hasActions">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of table.data">
-                <td *ngFor="let key of getKeys()">{{data[key]}}</td>
+                <ng-container *ngFor="let key of getKeys()">
+                  <td *ngIf="data[key].length !== 36">{{data[key]}}</td>
+                </ng-container>
                 <td *ngIf="hasActions" nzRight>
                   <a (click)="editRow(data.id)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
