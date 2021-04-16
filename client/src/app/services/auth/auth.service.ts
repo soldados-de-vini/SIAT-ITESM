@@ -4,6 +4,7 @@ import { ApiService } from '../api/api.service';
 import { StorageService } from '../storage/storage.service';
 import { User } from '../../models/user.model';
 import { environment } from 'src/environments/environment';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private nzMessageService: NzMessageService
   ) { }
 
   /**
@@ -24,18 +26,24 @@ export class AuthService {
   public login(user: User, callback: any): void{
     this.apiService.post('/auth/login', {email: user.email, password: user.password}).subscribe(
       (response) => {
-        if (response.status.statusCode === 202 && response.result?.access_token) {
+        if (response.status.statusCode === 200 && response.result?.access_token) {
           this.apiService.setAccessToken(response.result.access_token);
           this.storageService.setProperty(environment.TOKEN_KEY, response.result.access_token);
           this.router.navigate(['/']);
           callback({loading: false});
+          this.nzMessageService.success('Bienvenido a SIAT');
         } else if (response.status.statusCode === 401){
+          this.nzMessageService.error('Ocurrió un error, intena más tarde');
           callback({loading: false});
           // TODO show toast with message
+        } else {
+          this.nzMessageService.error('Ocurrió un error, intena más tarde');
+          callback({loading: false});
         }
       },
       (error) => {
         callback({loading: false});
+        this.nzMessageService.error('Ocurrió un error, intena más tarde');
         console.error('There was an error at the login, ', error);
       }
     );

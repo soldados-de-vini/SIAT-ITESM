@@ -10,11 +10,10 @@ import { Materia } from 'src/app/models/materia.model';
 export class MateriasComponent implements OnInit {
 
   columnsToDisplay = [
-    'ID', 'CLAVE', 'Nombre', 'Capacidad', 'Formato',
+    'CLAVE', 'Nombre', 'Capacidad', 'Formato',
     'Avenida(s)', 'Tipo de UF', 'Semestre', 'Periodo inicial', 'Semanas'];
-  materias: Materia [] = [
+  materias: Array<Materia> = [
     {
-      id: 1,
       key: 'MA1000',
       name: 'Matemáticas 1',
       capacity: 30,
@@ -26,7 +25,6 @@ export class MateriasComponent implements OnInit {
       weeks: 10
     },
     {
-      id: 2,
       key: 'FA1000',
       name: 'Física 1',
       capacity: 30,
@@ -38,7 +36,6 @@ export class MateriasComponent implements OnInit {
       weeks: 10
     },
     {
-      id: 2,
       key: 'TC1000',
       name: 'Estructura de Datos',
       capacity: 30,

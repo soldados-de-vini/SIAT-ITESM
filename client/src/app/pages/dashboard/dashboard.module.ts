@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { NzButtonModule } from 'ng-zorro-antd';
+import { NzButtonModule, NzModalModule } from 'ng-zorro-antd';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
+
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -21,6 +24,7 @@ import { PeriodosComponent } from '../../components/periodos/periodos.component'
 @NgModule({
   declarations: [
     DashboardComponent,
+    CsvUploaderComponent,
     MaestrosComponent,
     TableComponent,
     MateriasComponent,
@@ -33,6 +37,8 @@ import { PeriodosComponent } from '../../components/periodos/periodos.component'
     CommonModule,
     DashboardRoutingModule,
     NzButtonModule,
+    NzUploadModule,
+    NzModalModule,
     NzTableModule,
     NzGridModule,
     NzDividerModule,

@@ -6,6 +6,7 @@ import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
+import { DashboardComponent } from './dashboard.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
     path: 'salones',
     component: SalonesComponent
   },
+  {
+    path: '',
+    redirectTo: 'periodos'
+  }
 ];
 
 @NgModule({

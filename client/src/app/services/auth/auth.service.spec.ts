@@ -1,11 +1,14 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NzMessageService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api/api.service';
+import { Overlay } from '@angular/cdk/overlay';
 
 import { AuthService } from './auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -14,8 +17,8 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [AuthService, ApiService]
+      imports: [HttpClientTestingModule, RouterTestingModule, BrowserAnimationsModule],
+      providers: [AuthService, ApiService, NzMessageService, Overlay]
     });
     service = TestBed.inject(AuthService);
     apiService = TestBed.inject(ApiService);
@@ -31,7 +34,7 @@ describe('AuthService', () => {
 
     const okResponse = {
       status: {
-        statusCode: 202,
+        statusCode: 200,
         message: 'Successful login'
       },
       result: {
@@ -46,7 +49,7 @@ describe('AuthService', () => {
 
     request.flush(okResponse);
 
-    expect(okResponse.status.statusCode).toBe(202);
+    expect(okResponse.status.statusCode).toBe(200);
     expect(okResponse.result.access_token).toBeDefined();
   });
 
@@ -57,7 +60,7 @@ describe('AuthService', () => {
     };
     service.login(userDummy, () => {});
 
-    const okResponse = {
+    const invalid = {
       status: {
         statusCode: 401,
         message: 'Invalid credentials'
@@ -69,8 +72,8 @@ describe('AuthService', () => {
       url: environment.api_url + '/auth/login'
     });
 
-    request.flush(okResponse);
+    request.flush(invalid);
 
-    expect(okResponse.status.statusCode).toBe(401);
+    expect(invalid.status.statusCode).toBe(401);
   });
 });
