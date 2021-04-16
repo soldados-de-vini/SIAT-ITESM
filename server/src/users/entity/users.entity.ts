@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { CourseEntity } from '../../courses/entity/course.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
+import { ProfessorsEntity } from '../../professors/entity/professors.entity';
+import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -43,6 +45,18 @@ export class UsersEntity {
 
   @OneToMany(() => CourseEntity, (CourseEntity) => CourseEntity.user)
   courses: CourseEntity[];
+
+  @OneToMany(
+    () => ClassroomsEntity,
+    (ClassroomsEntity) => ClassroomsEntity.user,
+  )
+  classrooms: ClassroomsEntity[];
+
+  @OneToMany(
+    () => ProfessorsEntity,
+    (ProfessorsEntity) => ProfessorsEntity.user,
+  )
+  professors: ProfessorsEntity[];
 
   @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];
