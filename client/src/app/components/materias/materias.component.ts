@@ -13,21 +13,21 @@ export class MateriasComponent implements OnInit {
   columnsToDisplay = [
     'ID', 'CLAVE', 'Nombre', 'Capacidad', 'Semestre',
     'Semana inicial', 'Semanas', 'Avenida(s)', 'Tipo', 'Modulos'];
-  materias: Array<Materia> = []
+  materias: Array<Materia> = [];
 
   constructor(
     private api: ApiService
   ) { }
 
   ngOnInit(): void {
-    this.getCourses()
+    this.getCourses();
   }
 
   getCourses(): void{
     this.api.get('/courses').subscribe((res) => {
       this.materias = res.result;
-      console.log(res)
-    })
+      console.log(res);
+    });
   }
 
 }

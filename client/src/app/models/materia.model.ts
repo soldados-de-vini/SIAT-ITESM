@@ -3,7 +3,7 @@ export interface Materia {
     key: string;
     name: string;
     capacity: number;
-    modules: Object [];
+    modules: object [];
     avenue: string [];
     typeUF: string;
     semester: string;
