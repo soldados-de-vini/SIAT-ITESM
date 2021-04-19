@@ -39,15 +39,32 @@ export class CoursesService {
   }
 
   /**
-   * Queries all the courses of the user and sends them back.
-   * @param uuid The user's id.
-   * @returns A response with the result of the lookup in the DB.
+   * Finds all the courses where typeUF is 'TEC20'.
+   * @param uuid The id of the user doing the request.
+   * @returns The TEC 20 courses.
    */
-  async findAll(uuid: string): Promise<ResponseStatus> {
-    return db.findAll(uuid, 'courses', this.userRepository, [
-      'courses',
-      'courses.modules',
-    ]);
+  async findTec20(uuid: string): Promise<ResponseStatus> {
+    return db.findWithCondition<CourseEntity>(
+      uuid,
+      this.coursesRepository,
+      'course',
+      "course.typeUF = 'TEC20'",
+    );
+  }
+
+  /**
+   * Finds all the courses where typeUF is 'B' or 'M'.
+   * @param uuid The id of the user doing the request.
+   * @returns The courses that are modules or bloques.
+   */
+  async findTec21(uuid: string): Promise<ResponseStatus> {
+    return db.findWithCondition<CourseEntity>(
+      uuid,
+      this.coursesRepository,
+      'course',
+      "course.typeUF != 'TEC20'",
+      'course.modules',
+    );
   }
 
   /**

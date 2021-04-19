@@ -34,7 +34,7 @@ courses | [CourseInfo][] | [X] | The set of courses to be created.
         "initialWeek": 6,
         "weeks": 10,
         "avenue": ["IIC"],
-        "typeUF": "TEC21"
+        "typeUF": "TEC20"
     },
     {
         "key": "MT12",
@@ -44,7 +44,7 @@ courses | [CourseInfo][] | [X] | The set of courses to be created.
         "initialWeek": 6,
         "weeks": 10,
         "avenue": ["IIC"],
-        "typeUF": "TEC21"
+        "typeUF": "B"
     }]
 }
 ```
@@ -67,7 +67,7 @@ courses | [CourseInfo][] | [X] | The set of courses to be created.
             "avenue": [
                 "IIC"
             ],
-            "typeUF": "TEC21",
+            "typeUF": "TEC20",
             "id": "4a53d76f-c4a8-41b0-b040-e226f0fb4cb0"
         },
         {
@@ -80,7 +80,7 @@ courses | [CourseInfo][] | [X] | The set of courses to be created.
             "avenue": [
                 "IIC"
             ],
-            "typeUF": "TEC21",
+            "typeUF": "B",
             "id": "f8e86d7d-a36a-49a4-bf56-f596ad258ec5"
         }
     ]

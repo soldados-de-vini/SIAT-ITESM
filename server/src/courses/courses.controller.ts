@@ -31,9 +31,15 @@ export class CoursesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get()
-  async findAll(@Request() req: JwtRequest) {
-    return this.coursesService.findAll(req.user.id);
+  @Get('tec20')
+  async findTec20(@Request() req: JwtRequest) {
+    return this.coursesService.findTec20(req.user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('tec21')
+  async findTec21(@Request() req: JwtRequest) {
+    return this.coursesService.findTec21(req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
