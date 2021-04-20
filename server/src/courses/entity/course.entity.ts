@@ -9,6 +9,12 @@ import {
 import { UsersEntity } from '../../users/entity/users.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
 
+enum CourseType {
+  Module = 'M',
+  Bloque = 'B',
+  Tec20 = 'TEC20',
+}
+
 @Entity('courses')
 export class CourseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -48,9 +54,11 @@ export class CourseEntity {
   avenue: string[];
 
   @Column({
+    type: 'enum',
+    enum: CourseType,
     nullable: false,
   })
-  typeUF: string;
+  typeUF: CourseType;
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.courses)
   user: UsersEntity;

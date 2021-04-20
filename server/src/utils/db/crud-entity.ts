@@ -73,6 +73,38 @@ async function findAll(
 }
 
 /**
+ * Finds the user entities with the given condition.
+ * @param uuid The id of the user.
+ * @param typeRepository The repository of the entity that belongs to the user.
+ * @param entityName The name of the entity.
+ * @param condition The condition used to find the entity.
+ * @param joinRelation OPTIONAL. Condition of relation to JOIN.
+ * @returns The entities that were found given the conditions.
+ */
+async function findWithCondition<TypeEntity>(
+  uuid: string,
+  typeRepository: Repository<TypeEntity>,
+  entityName: string,
+  condition: string,
+  joinRelation?: string,
+): Promise<ResponseStatus> {
+  const builder = typeRepository.createQueryBuilder(entityName);
+  if (joinRelation != null) {
+    builder.leftJoinAndSelect(joinRelation, 'alias1');
+  }
+  const entities = await builder
+    .where(`${condition} AND ${entityName}.userId = :userId`, {
+      userId: uuid,
+    })
+    .getMany();
+  return createResponseStatus(
+    HttpStatus.OK,
+    `Searched ${entityName} data successfully`,
+    entities,
+  );
+}
+
+/**
  * Updates an entity that belongs to a user.
  * @param userId The ID of the user.
  * @param entityId The ID of the entity.
@@ -219,4 +251,11 @@ async function createResponseStatus(
   return response;
 }
 
-export { createResponseStatus, createWithRelation, findAll, update, remove };
+export {
+  createResponseStatus,
+  createWithRelation,
+  findAll,
+  findWithCondition,
+  update,
+  remove,
+};

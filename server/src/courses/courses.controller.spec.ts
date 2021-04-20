@@ -28,7 +28,8 @@ describe('CoursesController', () => {
           provide: CoursesService,
           useValue: {
             create: jest.fn().mockResolvedValue(standardResponse),
-            findAll: jest.fn().mockReturnValue(standardResponse),
+            findTec20: jest.fn().mockReturnValue(standardResponse),
+            findTec21: jest.fn().mockReturnValue(standardResponse),
             update: jest.fn().mockReturnValue(standardResponse),
             updateModules: jest.fn().mockReturnValue(standardResponse),
             remove: jest.fn().mockReturnValue(standardResponse),
@@ -64,9 +65,15 @@ describe('CoursesController', () => {
     });
   });
 
-  describe('findAll', () => {
+  describe('findTec20', () => {
     it('should send back the response of the service', async () => {
-      expect(await controller.findAll(jwtRequest)).toEqual(standardResponse);
+      expect(await controller.findTec20(jwtRequest)).toEqual(standardResponse);
+    });
+  });
+
+  describe('findTec21', () => {
+    it('should send back the response of the service', async () => {
+      expect(await controller.findTec21(jwtRequest)).toEqual(standardResponse);
     });
   });
 
