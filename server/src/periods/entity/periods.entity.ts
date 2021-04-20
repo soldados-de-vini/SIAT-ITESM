@@ -20,7 +20,7 @@ export class PeriodsEntity {
   @Column('date', {
     array: true,
   })
-  vactions: Date[];
+  vacations: Date[];
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.periods)
   user: UsersEntity;
