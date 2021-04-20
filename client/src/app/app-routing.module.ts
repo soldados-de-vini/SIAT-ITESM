@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     canActivate: [AuthGuard],
-    redirectTo: '/dashboard'
+    redirectTo: '/dashboard/periodos'
   },
   {
     path: 'dashboard',

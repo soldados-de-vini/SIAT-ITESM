@@ -5,6 +5,7 @@ import { StorageService } from '../storage/storage.service';
 import { User } from '../../models/user.model';
 import { environment } from 'src/environments/environment';
 import { NzMessageService } from 'ng-zorro-antd';
+import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,20 @@ export class AuthService {
 
   constructor(
     private apiService: ApiService,
+    private eventService: EventService,
     private router: Router,
     private storageService: StorageService,
     private nzMessageService: NzMessageService
   ) { }
+
+  /**
+   * Logout from the application deleting the token from localstorage and returning to login
+   */
+  public logout(): void{
+    this.eventService.publish('user:loggedout');
+    this.storageService.removeProperty(environment.TOKEN_KEY);
+    this.router.navigate(['/login']);
+  }
 
   /**
    * Login using an email and a password
@@ -29,7 +40,7 @@ export class AuthService {
         if (response.status.statusCode === 200 && response.result?.access_token) {
           this.apiService.setAccessToken(response.result.access_token);
           this.storageService.setProperty(environment.TOKEN_KEY, response.result.access_token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
           callback({loading: false});
           this.nzMessageService.success('Bienvenido a SIAT');
         } else if (response.status.statusCode === 401){

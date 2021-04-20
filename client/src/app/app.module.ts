@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzButtonModule, NzPopoverModule } from 'ng-zorro-antd';
 
 registerLocaleData(es);
 
@@ -32,7 +33,9 @@ registerLocaleData(es);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzMessageModule
+    NzMessageModule,
+    NzPopoverModule,
+    NzButtonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]
