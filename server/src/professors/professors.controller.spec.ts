@@ -31,7 +31,7 @@ describe('ProfessorsController', () => {
             findAll: jest.fn().mockResolvedValue(standardResponse),
             update: jest.fn().mockResolvedValue(standardResponse),
             remove: jest.fn().mockResolvedValue(standardResponse),
-          }
+          },
         },
         {
           provide: getRepositoryToken(ProfessorsEntity),
@@ -71,9 +71,9 @@ describe('ProfessorsController', () => {
 
   describe('update', () => {
     it('should send back the response of the service', async () => {
-      expect(await controller.update(jwtRequest, 'id', mockProfessorDto)).toEqual(
-        standardResponse,
-      );
+      expect(
+        await controller.update(jwtRequest, 'id', mockProfessorDto),
+      ).toEqual(standardResponse);
     });
   });
 

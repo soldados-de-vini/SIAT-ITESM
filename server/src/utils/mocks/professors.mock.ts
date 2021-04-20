@@ -1,7 +1,5 @@
-import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { ProfessorDto } from '../../professors/dto/professor.dto';
 
-const id = 'uuid';
 const nomina = 'L0000000';
 const name = 'Professor Test';
 const area = ['Area'];
