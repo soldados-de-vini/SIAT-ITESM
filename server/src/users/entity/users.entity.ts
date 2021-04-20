@@ -10,6 +10,7 @@ import { CourseEntity } from '../../courses/entity/course.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
+import { PeriodsEntity } from '../../periods/entity/periods.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -57,6 +58,9 @@ export class UsersEntity {
     (ProfessorsEntity) => ProfessorsEntity.user,
   )
   professors: ProfessorsEntity[];
+
+  @OneToMany(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.user)
+  periods: ProfessorsEntity[];
 
   @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];
