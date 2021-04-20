@@ -23,11 +23,22 @@ export class MateriasComponent implements OnInit {
     this.getCourses();
   }
 
-  getCourses(): void{
+  getCourses(): void {
     this.api.get('/courses').subscribe((res) => {
       this.materias = res.result;
       console.log(res);
     });
+  }
+
+  deleteMateria(event): void {
+    this.api.delete(`/courses/${event}`).subscribe(
+      success => this.afterDelete(event),
+      error => console.log(error)
+    );
+  }
+
+  afterDelete(event){
+    this.materias = this.materias.filter(d => d.id !== event);
   }
 
 }
