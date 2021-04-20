@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MateriasComponent } from './materias.component';
@@ -8,7 +10,8 @@ describe('MateriasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MateriasComponent ]
+      declarations: [ MateriasComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   }));

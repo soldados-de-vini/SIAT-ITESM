@@ -4,6 +4,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NzButtonModule, NzModalModule } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -36,6 +37,7 @@ import { PeriodosComponent } from '../../components/periodos/periodos.component'
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    HttpClientModule,
     NzButtonModule,
     NzUploadModule,
     NzModalModule,
