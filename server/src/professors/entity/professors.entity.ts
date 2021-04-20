@@ -23,7 +23,9 @@ export class ProfessorsEntity {
   })
   area: string[];
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   coordination: string;
 
   @Column({

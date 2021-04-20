@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { MockType } from '../utils/mocks/mock-type';
 import { CoursesService } from './courses.service';
 import { CourseEntity } from './entity/course.entity';
-import { mockUserEntityNoCourses } from '../utils/mocks/users.mock';
+import { baseEntity } from '../utils/mocks/users.mock';
 import * as db from '../utils/db/crud-entity';
 import {
   mockCourseDto,
@@ -63,7 +63,7 @@ describe('CoursesService', () => {
     service = module.get<CoursesService>(CoursesService);
     courseRepository = module.get(getRepositoryToken(CourseEntity));
     userRepository = module.get(getRepositoryToken(UsersEntity));
-    sampleUser = mockUserEntityNoCourses;
+    sampleUser = baseEntity;
   });
 
   describe('create', () => {

@@ -1,36 +1,36 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { UsersEntity } from '../users/entity/users.entity';
 import { MockType } from '../utils/mocks/mock-type';
 import { Repository } from 'typeorm';
-import { UsersEntity } from '../users/entity/users.entity';
-import { ModuleEntity } from './entity/module.entity';
-import { ModuleService } from './module.service';
+import { mockProfessorDto } from '../utils/mocks/professors.mock';
 import { baseEntity } from '../utils/mocks/users.mock';
-import { ModuleDto } from './dto/module.dto';
-import { CreateModuleReq } from './interface/create-module.interface';
+import { ProfessorsEntity } from './entity/professors.entity';
+import { CreateProfessorsReq } from './interfaces/createProfessorsReq';
+import { ProfessorsService } from './professors.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpStatus } from '@nestjs/common';
-import { mockModuleDto } from '../utils/mocks/modules.mock';
 
-describe('ModuleService', () => {
+describe('ProfessorsService', () => {
   const sampleUser = baseEntity;
-  const sampleModule = ModuleDto;
-  const sampleModuleCreateReq: CreateModuleReq = {
-    modules: [sampleModule],
+  const sampleProfessor = mockProfessorDto;
+  const sampleCreateReq: CreateProfessorsReq = {
+    professors: [sampleProfessor],
   };
-  let service: ModuleService;
-  let moduleRepository: MockType<Repository<ModuleEntity>>;
+  let service: ProfessorsService;
+  let professorsRepository: MockType<Repository<ProfessorsEntity>>;
   let userRepository: MockType<Repository<UsersEntity>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ModuleService,
+        ProfessorsService,
         {
-          provide: getRepositoryToken(ModuleEntity),
+          provide: getRepositoryToken(ProfessorsEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),
             delete: jest.fn(),
+            push: jest.fn(),
             save: jest.fn(),
           },
         },
@@ -45,30 +45,30 @@ describe('ModuleService', () => {
       ],
     }).compile();
 
-    service = module.get<ModuleService>(ModuleService);
-    moduleRepository = module.get(getRepositoryToken(ModuleEntity));
+    service = module.get<ProfessorsService>(ProfessorsService);
+    professorsRepository = module.get(getRepositoryToken(ProfessorsEntity));
     userRepository = module.get(getRepositoryToken(UsersEntity));
   });
 
   describe('create', () => {
-    it('should create modules', async () => {
-      const moduleWithId = { id: 'uuid', ...sampleModule };
+    it('should create professors', async () => {
+      const professorWithId = { id: 'uuid', ...sampleProfessor };
       userRepository.findOne.mockReturnValue(sampleUser);
-      moduleRepository.create.mockReturnValue(moduleWithId);
-      expect(await service.create(sampleModuleCreateReq, 'uuid')).toEqual({
+      professorsRepository.create.mockReturnValue(professorWithId);
+      expect(await service.create(sampleCreateReq, 'uuid')).toEqual({
         status: {
           statusCode: HttpStatus.CREATED,
           message: 'Created successfully.',
         },
-        result: [moduleWithId],
+        result: [professorWithId],
       });
       expect(userRepository.findOne).toHaveBeenCalled();
-      expect(moduleRepository.create).toHaveBeenCalledWith(sampleModule);
+      expect(professorsRepository.create).toHaveBeenCalledWith(sampleProfessor);
     });
 
     it('should respond with 204 status code if no data is provided', async () => {
-      const emptyReq: CreateModuleReq = {
-        modules: [],
+      const emptyReq: CreateProfessorsReq = {
+        professors: [],
       };
       expect(await service.create(emptyReq, 'uuid')).toEqual({
         status: {
@@ -80,17 +80,17 @@ describe('ModuleService', () => {
   });
 
   describe('findAll', () => {
-    it('should retrieve modules of the user', async () => {
+    it('should retrieve professors of the user', async () => {
       userRepository.findOne.mockReturnValue({
         ...sampleUser,
-        modules: sampleModule,
+        professors: sampleProfessor,
       });
       expect(await service.findAll('uuid')).toEqual({
         status: {
           statusCode: HttpStatus.OK,
           message: 'Searched user data successfully.',
         },
-        result: sampleModule,
+        result: sampleProfessor,
       });
       expect(userRepository.findOne).toBeCalled();
     });
@@ -99,12 +99,12 @@ describe('ModuleService', () => {
   describe('update', () => {
     it('should properly update the user', async () => {
       const userId = 'uuid';
-      moduleRepository.findOne.mockReturnValue({
-        ...mockModuleDto,
+      professorsRepository.findOne.mockReturnValue({
+        ...mockProfessorDto,
         user: { id: userId },
       });
-      moduleRepository.save.mockReturnValue({});
-      expect(await service.update(userId, 'id', mockModuleDto)).toEqual({
+      professorsRepository.save.mockReturnValue({});
+      expect(await service.update(userId, 'id', mockProfessorDto)).toEqual({
         status: {
           statusCode: HttpStatus.OK,
           message: 'Updated successfully.',
@@ -113,12 +113,12 @@ describe('ModuleService', () => {
       });
     });
 
-    it("should fail when user tries to update a module it doesn't own", async () => {
-      moduleRepository.findOne.mockReturnValue({
-        ...mockModuleDto,
+    it("should fail when user tries to update a professor it doesn't own", async () => {
+      professorsRepository.findOne.mockReturnValue({
+        ...mockProfessorDto,
         user: { id: 'ID22' },
       });
-      expect(await service.update('ID11', 'id', mockModuleDto)).toEqual({
+      expect(await service.update('ID11', 'id', mockProfessorDto)).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
           message: 'Unauthorized update.',
@@ -126,9 +126,9 @@ describe('ModuleService', () => {
       });
     });
 
-    it('should fail if the module that tries to update does not exist', async () => {
-      moduleRepository.findOne.mockReturnValue(null);
-      expect(await service.update('uuid', 'id', mockModuleDto)).toEqual({
+    it('should fail if the professor that tries to update does not exist', async () => {
+      professorsRepository.findOne.mockReturnValue(null);
+      expect(await service.update('uuid', 'id', mockProfessorDto)).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
           message: 'Entity to update has not been found.',
@@ -138,13 +138,13 @@ describe('ModuleService', () => {
   });
 
   describe('remove', () => {
-    it('should properly delete the module', async () => {
+    it('should properly delete the professor', async () => {
       const userId = 'uuid';
-      moduleRepository.findOne.mockReturnValue({
-        ...mockModuleDto,
+      professorsRepository.findOne.mockReturnValue({
+        ...mockProfessorDto,
         user: { id: userId },
       });
-      moduleRepository.delete.mockReturnValue({});
+      professorsRepository.delete.mockReturnValue({});
       expect(await service.remove(userId, 'id')).toEqual({
         status: {
           statusCode: HttpStatus.OK,
@@ -153,12 +153,12 @@ describe('ModuleService', () => {
       });
     });
 
-    it("should prevent deletion of module that doesn't belong to the user", async () => {
-      moduleRepository.findOne.mockReturnValue({
-        ...mockModuleDto,
+    it("should prevent deletion of professor that doesn't belong to the user", async () => {
+      professorsRepository.findOne.mockReturnValue({
+        ...mockProfessorDto,
         user: { id: 'ID11' },
       });
-      moduleRepository.delete.mockReturnValue({});
+      professorsRepository.delete.mockReturnValue({});
       expect(await service.remove('ID22', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
@@ -167,9 +167,9 @@ describe('ModuleService', () => {
       });
     });
 
-    it("should fail to delete the module if it doesn't exist", async () => {
-      moduleRepository.findOne.mockReturnValue(null);
-      moduleRepository.delete.mockReturnValue({});
+    it("should fail to delete the professor if it doesn't exist", async () => {
+      professorsRepository.findOne.mockReturnValue(null);
+      professorsRepository.delete.mockReturnValue({});
       expect(await service.remove('id', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
