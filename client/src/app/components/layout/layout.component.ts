@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'siat-layout',
@@ -8,9 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LayoutComponent implements OnInit {
   isCollapsed = false;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public logout(): void{
+    this.authService.logout();
   }
 
 }

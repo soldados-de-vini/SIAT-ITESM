@@ -21,6 +21,10 @@ export class AppComponent implements OnInit{
     this.eventService.subscribe('user:logged', () => {
       this.isLogged = true;
     });
+
+    this.eventService.subscribe('user:loggedout', () => {
+      this.isLogged = false;
+    });
   }
 
   ngOnInit(){
