@@ -33,27 +33,20 @@ userInfoMock.name = name;
 userInfoMock.nomina = nomina;
 userInfoMock.hash = password;
 
-const mockUserEntityNoCourses = new UsersEntity();
-mockUserEntityNoCourses.id = uuid;
-mockUserEntityNoCourses.email = email;
-mockUserEntityNoCourses.name = name;
-mockUserEntityNoCourses.nomina = nomina;
-mockUserEntityNoCourses.password = password;
-mockUserEntityNoCourses.courses = [];
-
-const mockUserEntityNoModules = new UsersEntity();
-mockUserEntityNoCourses.id = uuid;
-mockUserEntityNoCourses.email = email;
-mockUserEntityNoCourses.name = name;
-mockUserEntityNoCourses.nomina = nomina;
-mockUserEntityNoCourses.password = password;
-mockUserEntityNoCourses.modules = [];
+const baseEntity = new UsersEntity();
+baseEntity.id = uuid;
+baseEntity.email = email;
+baseEntity.name = name;
+baseEntity.nomina = nomina;
+baseEntity.password = password;
+baseEntity.courses = [];
+baseEntity.modules = [];
+baseEntity.professors = [];
 
 export {
   userCreateMock,
   userDtoMock,
   userInfoMock,
-  mockUserEntityNoCourses,
-  mockUserEntityNoModules,
   userLoginMock,
+  baseEntity,
 };

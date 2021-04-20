@@ -1,8 +1,8 @@
-# Delete Module
+# Delete Professor
 
-    DELETE modules/:id
+    DELETE professors/:id
     
-Deletes the module with the given ID.
+Deletes the professor with the given ID.
 
 ## Parameters
 
@@ -14,12 +14,12 @@ Authorization | Bearer Token
 ### URI Parameters
 Field | Description
 --- | ---
-id | The ID of the module to be deleted.
+id | The ID of the professor to be deleted.
 
 ## Example
 ### Request
 
-    DELETE https://[HOST]/modules/6097eb7e-7740-41d8-9730-87a54beb539c
+    DELETE https://[HOST]/professors/a20c8c96-73f1-4554-8313-0ae7fab639f2
 
 ### Response
 ``` json
