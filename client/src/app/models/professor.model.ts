@@ -1,9 +1,9 @@
-export interface Maestro {
+export interface Professor {
     name: string;
     nomina: string;
     coordination: string;
     area: string [];
     email: string;
-    loadlimit: number;
-    id: number;
+    loadLimit: number;
+    id?: string;
 }
