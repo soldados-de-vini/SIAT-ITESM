@@ -1,4 +1,4 @@
-# Professor Info Object
+# Classroom Info Object
 Field | Data Type | Required | Description
 --- | --- | --- | ---
 classroom | number | X | The classroom number. It must be unique.
