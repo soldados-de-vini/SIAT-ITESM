@@ -22,7 +22,9 @@ export class ClassroomsEntity {
   })
   capacity: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   comments: string;
 
   @Column({
@@ -30,16 +32,24 @@ export class ClassroomsEntity {
   })
   type: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   school: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   entrance: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   currentDiv: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   administrator: string;
 
   @Column({

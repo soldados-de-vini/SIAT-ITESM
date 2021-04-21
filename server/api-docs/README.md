@@ -26,3 +26,9 @@ In this section, each endpoint is described with the parameters needed and examp
 - **[<code>GET</code> Get All User Professors](/server/api-docs/professors/GET_getAll.md)**
 - **[<code>PUT</code> Update Professor](/server/api-docs/professors/PUT_update.md)**
 - **[<code>DELETE</code> Delete Single Professor](/server/api-docs/professors/DELETE_delete.md)**
+
+### Classrooms
+- **[<code>POST</code> Create Classrooms](/server/api-docs/classrooms/POST_create.md)**
+- **[<code>GET</code> Get All User Classrooms](/server/api-docs/classrooms/GET_getAll.md)**
+- **[<code>PUT</code> Update Classroom](/server/api-docs/classrooms/PUT_update.md)**
+- **[<code>DELETE</code> Delete Single Classroom](/server/api-docs/classrooms/DELETE_delete.md)**

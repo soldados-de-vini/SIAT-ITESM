@@ -42,5 +42,6 @@ baseEntity.password = password;
 baseEntity.courses = [];
 baseEntity.modules = [];
 baseEntity.professors = [];
+baseEntity.classrooms = [];
 
 export { userCreateMock, userDtoMock, userInfoMock, userLoginMock, baseEntity };
