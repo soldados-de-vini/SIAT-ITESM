@@ -30,16 +30,24 @@ export class ClassroomsEntity {
   })
   type: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   school: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   entrance: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   currentDiv: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   administrator: string;
 
   @Column({
