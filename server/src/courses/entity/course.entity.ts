@@ -5,9 +5,11 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
+import { GroupsEntity } from '../../groups/entity/groups.entity';
 
 enum CourseType {
   Module = 'M',
@@ -66,4 +68,7 @@ export class CourseEntity {
   @ManyToMany(() => ModuleEntity)
   @JoinTable()
   modules: ModuleEntity[];
+
+  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.courseId)
+  groups: GroupsEntity[];
 }
