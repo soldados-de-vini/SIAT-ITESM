@@ -6,7 +6,9 @@ import {
   OneToMany,
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
-import { ProfessorsToGroups } from '../../ProfessorsToGroups/entity/ProfessorsToGroups.entity';
+import {ProfessorsToGroups} from '../../professorsToGroups/entity/professorsToGroups.entity'
+
+
 
 @Entity('professors')
 export class ProfessorsEntity {

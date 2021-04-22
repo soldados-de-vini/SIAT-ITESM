@@ -8,7 +8,10 @@ import {
 
 import { CourseEntity } from '../../courses/entity/course.entity';
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
-import { ProfessorsToGroups } from '../../ProfessorsToGroups/entity/ProfessorsToGroups.entity';
+import { ProfessorsToGroups} from '../../professorsToGroups/entity/professorsToGroups.entity'
+
+
+
 
 @Entity('groups')
 export class GroupsEntity {
