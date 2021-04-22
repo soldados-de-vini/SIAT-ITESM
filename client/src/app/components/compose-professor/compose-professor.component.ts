@@ -37,7 +37,7 @@ export class ComposeProfessorComponent implements OnInit {
       nomina: ['', [Validators.required]],
       coordination: [''],
       area: [[]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       loadLimit: [null, [Validators.required]]
     });
   }
@@ -48,7 +48,7 @@ export class ComposeProfessorComponent implements OnInit {
       nomina: [this.professor.nomina, [Validators.required]],
       coordination: [this.professor.coordination],
       area: [this.professor.area],
-      email: [this.professor.email, [Validators.required]],
+      email: [this.professor.email, [Validators.required, Validators.email]],
       loadLimit: [this.professor.loadLimit, [Validators.required]]
     });
     this.professorForm.controls.nomina.disable();

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { NzButtonModule, NzModalModule, NzSelectModule } from 'ng-zorro-antd';
+import { NzButtonModule, NzFormModule, NzModalModule, NzSelectModule } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,7 +21,7 @@ import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ComposeProfessorComponent } from 'src/app/components/compose-professor/compose-professor.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     DashboardRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     NzButtonModule,
     NzUploadModule,
@@ -50,7 +51,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzDividerModule,
     NzInputModule,
     NzIconModule,
-    NzSelectModule
+    NzSelectModule,
+    NzFormModule
   ]
 })
 export class DashboardModule { }

@@ -53,7 +53,7 @@ export class ProfessorsComponent implements OnInit {
 
     modal.afterClose.subscribe(
       (result) => {
-        if (result.professors){
+        if (result?.professors){
           this.professors = [
             ...this.professors,
             ...result.professors
@@ -110,7 +110,7 @@ export class ProfessorsComponent implements OnInit {
 
     modal.afterClose.subscribe(
       (result) => {
-        if (result.professor){
+        if (result?.professor){
           const index = this.professors.findIndex(professor => professor.id === result.professor.id);
           Object.assign(this.professors[index], result.professor);
         }
