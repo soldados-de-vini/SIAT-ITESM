@@ -7,12 +7,13 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Output() delete = new EventEmitter<number>();
-  @Output() edit = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
   @Input() tableData: Array<any>;
   @Input() columns: Array<any>;
   @Input() hasActions = true;
   @Input() hasSearchBar = true;
+  @Input() loading: boolean;
 
   constructor() { }
 
@@ -27,8 +28,8 @@ export class TableComponent implements OnInit {
     this.delete.emit(id);
   }
 
-  editRow(id){
-    this.edit.emit(id);
+  editRow(data){
+    this.edit.emit(data);
   }
 
 }
