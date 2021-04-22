@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
 
@@ -59,9 +66,7 @@ export class ClassroomsEntity {
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.classrooms)
   user: UsersEntity;
 
-
   @ManyToMany(() => GroupsEntity)
   @JoinTable()
   groups: GroupsEntity[];
-
 }

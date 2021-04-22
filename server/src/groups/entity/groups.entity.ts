@@ -1,8 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 import { CourseEntity } from '../../courses/entity/course.entity';
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
-import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
+import { ProfessorsToGroups } from '../../ProfessorsToGroups/entity/ProfessorsToGroups.entity';
 
 @Entity('groups')
 export class GroupsEntity {
@@ -24,6 +30,16 @@ export class GroupsEntity {
   })
   endDate: Date;
 
+  @Column({
+    nullable: true,
+  })
+  matricula: string;
+
+  @Column({
+    nullable: false,
+  })
+  classroom: string;
+
   @Column('int', { array: true })
   events: number[];
 
@@ -33,4 +49,9 @@ export class GroupsEntity {
   @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.groups)
   periodId: PeriodsEntity;
 
+  @OneToMany(
+    () => ProfessorsToGroups,
+    (ProfessorsToGroups) => ProfessorsToGroups.professors,
+  )
+  ProfessorsToGroups: ProfessorsToGroups[];
 }
