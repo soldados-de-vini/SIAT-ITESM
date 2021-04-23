@@ -40,13 +40,12 @@ export class AuthService {
         if (response.status.statusCode === 200 && response.result?.access_token) {
           this.apiService.setAccessToken(response.result.access_token);
           this.storageService.setProperty(environment.TOKEN_KEY, response.result.access_token);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/periodos']);
           callback({loading: false});
           this.nzMessageService.success('Bienvenido a SIAT');
         } else if (response.status.statusCode === 401){
           this.nzMessageService.error('Ocurrió un error, intena más tarde');
           callback({loading: false});
-          // TODO show toast with message
         } else {
           this.nzMessageService.error('Ocurrió un error, intena más tarde');
           callback({loading: false});

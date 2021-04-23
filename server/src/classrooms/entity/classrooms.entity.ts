@@ -30,7 +30,9 @@ export class ClassroomsEntity {
   })
   capacity: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   comments: string;
 
   @Column({
