@@ -1,31 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { mockClassroomsDto } from '../utils/mocks/classrooms.mock';
-import { MockType } from '../utils/mocks/mock-type';
-import { Repository } from 'typeorm';
-import { baseEntity } from '../utils/mocks/users.mock';
-import { ClassroomsService } from './classrooms.service';
-import { ClassroomsEntity } from './entity/classrooms.entity';
-import { CreateClassroomsReq } from './interfaces/create-classrooms-req.interface';
 import { UsersEntity } from '../users/entity/users.entity';
+import { Repository } from 'typeorm';
+import { MockType } from '../utils/mocks/mock-type';
+import { mockPeriodDto } from '../utils/mocks/periods.mock';
+import { baseEntity } from '../utils/mocks/users.mock';
+import { PeriodsEntity } from './entity/periods.entity';
+import { CreatePeriodsReq } from './interfaces/create-period.interface';
+import { PeriodsService } from './periods.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpStatus } from '@nestjs/common';
 
-describe('ClassroomsService', () => {
+describe('PeriodsService', () => {
   const sampleUser = baseEntity;
-  const sampleClassroom = mockClassroomsDto;
-  const sampleCreateReq: CreateClassroomsReq = {
-    classrooms: [sampleClassroom],
+  const samplePeriod = mockPeriodDto;
+  const sampleCreateReq: CreatePeriodsReq = {
+    periods: [samplePeriod],
   };
-  let service: ClassroomsService;
-  let classroomsRepository: MockType<Repository<ClassroomsEntity>>;
+  let service: PeriodsService;
+  let periodRepository: MockType<Repository<PeriodsEntity>>;
   let userRepository: MockType<Repository<UsersEntity>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ClassroomsService,
+        PeriodsService,
         {
-          provide: getRepositoryToken(ClassroomsEntity),
+          provide: getRepositoryToken(PeriodsEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),
@@ -45,30 +45,35 @@ describe('ClassroomsService', () => {
       ],
     }).compile();
 
-    service = module.get<ClassroomsService>(ClassroomsService);
-    classroomsRepository = module.get(getRepositoryToken(ClassroomsEntity));
+    service = module.get<PeriodsService>(PeriodsService);
+    periodRepository = module.get(getRepositoryToken(PeriodsEntity));
     userRepository = module.get(getRepositoryToken(UsersEntity));
   });
 
   describe('create', () => {
-    it('should create classrooms', async () => {
-      const classroomWithId = { id: 'uuid', ...sampleClassroom };
+    it('should create periods', async () => {
+      const periodDtoWithId = { id: 'uuid', ...samplePeriod };
+      const periodEntity = {
+        startDateString: mockPeriodDto.startDate,
+        endDateString: mockPeriodDto.endDate,
+        ...periodDtoWithId,
+      };
       userRepository.findOne.mockReturnValue(sampleUser);
-      classroomsRepository.create.mockReturnValue(classroomWithId);
+      periodRepository.create.mockReturnValue(periodEntity);
       expect(await service.create(sampleCreateReq, 'uuid')).toEqual({
         status: {
           statusCode: HttpStatus.CREATED,
           message: 'Created successfully.',
         },
-        result: [classroomWithId],
+        result: [periodDtoWithId],
       });
       expect(userRepository.findOne).toHaveBeenCalled();
-      expect(classroomsRepository.create).toHaveBeenCalledWith(sampleClassroom);
+      expect(periodRepository.create).toHaveBeenCalledWith(samplePeriod);
     });
 
     it('should respond with 204 status code if no data is provided', async () => {
-      const emptyReq: CreateClassroomsReq = {
-        classrooms: [],
+      const emptyReq: CreatePeriodsReq = {
+        periods: [],
       };
       expect(await service.create(emptyReq, 'uuid')).toEqual({
         status: {
@@ -80,17 +85,17 @@ describe('ClassroomsService', () => {
   });
 
   describe('findAll', () => {
-    it('should retrieve classrooms of the user', async () => {
+    it('should retrieve periods of the user', async () => {
       userRepository.findOne.mockReturnValue({
         ...sampleUser,
-        classrooms: sampleClassroom,
+        periods: samplePeriod,
       });
       expect(await service.findAll('uuid')).toEqual({
         status: {
           statusCode: HttpStatus.OK,
           message: 'Searched user data successfully.',
         },
-        result: sampleClassroom,
+        result: samplePeriod,
       });
       expect(userRepository.findOne).toBeCalled();
     });
@@ -99,12 +104,12 @@ describe('ClassroomsService', () => {
   describe('update', () => {
     it('should properly update the user', async () => {
       const userId = 'uuid';
-      classroomsRepository.findOne.mockReturnValue({
-        ...mockClassroomsDto,
+      periodRepository.findOne.mockReturnValue({
+        ...mockPeriodDto,
         user: { id: userId },
       });
-      classroomsRepository.save.mockReturnValue({});
-      expect(await service.update(userId, 'id', mockClassroomsDto)).toEqual({
+      periodRepository.save.mockReturnValue({});
+      expect(await service.update(userId, 'id', mockPeriodDto)).toEqual({
         status: {
           statusCode: HttpStatus.OK,
           message: 'Updated successfully.',
@@ -113,12 +118,12 @@ describe('ClassroomsService', () => {
       });
     });
 
-    it("should fail when user tries to update a classroom it doesn't own", async () => {
-      classroomsRepository.findOne.mockReturnValue({
-        ...mockClassroomsDto,
+    it("should fail when user tries to update a period it doesn't own", async () => {
+      periodRepository.findOne.mockReturnValue({
+        ...mockPeriodDto,
         user: { id: 'ID22' },
       });
-      expect(await service.update('ID11', 'id', mockClassroomsDto)).toEqual({
+      expect(await service.update('ID11', 'id', mockPeriodDto)).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
           message: 'Unauthorized update.',
@@ -126,9 +131,9 @@ describe('ClassroomsService', () => {
       });
     });
 
-    it('should fail if the classroom that tries to update does not exist', async () => {
-      classroomsRepository.findOne.mockReturnValue(null);
-      expect(await service.update('uuid', 'id', mockClassroomsDto)).toEqual({
+    it('should fail if the period that tries to update does not exist', async () => {
+      periodRepository.findOne.mockReturnValue(null);
+      expect(await service.update('uuid', 'id', mockPeriodDto)).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
           message: 'Entity to update has not been found.',
@@ -138,13 +143,13 @@ describe('ClassroomsService', () => {
   });
 
   describe('remove', () => {
-    it('should properly delete the classroom', async () => {
+    it('should properly delete the period', async () => {
       const userId = 'uuid';
-      classroomsRepository.findOne.mockReturnValue({
-        ...mockClassroomsDto,
+      periodRepository.findOne.mockReturnValue({
+        ...mockPeriodDto,
         user: { id: userId },
       });
-      classroomsRepository.delete.mockReturnValue({});
+      periodRepository.delete.mockReturnValue({});
       expect(await service.remove(userId, 'id')).toEqual({
         status: {
           statusCode: HttpStatus.OK,
@@ -153,12 +158,12 @@ describe('ClassroomsService', () => {
       });
     });
 
-    it("should prevent deletion of classroom that doesn't belong to the user", async () => {
-      classroomsRepository.findOne.mockReturnValue({
-        ...mockClassroomsDto,
+    it("should prevent deletion of period that doesn't belong to the user", async () => {
+      periodRepository.findOne.mockReturnValue({
+        ...mockPeriodDto,
         user: { id: 'ID11' },
       });
-      classroomsRepository.delete.mockReturnValue({});
+      periodRepository.delete.mockReturnValue({});
       expect(await service.remove('ID22', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.UNAUTHORIZED,
@@ -167,9 +172,9 @@ describe('ClassroomsService', () => {
       });
     });
 
-    it("should fail to delete the classroom if it doesn't exist", async () => {
-      classroomsRepository.findOne.mockReturnValue(null);
-      classroomsRepository.delete.mockReturnValue({});
+    it("should fail to delete the period if it doesn't exist", async () => {
+      periodRepository.findOne.mockReturnValue(null);
+      periodRepository.delete.mockReturnValue({});
       expect(await service.remove('id', 'id')).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,

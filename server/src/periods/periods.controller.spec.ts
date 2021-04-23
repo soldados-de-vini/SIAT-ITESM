@@ -1,22 +1,22 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { standardResponse } from '../utils/mocks/standard-response.mock';
-import { JwtStrategy } from '../auth/jwt.strategy';
-import { ClassroomsController } from './classrooms.controller';
-import { ClassroomsService } from './classrooms.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ClassroomsEntity } from './entity/classrooms.entity';
 import { UsersEntity } from '../users/entity/users.entity';
 import { jwtRequest } from '../utils/mocks/jwt-mock';
-import { mockClassroomsDto } from '../utils/mocks/classrooms.mock';
+import { mockPeriodDto } from '../utils/mocks/periods.mock';
+import { JwtStrategy } from '../auth/jwt.strategy';
+import { standardResponse } from '../utils/mocks/standard-response.mock';
+import { PeriodsEntity } from './entity/periods.entity';
+import { PeriodsController } from './periods.controller';
+import { PeriodsService } from './periods.service';
 
-describe('ClassroomsController', () => {
-  let controller: ClassroomsController;
+describe('PeriodsController', () => {
+  let controller: PeriodsController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-      controllers: [ClassroomsController],
+      controllers: [PeriodsController],
       providers: [
         {
           provide: JwtStrategy,
@@ -25,7 +25,7 @@ describe('ClassroomsController', () => {
           },
         },
         {
-          provide: ClassroomsService,
+          provide: PeriodsService,
           useValue: {
             create: jest.fn().mockResolvedValue(standardResponse),
             findAll: jest.fn().mockResolvedValue(standardResponse),
@@ -34,7 +34,7 @@ describe('ClassroomsController', () => {
           },
         },
         {
-          provide: getRepositoryToken(ClassroomsEntity),
+          provide: getRepositoryToken(PeriodsEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),
@@ -52,15 +52,13 @@ describe('ClassroomsController', () => {
       ],
     }).compile();
 
-    controller = module.get<ClassroomsController>(ClassroomsController);
+    controller = module.get<PeriodsController>(PeriodsController);
   });
 
   describe('create', () => {
     it('should send back the response of the service', async () => {
       expect(
-        await controller.create(jwtRequest, {
-          classrooms: [mockClassroomsDto],
-        }),
+        await controller.create(jwtRequest, { periods: [mockPeriodDto] }),
       ).toEqual(standardResponse);
     });
   });
@@ -73,9 +71,9 @@ describe('ClassroomsController', () => {
 
   describe('update', () => {
     it('should send back the response of the service', async () => {
-      expect(
-        await controller.update(jwtRequest, 'id', mockClassroomsDto),
-      ).toEqual(standardResponse);
+      expect(await controller.update(jwtRequest, 'id', mockPeriodDto)).toEqual(
+        standardResponse,
+      );
     });
   });
 
