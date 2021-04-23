@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NzModalService } from 'ng-zorro-antd';
+import { Overlay } from '@angular/cdk/overlay';
 
 import { MateriasComponent } from './materias.component';
 
@@ -11,7 +12,11 @@ describe('MateriasComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MateriasComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        NzModalService,
+        Overlay,
+      ]
     })
     .compileComponents();
   }));
