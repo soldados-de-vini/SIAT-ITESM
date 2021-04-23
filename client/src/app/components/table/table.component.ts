@@ -7,8 +7,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Output() delete = new EventEmitter<number>();
-  @Output() edit = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<object>();
+  @Output() edit = new EventEmitter<object>();
   @Input() tableData: Array<any>;
   @Input() columns: Array<any>;
   @Input() hasActions = true;
@@ -23,12 +23,12 @@ export class TableComponent implements OnInit {
     return (this.tableData && this.tableData.length > 0) ?  Object.keys(this.tableData[0]) : [];
   }
 
-  deleteRow(id){
-    this.delete.emit(id);
+  deleteRow(data: object){
+    this.delete.emit(data);
   }
 
-  editRow(id){
-    this.edit.emit(id);
+  editRow(data: object){
+    this.edit.emit(data);
   }
 
 }
