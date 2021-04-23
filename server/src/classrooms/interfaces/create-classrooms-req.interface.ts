@@ -1,5 +1,5 @@
-import { ClassroomDto } from "../dto/classroom.dto";
+import { ClassroomDto } from '../dto/classroom.dto';
 
 export class CreateClassroomsReq {
-    classrooms: ClassroomDto[];
+  classrooms: ClassroomDto[];
 }
