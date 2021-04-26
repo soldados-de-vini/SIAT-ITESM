@@ -35,8 +35,10 @@ export class AuthService {
    * @param user user that is performing the log in
    */
   public login(user: User, callback: any): void{
+    console.log('sending test');
     this.apiService.post('/auth/login', {email: user.email, password: user.password}).subscribe(
       (response) => {
+        console.log(response);
         if (response.status.statusCode === 200 && response.result?.access_token) {
           this.apiService.setAccessToken(response.result.access_token);
           this.storageService.setProperty(environment.TOKEN_KEY, response.result.access_token);
