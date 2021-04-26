@@ -1,13 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
-import { UsersEntity } from '../../users/entity/users.entity';
-import { ModuleEntity } from '../../module/entity/module.entity';
+import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 enum CourseType {
   Module = 'M',
@@ -15,8 +6,7 @@ enum CourseType {
   Tec20 = 'TEC20',
 }
 
-@Entity('courses')
-export class CourseEntity {
+export class BaseCourseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -59,11 +49,4 @@ export class CourseEntity {
     nullable: false,
   })
   typeUF: CourseType;
-
-  @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.courses)
-  user: UsersEntity;
-
-  @ManyToMany(() => ModuleEntity)
-  @JoinTable()
-  modules: ModuleEntity[];
 }

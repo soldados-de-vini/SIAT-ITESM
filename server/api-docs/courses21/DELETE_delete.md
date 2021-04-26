@@ -1,8 +1,8 @@
-# Delete Course
+# Delete Course21
 
-    DELETE courses/:id
+    DELETE courses21/:id
     
-Deletes the course with the given ID.
+Deletes the course21 with the given ID.
 
 ## Parameters
 
@@ -19,7 +19,7 @@ id | The ID of the course to be deleted.
 ## Example
 ### Request
 
-    DELETE https://[HOST]/courses/4a53d76f-c4a8-41b0-b040-e226f0fb4cb0
+    DELETE https://[HOST]/courses21/4a53d76f-c4a8-41b0-b040-e226f0fb4cb0
 
 ### Response
 ``` json

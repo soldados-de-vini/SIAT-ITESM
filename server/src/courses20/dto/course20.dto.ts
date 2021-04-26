@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CourseDto {
+export class Course20Dto {
   @IsNotEmpty()
   key: string;
 
