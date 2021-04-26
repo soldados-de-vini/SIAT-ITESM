@@ -5,14 +5,14 @@ import { Repository } from 'typeorm';
 import { UsersEntity } from '../users/entity/users.entity';
 import { ModuleEntity } from './entity/module.entity';
 import { ModuleService } from './module.service';
-import { mockUserEntityNoCourses } from '../utils/mocks/users.mock';
+import { baseEntity } from '../utils/mocks/users.mock';
 import { ModuleDto } from './dto/module.dto';
 import { CreateModuleReq } from './interface/create-module.interface';
 import { HttpStatus } from '@nestjs/common';
 import { mockModuleDto } from '../utils/mocks/modules.mock';
 
 describe('ModuleService', () => {
-  const sampleUser = mockUserEntityNoCourses;
+  const sampleUser = baseEntity;
   const sampleModule = ModuleDto;
   const sampleModuleCreateReq: CreateModuleReq = {
     modules: [sampleModule],

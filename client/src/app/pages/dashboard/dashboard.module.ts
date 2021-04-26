@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { NzButtonModule, NzModalModule } from 'ng-zorro-antd';
+import { NzButtonModule, NzFormModule, NzModalModule, NzSelectModule } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,21 +14,23 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { DashboardComponent } from './dashboard.component';
-import { MaestrosComponent } from '../../components/maestros/maestros.component';
 import { CoursesComponent } from '../../components/courses/courses.component';
+import { ProfessorsComponent } from '../../components/professors/professors.component';
 import { TableComponent } from '../../components/table/table.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ComposeCourseComponent } from '../../components/compose-course/compose-course.component';
+import { ComposeProfessorComponent } from 'src/app/components/compose-professor/compose-professor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CsvUploaderComponent,
-    MaestrosComponent,
+    ProfessorsComponent,
     TableComponent,
     CoursesComponent,
     ModulosComponent,
@@ -36,11 +38,13 @@ import { ComposeCourseComponent } from '../../components/compose-course/compose-
     SalonesComponent,
     PeriodosComponent,
     ComposeCourseComponent,
+    ComposeProfessorComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     NzButtonModule,
     NzUploadModule,
@@ -49,7 +53,9 @@ import { ComposeCourseComponent } from '../../components/compose-course/compose-
     NzGridModule,
     NzDividerModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    NzSelectModule,
+    NzFormModule
   ]
 })
 export class DashboardModule { }

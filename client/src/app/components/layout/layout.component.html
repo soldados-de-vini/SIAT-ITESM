@@ -1,11 +1,6 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null"
-            nzTheme="light">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null" nzTheme="light">
     <div class="sidebar-logo">
       <a>
         <img src="assets/images/logo-tec.png" alt="logo" style="border-radius: 100%;">
@@ -43,14 +38,14 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
         <span class="header-trigger" style="float:right;">
-          <i class="trigger" nz-icon nzType="user" nzTheme="outline"></i>
+          <i class="trigger" nz-icon nzType="user" nz-popover nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottomRight"></i>
         </span>
+        <ng-template #contentTemplate>
+          <button nz-button nzType="danger" (click)="logout()">Cerrar Sesión</button>
+        </ng-template>
       </div>
     </nz-header>
     <nz-content>

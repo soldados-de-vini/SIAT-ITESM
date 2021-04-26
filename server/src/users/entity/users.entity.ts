@@ -6,10 +6,12 @@ import {
   BeforeInsert,
   OneToMany,
 } from 'typeorm';
-import { CourseEntity } from '../../courses/entity/course.entity';
+import { CourseEntity } from '../../courses20/entity/course20.entity';
 import { ModuleEntity } from '../../module/entity/module.entity';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
+import { PeriodsEntity } from '../../periods/entity/periods.entity';
+import { Course21Entity } from '../../courses21/entities/course21.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -46,6 +48,9 @@ export class UsersEntity {
   @OneToMany(() => CourseEntity, (CourseEntity) => CourseEntity.user)
   courses: CourseEntity[];
 
+  @OneToMany(() => Course21Entity, (Course21Entity) => Course21Entity.user)
+  courses21: Course21Entity[];
+
   @OneToMany(
     () => ClassroomsEntity,
     (ClassroomsEntity) => ClassroomsEntity.user,
@@ -57,6 +62,9 @@ export class UsersEntity {
     (ProfessorsEntity) => ProfessorsEntity.user,
   )
   professors: ProfessorsEntity[];
+
+  @OneToMany(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.user)
+  periods: ProfessorsEntity[];
 
   @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];

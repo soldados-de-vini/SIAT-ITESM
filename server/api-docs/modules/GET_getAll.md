@@ -35,5 +35,3 @@ Authorization | Bearer Token
     ]
 }
 ```
-
-[CourseInfo]: /server/api-docs/courses/CourseInfo.md

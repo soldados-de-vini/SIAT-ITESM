@@ -2,7 +2,7 @@
 
     DELETE modules/:id
     
-Deletes the course with the given ID.
+Deletes the module with the given ID.
 
 ## Parameters
 
@@ -14,7 +14,7 @@ Authorization | Bearer Token
 ### URI Parameters
 Field | Description
 --- | ---
-id | The ID of the course to be deleted.
+id | The ID of the module to be deleted.
 
 ## Example
 ### Request

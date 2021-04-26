@@ -7,12 +7,13 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Output() delete = new EventEmitter<object>();
-  @Output() edit = new EventEmitter<object>();
+  @Output() delete = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
   @Input() tableData: Array<any>;
   @Input() columns: Array<any>;
   @Input() hasActions = true;
   @Input() hasSearchBar = true;
+  @Input() loading: boolean;
 
   constructor() { }
 

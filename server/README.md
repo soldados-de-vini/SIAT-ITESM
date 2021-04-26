@@ -10,7 +10,7 @@ For the connection to the database, the API uses TypeORM with a [*ormconfig*](ht
 For our use case, the following parameters are needed (JSON as example):
 ```json
 {
-  "type": "mysql",
+  "type": "postgres",
   "host": "localhost",
   "port": 3306,
   "username": "root",

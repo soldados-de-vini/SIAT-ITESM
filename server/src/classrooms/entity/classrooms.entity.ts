@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
+import { GroupsEntity } from '../../groups/entity/groups.entity';
 
 @Entity('classrooms')
 export class ClassroomsEntity {
@@ -22,7 +30,9 @@ export class ClassroomsEntity {
   })
   capacity: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   comments: string;
 
   @Column({
@@ -30,16 +40,24 @@ export class ClassroomsEntity {
   })
   type: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   school: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   entrance: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   currentDiv: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   administrator: string;
 
   @Column({
@@ -49,4 +67,8 @@ export class ClassroomsEntity {
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.classrooms)
   user: UsersEntity;
+
+  @ManyToMany(() => GroupsEntity)
+  @JoinTable()
+  groups: GroupsEntity[];
 }
