@@ -24,8 +24,8 @@ export class TableComponent implements OnInit {
     return (this.tableData && this.tableData.length > 0) ?  Object.keys(this.tableData[0]) : [];
   }
 
-  deleteRow(id){
-    this.delete.emit(id);
+  deleteRow(data){
+    this.delete.emit(data);
   }
 
   editRow(data){

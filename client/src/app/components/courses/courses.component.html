@@ -1,0 +1,5 @@
+<div nz-row nzJustify="end">
+  <siat-csv-uploader [endpoint]="'/courses'" [objectPrefix]="'courses'" [columns]="columnsToDisplay"></siat-csv-uploader>
+  <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createCourse()">Agregar Materia</button>
+</div>
+<siat-table (edit)="editCourse($event)" (delete)="onDelete($event)" [tableData]="courses" [columns]="columnsToDisplay"></siat-table>

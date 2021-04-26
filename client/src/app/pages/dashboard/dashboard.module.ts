@@ -13,13 +13,14 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { DashboardComponent } from './dashboard.component';
+import { CoursesComponent } from '../../components/courses/courses.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
-import { MateriasComponent } from '../../components/materias/materias.component';
 import { TableComponent } from '../../components/table/table.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
+import { ComposeCourseComponent } from '../../components/compose-course/compose-course.component';
 import { ComposeProfessorComponent } from 'src/app/components/compose-professor/compose-professor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -30,11 +31,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CsvUploaderComponent,
     ProfessorsComponent,
     TableComponent,
-    MateriasComponent,
+    CoursesComponent,
     ModulosComponent,
     BloquesComponent,
     SalonesComponent,
     PeriodosComponent,
+    ComposeCourseComponent,
     ComposeProfessorComponent
   ],
   imports: [
