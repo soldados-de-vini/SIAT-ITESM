@@ -15,7 +15,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { DashboardComponent } from './dashboard.component';
 import { MaestrosComponent } from '../../components/maestros/maestros.component';
-import { MateriasComponent } from '../../components/materias/materias.component';
+import { CoursesComponent } from '../../components/courses/courses.component';
 import { TableComponent } from '../../components/table/table.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
@@ -30,7 +30,7 @@ import { ComposeCourseComponent } from '../../components/compose-course/compose-
     CsvUploaderComponent,
     MaestrosComponent,
     TableComponent,
-    MateriasComponent,
+    CoursesComponent,
     ModulosComponent,
     BloquesComponent,
     SalonesComponent,

@@ -1,4 +1,4 @@
-export interface Materia {
+export interface Course {
     id?: number;
     key: string;
     name: string;

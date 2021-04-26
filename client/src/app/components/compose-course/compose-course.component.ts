@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class ComposeCourseComponent implements OnInit {
 
-  materiaForm!: FormGroup;
+  courseForm!: FormGroup;
   loading: boolean;
   @Input() course;
   @Input() isEditing;
@@ -44,7 +44,7 @@ export class ComposeCourseComponent implements OnInit {
 
   addCourse(){
     this.loading = true;
-    this.api.post(`/courses`, {courses: [this.materiaForm.value]}).subscribe((res) => {
+    this.api.post(`/courses`, {courses: [this.courseForm.value]}).subscribe((res) => {
       this.loading = false;
       if (res.status?.statusCode === 201){
         this.nzMessageService.success('Materia creada con éxito');
@@ -61,9 +61,8 @@ export class ComposeCourseComponent implements OnInit {
   }
 
   editCourse(){
-    console.log(this.materiaForm.value);
     this.loading = true;
-    this.api.put(`/courses/${this.course.id}`, this.materiaForm.value).subscribe((res) => {
+    this.api.put(`/courses/${this.course.id}`, this.courseForm.value).subscribe((res) => {
       this.loading = false;
       if (res.status?.statusCode === 200){
         this.nzMessageService.success('Materia editada con éxito');
@@ -79,7 +78,7 @@ export class ComposeCourseComponent implements OnInit {
   }
 
   initializeCreateForm(){
-    this.materiaForm = this.fb.group({
+    this.courseForm = this.fb.group({
       key: [null, [Validators.required]],
       name: [null, [Validators.required]],
       capacity: [null, [Validators.required]],
@@ -92,7 +91,7 @@ export class ComposeCourseComponent implements OnInit {
   }
 
   initializeEditForm(){
-    this.materiaForm = this.fb.group({
+    this.courseForm = this.fb.group({
       key: [this.course.key, [Validators.required]],
       name: [this.course.name, [Validators.required]],
       capacity: [this.course.capacity, [Validators.required]],

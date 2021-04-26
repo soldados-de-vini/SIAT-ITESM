@@ -2,4 +2,4 @@
   <siat-csv-uploader [endpoint]="'/courses'" [objectPrefix]="'courses'" [columns]="columnsToDisplay"></siat-csv-uploader>
   <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createCourse()">Agregar Materia</button>
 </div>
-<siat-table (edit)="editMateria($event)" (delete)="onDelete($event)" [tableData]="materias" [columns]="columnsToDisplay"></siat-table>
+<siat-table (edit)="editCourse($event)" (delete)="onDelete($event)" [tableData]="courses" [columns]="columnsToDisplay"></siat-table>

@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Materia } from 'src/app/models/materia.model';
+import { Course } from 'src/app/models/course.model';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ComposeCourseComponent } from '../compose-course/compose-course.component';
 
 
 @Component({
-  selector: 'siat-materias',
-  templateUrl: './materias.component.html',
-  styleUrls: ['./materias.component.scss']
+  selector: 'siat-courses',
+  templateUrl: './courses.component.html',
+  styleUrls: ['./courses.component.scss']
 })
-export class MateriasComponent implements OnInit {
+export class CoursesComponent implements OnInit {
 
   columnsToDisplay = [
     'CLAVE', 'Nombre', 'Capacidad', 'Semestre',
     'Semana inicial', 'Semanas', 'Avenida(s)', 'Tipo', 'Modulos'];
-  materias: Array<Materia> = [];
+  courses: Array<Course> = [];
 
   constructor(
     private api: ApiService,
@@ -28,7 +28,7 @@ export class MateriasComponent implements OnInit {
 
   getCourses(): void {
     this.api.get('/courses').subscribe((res) => {
-      this.materias = res.result;
+      this.courses = res.result;
     });
   }
 
@@ -43,8 +43,8 @@ export class MateriasComponent implements OnInit {
       (result) => {
         console.log(result);
         if (result?.course){
-          this.materias = [
-            ...this.materias,
+          this.courses = [
+            ...this.courses,
             ...result.course
           ];
         }
@@ -52,8 +52,8 @@ export class MateriasComponent implements OnInit {
     );
   }
 
-  deleteMateria(event): void {
-    const id = event.id;
+  deleteCourse(event): void {
+    const id = event;
     this.api.delete(`/courses/${id}`).subscribe(
       success => this.afterDelete(event),
       error => console.log(error)
@@ -65,11 +65,11 @@ export class MateriasComponent implements OnInit {
   }
 
   afterDelete(event){
-    const id = event.id;
-    this.materias = this.materias.filter(d => d.id !== id);
+    const id = event;
+    this.courses = this.courses.filter(d => d.id !== id);
   }
 
-  editMateria(event){
+  editCourse(event){
     const modal = this.nzModalService.create({
       nzTitle: 'Editar materia',
       nzContent: ComposeCourseComponent,
@@ -78,8 +78,8 @@ export class MateriasComponent implements OnInit {
     });
 
     modal.afterClose.subscribe((res) => {
-      const index = this.materias.findIndex(item => item.id === res.course.id);
-      Object.assign(this.materias[index], res.course);
+      const index = this.courses.findIndex(item => item.id === res.course.id);
+      Object.assign(this.courses[index], res.course);
     });
   }
 
@@ -90,7 +90,7 @@ export class MateriasComponent implements OnInit {
       nzOkText: 'Borrar',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.deleteMateria(id);
+        this.deleteCourse(id);
       },
       nzCancelText: 'Cancelar',
     });

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MaestrosComponent } from '../../components/maestros/maestros.component';
-import { MateriasComponent } from '../../components/materias/materias.component';
+import { CoursesComponent } from '../../components/courses/courses.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'materias',
-    component: MateriasComponent
+    component: CoursesComponent
   },
   {
     path: 'modulos',

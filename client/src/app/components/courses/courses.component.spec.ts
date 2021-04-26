@@ -3,15 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NzModalService } from 'ng-zorro-antd';
 import { Overlay } from '@angular/cdk/overlay';
 
-import { MateriasComponent } from './materias.component';
+import { CoursesComponent } from './courses.component';
 
-describe('MateriasComponent', () => {
-  let component: MateriasComponent;
-  let fixture: ComponentFixture<MateriasComponent>;
+describe('CoursesComponent', () => {
+  let component: CoursesComponent;
+  let fixture: ComponentFixture<CoursesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MateriasComponent ],
+      declarations: [ CoursesComponent ],
       imports: [HttpClientTestingModule],
       providers: [
         NzModalService,
@@ -22,7 +22,7 @@ describe('MateriasComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MateriasComponent);
+    fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
