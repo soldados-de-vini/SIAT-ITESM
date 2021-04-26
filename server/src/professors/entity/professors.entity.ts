@@ -1,5 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
+import {ProfessorsToGroups} from '../../professorsToGroups/entity/professorsToGroups.entity'
+
+
 
 @Entity('professors')
 export class ProfessorsEntity {
@@ -40,4 +49,10 @@ export class ProfessorsEntity {
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.professors)
   user: UsersEntity;
+
+  @OneToMany(
+    () => ProfessorsToGroups,
+    (ProfessorsToGroups) => ProfessorsToGroups.professors,
+  )
+  ProfessorsToGroups: ProfessorsToGroups[];
 }

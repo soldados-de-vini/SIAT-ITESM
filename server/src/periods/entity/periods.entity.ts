@@ -3,10 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
+  OneToMany,
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
+import { GroupsEntity } from '../../groups/entity/groups.entity';
 
 /**
  * TODO(hivini): Do the following fixes
@@ -62,4 +64,7 @@ export class PeriodsEntity {
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.periods)
   user: UsersEntity;
+
+  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.periodId)
+  groups: GroupsEntity[];
 }
