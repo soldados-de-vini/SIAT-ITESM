@@ -27,7 +27,7 @@
                 <td *ngIf="hasActions" nzRight>
                   <a (click)="editRow(data)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
-                  <a (click)="deleteRow(data)">Borrar</a>
+                  <a (click)="deleteRow(data.id)">Borrar</a>
                 </td>
               </tr>
             </tbody>

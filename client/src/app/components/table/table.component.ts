@@ -24,7 +24,7 @@ export class TableComponent implements OnInit {
   }
 
   deleteRow(data){
-    this.delete.emit(data.id);
+    this.delete.emit(data);
   }
 
   editRow(data){
