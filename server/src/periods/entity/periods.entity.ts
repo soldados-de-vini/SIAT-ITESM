@@ -65,6 +65,6 @@ export class PeriodsEntity {
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.periods)
   user: UsersEntity;
 
-  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.periodId)
+  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.period)
   groups: GroupsEntity[];
 }
