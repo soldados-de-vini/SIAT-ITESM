@@ -14,7 +14,7 @@ describe('ClassroomsService', () => {
   const sampleUser = baseEntity;
   const sampleClassroom = mockClassroomsDto;
   const sampleCreateReq: CreateClassroomsReq = {
-    classrooms: [sampleClassroom]
+    classrooms: [sampleClassroom],
   };
   let service: ClassroomsService;
   let classroomsRepository: MockType<Repository<ClassroomsEntity>>;

@@ -1,5 +1,4 @@
-import { CourseEntity } from '../../courses/entity/course.entity';
-import { CourseDto } from '../../courses/dto/course.dto';
+import { Course20Dto } from '../../courses20/dto/course20.dto';
 
 const key = 'key';
 const name = 'name';
@@ -10,7 +9,7 @@ const weeks = 5;
 const avenue = ['ITI'];
 const typeUF = 'B';
 
-const mockCourseDto = new CourseDto();
+const mockCourseDto = new Course20Dto();
 mockCourseDto.key = key;
 mockCourseDto.name = name;
 mockCourseDto.capacity = capacity;
@@ -20,12 +19,4 @@ mockCourseDto.semester = semester;
 mockCourseDto.avenue = avenue;
 mockCourseDto.typeUF = typeUF;
 
-let mockCourseWithEmptyModules = new CourseEntity();
-mockCourseWithEmptyModules = Object.assign(
-  mockCourseWithEmptyModules,
-  mockCourseDto,
-);
-mockCourseWithEmptyModules.id = 'uuid';
-mockCourseWithEmptyModules.modules = [];
-
-export { mockCourseDto, mockCourseWithEmptyModules };
+export { mockCourseDto };

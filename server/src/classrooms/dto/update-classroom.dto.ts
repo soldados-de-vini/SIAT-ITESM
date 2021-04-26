@@ -1,25 +1,25 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
 
 export class UpdateClassroomDto {
-    @IsNotEmpty()
-    building: string;
+  @IsNotEmpty()
+  building: string;
 
-    @IsNotEmpty()
-    capacity: number;
+  @IsNotEmpty()
+  capacity: number;
 
-    comments: string;
+  comments: string;
 
-    @IsNotEmpty()
-    type: string;
+  @IsNotEmpty()
+  type: string;
 
-    school: string;
+  school: string;
 
-    entrance: string;
+  entrance: string;
 
-    currenDiv: string;
+  currenDiv: string;
 
-    administrator: string;
+  administrator: string;
 
-    @IsNotEmpty()
-    status: string;
+  @IsNotEmpty()
+  status: string;
 }

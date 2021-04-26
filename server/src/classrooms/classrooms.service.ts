@@ -24,7 +24,10 @@ export class ClassroomsService {
    * @param uuid The uuid of the user
    * @returns A response to send back to the user with the new classrooms data.
    */
-  async create(createReq: CreateClassroomsReq, uuid: string): Promise<ResponseStatus> {
+  async create(
+    createReq: CreateClassroomsReq,
+    uuid: string,
+  ): Promise<ResponseStatus> {
     return db.createWithRelation<ClassroomsEntity, ClassroomDto>(
       this.userRepository,
       this.classroomsRepository,
@@ -51,13 +54,17 @@ export class ClassroomsService {
    * @param updateClassroomDto The data to be replaced.
    * @returns A response with the new value as a result.
    */
-  async update(userId: string, classroomId: string, updateClassroomDto: UpdateClassroomDto): Promise<ResponseStatus> {
+  async update(
+    userId: string,
+    classroomId: string,
+    updateClassroomDto: UpdateClassroomDto,
+  ): Promise<ResponseStatus> {
     return db.update<ClassroomsEntity, UpdateClassroomDto>(
       userId,
       classroomId,
       updateClassroomDto,
       this.classroomsRepository,
-      {where: {id: classroomId}}
+      { where: { id: classroomId } },
     );
   }
 
@@ -68,6 +75,8 @@ export class ClassroomsService {
    * @returns A response stating success or failure.
    */
   async remove(userId: string, classroomId: string): Promise<ResponseStatus> {
-    return db.remove(userId, classroomId, this.classroomsRepository, {id: classroomId});
+    return db.remove(userId, classroomId, this.classroomsRepository, {
+      id: classroomId,
+    });
   }
 }

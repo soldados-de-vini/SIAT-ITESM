@@ -40,8 +40,10 @@ baseEntity.name = name;
 baseEntity.nomina = nomina;
 baseEntity.password = password;
 baseEntity.courses = [];
+baseEntity.courses21 = [];
 baseEntity.modules = [];
 baseEntity.professors = [];
 baseEntity.classrooms = [];
+baseEntity.periods = [];
 
 export { userCreateMock, userDtoMock, userInfoMock, userLoginMock, baseEntity };

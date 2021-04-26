@@ -58,7 +58,9 @@ describe('ClassroomsController', () => {
   describe('create', () => {
     it('should send back the response of the service', async () => {
       expect(
-        await controller.create(jwtRequest, { classrooms: [mockClassroomsDto] }),
+        await controller.create(jwtRequest, {
+          classrooms: [mockClassroomsDto],
+        }),
       ).toEqual(standardResponse);
     });
   });

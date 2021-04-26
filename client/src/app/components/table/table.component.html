@@ -14,7 +14,7 @@
             <thead>
               <tr>
                 <ng-container *ngFor="let column of columns">
-                  <th *ngIf="column !== 'ID'">{{ column }}</th>
+                  <th>{{ column }}</th>
                 </ng-container>
                 <th nzRight *ngIf="hasActions">Acciones</th>
               </tr>
