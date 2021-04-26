@@ -16,12 +16,14 @@ import { DashboardComponent } from './dashboard.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
 import { MateriasComponent } from '../../components/materias/materias.component';
 import { TableComponent } from '../../components/table/table.component';
-import { ModulosComponent } from '../../components/modulos/modulos.component';
-import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { SalonesComponent } from '../../components/salones/salones.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ComposeProfessorComponent } from 'src/app/components/compose-professor/compose-professor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModulesComponent } from 'src/app/components/modules/modules.component';
+import { ComposeModuleComponent } from 'src/app/components/compose-module/compose-module.component';
+import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
+import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-block.component';
 
 
 @NgModule({
@@ -31,11 +33,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfessorsComponent,
     TableComponent,
     MateriasComponent,
-    ModulosComponent,
-    BloquesComponent,
+    ModulesComponent,
+    BlocksComponent,
     SalonesComponent,
     PeriodosComponent,
-    ComposeProfessorComponent
+    ComposeProfessorComponent,
+    ComposeModuleComponent,
+    ComposeBlockComponent
   ],
   imports: [
     CommonModule,
