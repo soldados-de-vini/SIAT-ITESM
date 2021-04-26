@@ -5,7 +5,6 @@ import { NzButtonModule, NzFormModule, NzModalModule, NzSelectModule } from 'ng-
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzGridModule } from 'ng-zorro-antd/grid';
