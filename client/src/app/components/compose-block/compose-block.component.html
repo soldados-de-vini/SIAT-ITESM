@@ -1,0 +1,63 @@
+<form nz-form [formGroup]="blockForm" class="professor-form">
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="key">Clave</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La clave del bloque es requerida...">
+      <input nz-input formControlName="key" id="name" type="text"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="name">Nombre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El nombre del bloque es requerido...">
+      <input nz-input formControlName="name" id="name" type="text"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="capacity">Capacidad</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La capacidad del bloque es requerida...">
+      <input nz-input formControlName="capacity" id="capacity" type="number"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="semester">Semestre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El semestre del bloque es requerido...">
+      <input nz-input formControlName="semester" id="semester" type="number"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired nzFor="modules">Modulos</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Al menos un modulo es requerido...">
+      <nz-select nzMode="multiple" id="modules" formControlName="modules" style="width: 100%;">
+        <ng-container *ngFor="let module of modules">
+          <nz-option *ngIf="!isLoadingModules" [nzValue]="module.id" [nzLabel]="module.name"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoadingModules" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired nzFor="avenue">Avenida(s)</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Al menos una avenida es requerida...">
+      <nz-select nzMode="multiple" id="avenue" formControlName="avenue" style="width: 100%;">
+        <nz-option nzValue="IIC" nzLabel="IIC"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="initialWeek">Semana Inicial</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El semestre del bloque es requerido...">
+      <input nz-input formControlName="initialWeek" id="initialWeek" type="number"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="weeks">Semanas</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El semestre del bloque es requerido...">
+      <input nz-input formControlName="weeks" id="weeks" type="number"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="saveBlock()" [disabled]="!blockForm.valid">Guardar Bloque</button>
+</div>
