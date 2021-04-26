@@ -8,16 +8,14 @@ import {
   UseGuards,
   Request,
   Put,
-  Patch,
 } from '@nestjs/common';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CoursesService } from './courses.service';
-import { CourseDto } from './dto/course.dto';
+import { Course20Dto } from './dto/course20.dto';
 import { CreateCourseReq } from './interfaces/create-course-req.interface';
-import { UpdateCourseModulesDto } from './dto/course-module.dto';
 
-@Controller('courses')
+@Controller('courses20')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
@@ -31,15 +29,9 @@ export class CoursesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('tec20')
-  async findTec20(@Request() req: JwtRequest) {
-    return this.coursesService.findTec20(req.user.id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('tec21')
-  async findTec21(@Request() req: JwtRequest) {
-    return this.coursesService.findTec21(req.user.id);
+  @Get()
+  async findAll(@Request() req: JwtRequest) {
+    return this.coursesService.findAll(req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -47,23 +39,9 @@ export class CoursesController {
   update(
     @Request() req: JwtRequest,
     @Param('id') courseId: string,
-    @Body() updateCourseDto: CourseDto,
+    @Body() updateCourseDto: Course20Dto,
   ) {
     return this.coursesService.update(req.user.id, courseId, updateCourseDto);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(':id')
-  updateModules(
-    @Request() req: JwtRequest,
-    @Param('id') courseId: string,
-    @Body() updateModulesDto: UpdateCourseModulesDto,
-  ) {
-    return this.coursesService.updateModules(
-      req.user.id,
-      courseId,
-      updateModulesDto,
-    );
   }
 
   @UseGuards(JwtAuthGuard)

@@ -4,21 +4,17 @@ import { UsersEntity } from '../users/entity/users.entity';
 import { Repository } from 'typeorm';
 import { MockType } from '../utils/mocks/mock-type';
 import { CoursesService } from './courses.service';
-import { CourseEntity } from './entity/course.entity';
+import { CourseEntity } from './entity/course20.entity';
 import { baseEntity } from '../utils/mocks/users.mock';
 import * as db from '../utils/db/crud-entity';
-import {
-  mockCourseDto,
-  mockCourseWithEmptyModules,
-} from '../utils/mocks/courses.mock';
+import { mockCourseDto } from '../utils/mocks/courses.mock';
 import { HttpStatus } from '@nestjs/common';
 import { ModuleEntity } from '../module/entity/module.entity';
-import { mockModuleDto, mockModuleEntity } from '../utils/mocks/modules.mock';
+import { mockModuleEntity } from '../utils/mocks/modules.mock';
 import { ResponseStatus } from 'src/utils/interfaces/response';
 
 describe('CoursesService', () => {
   const sampleCourse = mockCourseDto;
-  const sampleModule = mockModuleDto;
   const sampleCourseCreateReq = {
     courses: [sampleCourse],
   };
@@ -95,7 +91,7 @@ describe('CoursesService', () => {
     });
   });
 
-  describe('findTec20', () => {
+  describe('findAll', () => {
     it('should retrieve courses of the user', async () => {
       const expectedResult = {
         status: {
@@ -113,29 +109,7 @@ describe('CoursesService', () => {
         ...sampleUser,
         courses: sampleCourse,
       });
-      expect(await service.findTec20('uuid')).toEqual(expectedResult);
-    });
-  });
-
-  describe('findTec21', () => {
-    const expectedResult = {
-      status: {
-        statusCode: HttpStatus.OK,
-        message: 'Searched user data successfully.',
-      },
-      result: sampleCourse,
-    };
-    it('should retrieve courses of the user', async () => {
-      userRepository.findOne.mockReturnValue({
-        ...sampleUser,
-        courses: sampleCourse,
-      });
-      jest.spyOn(db, 'findWithCondition').mockReturnValue(
-        new Promise<ResponseStatus>((resolve) => {
-          resolve(expectedResult);
-        }),
-      );
-      expect(await service.findTec21('uuid')).toEqual(expectedResult);
+      expect(await service.findAll('uuid')).toEqual(expectedResult);
     });
   });
 
@@ -176,25 +150,6 @@ describe('CoursesService', () => {
           statusCode: HttpStatus.NOT_FOUND,
           message: 'Entity to update has not been found.',
         },
-      });
-    });
-  });
-
-  describe('updateModules', () => {
-    it('should add module successfully', async () => {
-      courseRepository.findOne.mockReturnValue(mockCourseWithEmptyModules);
-      const mockResult = { ...mockCourseWithEmptyModules };
-      mockResult.modules = [mockModuleEntity];
-      expect(
-        await service.updateModules('uuid', 'uuid', {
-          modules: [sampleModule],
-        }),
-      ).toEqual({
-        status: {
-          statusCode: HttpStatus.OK,
-          message: 'Modules successfully added.',
-        },
-        result: mockResult,
       });
     });
   });

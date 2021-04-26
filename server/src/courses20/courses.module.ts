@@ -3,14 +3,11 @@ import { CoursesService } from './courses.service';
 import { CoursesController } from './courses.controller';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CourseEntity } from './entity/course.entity';
+import { CourseEntity } from './entity/course20.entity';
 import { UsersEntity } from '../users/entity/users.entity';
-import { ModuleEntity } from '../module/entity/module.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([CourseEntity, UsersEntity, ModuleEntity]),
-  ],
+  imports: [TypeOrmModule.forFeature([CourseEntity, UsersEntity])],
   controllers: [CoursesController],
   providers: [CoursesService, JwtStrategy],
 })

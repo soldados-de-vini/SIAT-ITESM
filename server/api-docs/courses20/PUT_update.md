@@ -1,8 +1,8 @@
-# PUT Course
+# PUT TEC20 Course
 
-    PUT courses/:id
+    PUT courses20/:id
     
-Updates the course of the given ID.
+Updates the TEC20 course of the given ID.
 
 ## Parameters
 
@@ -27,20 +27,19 @@ typeUF | string | [x] | Identifies the type of course.
 ## Example
 ### Request
 
-    POST https://[HOST]/courses/f8e86d7d-a36a-49a4-bf56-f596ad258ec5
+    POST https://[HOST]/courses20/dffba7b9-8ab8-4d32-a71e-da0d02fd767d
 
 #### Request Body    
 ```json
 {
-    "key": "MT1",
-    "name": "Mate1 Cambiada",
-    "capacity": 30,
-    "educationalModel": "B",
-    "semester": "TEC20",
-    "initialWeek": 6,
-    "weeks": 10,
-    "avenue": ["IIC"],
-    "typeUF": "TEC21"
+    "key": "FS3",
+    "name": "FS 3",
+    "capacity": 35,
+    "semester": "8",
+    "initialWeek": 11,
+    "weeks": 5,
+    "avenue": ["ICN", "ISC"],
+    "typeUF": "B"
 }
 ```
 
@@ -49,22 +48,21 @@ typeUF | string | [x] | Identifies the type of course.
 {
     "status": {
         "statusCode": 200,
-        "message": "Course updated successfully."
+        "message": "Updated successfully."
     },
     "result": {
-        "id": "f8e86d7d-a36a-49a4-bf56-f596ad258ec5",
-        "key": "MT1",
-        "name": "Mate1 Cambiada",
-        "capacity": 30,
-        "semester": "TEC20",
-        "initialWeek": 6,
-        "weeks": 10,
+        "id": "dffba7b9-8ab8-4d32-a71e-da0d02fd767d",
+        "key": "FS3",
+        "name": "FS 3",
+        "capacity": 35,
+        "semester": "8",
+        "initialWeek": 11,
+        "weeks": 5,
         "avenue": [
-            "IIC"
+            "ICN",
+            "ISC"
         ],
-        "typeUF": "TEC21",
-        "educationalModel": "B",
-        "modules": []
+        "typeUF": "B"
     }
 }
 ```
