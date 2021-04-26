@@ -20,8 +20,7 @@ export class ProfessorsComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private nzMessageService: NzMessageService,
-    private nzModalService: NzModalService,
-    private formBuilder: FormBuilder
+    private nzModalService: NzModalService
   ) {
     this.loading = true;
     this.apiService.get('/professors').subscribe(
@@ -100,12 +99,12 @@ export class ProfessorsComponent implements OnInit {
     );
   }
 
-  public onEdit(event){
+  public onEdit(data){
     const modal = this.nzModalService.create({
       nzTitle: 'Editar Maestro',
       nzContent: ComposeProfessorComponent,
       nzStyle: {width: '80vw'},
-      nzComponentParams: {professor: event, isEditing: true}
+      nzComponentParams: {professor: data, isEditing: true}
     });
 
     modal.afterClose.subscribe(
