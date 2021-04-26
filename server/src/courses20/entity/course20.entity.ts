@@ -8,6 +8,6 @@ export class CourseEntity extends BaseCourseEntity {
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.courses)
   user: UsersEntity;
 
-  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.courseId)
+  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.course20)
   groups: GroupsEntity[];
 }

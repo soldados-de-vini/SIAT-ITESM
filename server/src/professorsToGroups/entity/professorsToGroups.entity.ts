@@ -7,12 +7,6 @@ export class ProfessorsToGroups {
   @PrimaryGeneratedColumn()
   ProfessorsToGroupsId: number;
 
-  @Column()
-  professorId: number;
-
-  @Column()
-  groupId: number;
-
   @Column({
     nullable: false,
   })
