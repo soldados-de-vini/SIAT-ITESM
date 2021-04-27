@@ -73,8 +73,8 @@ export class ComposeBlockComponent implements OnInit {
       key: [this.block.key, [Validators.required]],
       name: [this.block.name, [Validators.required]],
       capacity: [this.block.capacity, [Validators.required]],
-      semester: [null, Validators.required],
-      modules: [this.block.modules, Validators.required],
+      semester: [this.block.semester, Validators.required],
+      modules: [this.mapModules(this.block.modules), Validators.required],
       avenue: [this.block.avenue, Validators.required],
       initialWeek: [this.block.initialWeek, Validators.required],
       weeks: [this.block.weeks, Validators.required],
@@ -97,7 +97,7 @@ export class ComposeBlockComponent implements OnInit {
   private createBlock(){
     this.loading = true;
     console.log(this.blockForm.value);
-    this.apiService.post('/courses', {courses: [this.blockForm.value]}).subscribe(
+    this.apiService.post('/courses21', {courses: [this.blockForm.value]}).subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 201){
@@ -117,7 +117,7 @@ export class ComposeBlockComponent implements OnInit {
 
   private editBlock(){
     this.loading = true;
-    this.apiService.put(`/courses/${this.block.id}`, this.blockForm.value).subscribe(
+    this.apiService.put(`/courses21/${this.block.id}`, this.blockForm.value).subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 200){
@@ -132,5 +132,13 @@ export class ComposeBlockComponent implements OnInit {
         this.nzMessageService.error('Ocurrió un error al editar el Bloque');
       }
     );
+  }
+
+  private mapModules(modules){
+    return modules.map(
+      (mod) => {
+        return mod.id;
+      }
+    )
   }
 }
