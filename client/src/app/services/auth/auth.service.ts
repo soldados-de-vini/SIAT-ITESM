@@ -35,7 +35,6 @@ export class AuthService {
    * @param user user that is performing the log in
    */
   public login(user: User, callback: any): void{
-    console.log('sending test');
     this.apiService.post('/auth/login', {email: user.email, password: user.password}).subscribe(
       (response) => {
         console.log(response);
