@@ -4,7 +4,7 @@ export interface Course {
   name: string;
   capacity: number;
   semester: number;
-  modules?: Array<object>;
+  modules?: Array<any>;
   avenue: Array<string>;
   typeUF: string;
   initialWeek: number;
