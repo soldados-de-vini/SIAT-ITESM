@@ -2,5 +2,6 @@
   <siat-csv-uploader [endpoint]="'/courses'" [objectPrefix]="'courses'" [columns]="columnsToDisplay"></siat-csv-uploader>
   <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createModule()">Agregar Bloque</button>
 </div>
-<siat-table [loading]="loading" [tableData]="blocks" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>
-
+<ng-container *ngIf="blocks">
+  <siat-table [loading]="loading" [tableData]="blocks" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>
+</ng-container>

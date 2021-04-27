@@ -33,7 +33,7 @@ export class BlocksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.get('/courses/tec21').subscribe(
+    this.apiService.get('/courses21').subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 200) {
@@ -59,7 +59,7 @@ export class BlocksComponent implements OnInit {
     });
 
     modal.afterClose.subscribe((result) => {
-      if (result?.module) {
+      if (result?.blocks) {
         this.blocks = [...this.blocks, ...result.blocks];
       }
     });
@@ -103,7 +103,7 @@ export class BlocksComponent implements OnInit {
 
   private deleteModule(id) {
     this.loading = true;
-    this.apiService.delete(`/courses/${id}`).subscribe(
+    this.apiService.delete(`/courses21/${id}`).subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 200) {
