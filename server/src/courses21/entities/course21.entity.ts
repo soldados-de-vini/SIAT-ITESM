@@ -3,6 +3,7 @@ import { BaseCourseEntity } from '../../utils/db/base-course';
 import { Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
+import { BloqueGroupsEntity } from '../../bloqueGroups/entity/bloqueGroups.entity';
 
 @Entity('courses21')
 export class Course21Entity extends BaseCourseEntity {
@@ -15,4 +16,7 @@ export class Course21Entity extends BaseCourseEntity {
 
   @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.course21)
   groups: GroupsEntity[];
+
+  @OneToMany(() => BloqueGroupsEntity, (BloqueGroupsEntity) => BloqueGroupsEntity.course21)
+  bloqueGroups: BloqueGroupsEntity[];
 }
