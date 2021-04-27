@@ -68,7 +68,33 @@ export class ClassroomsComponent implements OnInit {
   }
 
   onDelete(event){
-    //
+    this.showDeleteConfirmation(event);
+  }
+
+  showDeleteConfirmation(id){
+    this.nzModalService.confirm({
+      nzTitle: 'Borrar Materia',
+      nzContent: '<span style="color: red;">¿Seguro que deseas borrar este salón?</span>',
+      nzOkText: 'Borrar',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.deleteClassroom(id);
+      },
+      nzCancelText: 'Cancelar',
+    });
+  }
+
+  deleteClassroom(event){
+    const id = event;
+    this.api.delete(`/classrooms/${id}`).subscribe(
+      success => this.afterDelete(event),
+      error => console.log(error)
+    );
+  }
+
+  afterDelete(event){
+    const id = event;
+    this.classrooms = this.classrooms.filter(d => d.id !== id);
   }
 
 }
