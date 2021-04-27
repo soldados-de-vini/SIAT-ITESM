@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import {ProfessorsEntity} from '../../professors/entity/professors.entity'
-import {BloqueModulesEntity} from '../../bloqueModules/entity/bloqueModules.entity'
+import { ProfessorsEntity } from '../../professors/entity/professors.entity';
+import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
 
 @Entity('ProfessorsToBloqueModules')
 export class ProfessorsToBloqueModules {
@@ -17,8 +17,6 @@ export class ProfessorsToBloqueModules {
     (ProfessorsEntity) => ProfessorsEntity.ProfessorsToBloqueModules,
   )
   professors: ProfessorsEntity;
-
-  
 
   @ManyToOne(
     () => BloqueModulesEntity,

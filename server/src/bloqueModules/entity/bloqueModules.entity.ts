@@ -1,9 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
 
 import { ModuleEntity } from '../../module/entity/module.entity';
 import { BloqueGroupsEntity } from '../../bloqueGroups/entity/bloqueGroups.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
-import { ProfessorsToBloqueModules } from '../../ProfessorsToBloqueModules/entity/professorsToBloqueModules.enity';
+import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.enity';
 
 @Entity('BloqueModuleEntity')
 export class BloqueModulesEntity {
@@ -52,11 +59,9 @@ export class BloqueModulesEntity {
   @ManyToOne(() => ModuleEntity, (ModuleEntity) => ModuleEntity.bloqueModules)
   moduleId: ModuleEntity;
 
-
   @ManyToOne(() => ClassroomsEntity)
   @JoinTable()
   classroomId: ClassroomsEntity[];
-
 
   @OneToMany(
     () => ProfessorsToBloqueModules,
