@@ -139,6 +139,6 @@ export class ComposeBlockComponent implements OnInit {
       (mod) => {
         return mod.id;
       }
-    )
+    );
   }
 }
