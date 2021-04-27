@@ -62,7 +62,7 @@ export class ComposeCourseComponent implements OnInit {
 
   editCourse(){
     this.loading = true;
-    this.api.put(`20/${this.course.id}`, this.courseForm.value).subscribe((res) => {
+    this.api.put(`/courses20/${this.course.id}`, this.courseForm.value).subscribe((res) => {
       this.loading = false;
       if (res.status?.statusCode === 200){
         this.nzMessageService.success('Materia editada con éxito');

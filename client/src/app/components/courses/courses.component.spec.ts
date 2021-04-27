@@ -53,7 +53,7 @@ describe('CoursesComponent', () => {
 
     const request = httpTestingController.expectOne({
       method: 'DELETE',
-      url: environment.api_url + `/courses/${courseId}`,
+      url: environment.api_url + `/courses20/${courseId}`,
     });
 
     const successResponse = {

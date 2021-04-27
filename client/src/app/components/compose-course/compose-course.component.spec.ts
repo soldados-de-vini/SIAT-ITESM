@@ -70,7 +70,7 @@ describe('ComposeCourseComponent', () => {
     };
     const request = httpTestingController.expectOne({
       method: 'POST',
-      url: environment.api_url + '/courses',
+      url: environment.api_url + '/courses20',
     });
 
     request.flush(successResponse);
@@ -104,7 +104,7 @@ describe('ComposeCourseComponent', () => {
     };
     const request = httpTestingController.expectOne({
       method: 'PUT',
-      url: environment.api_url + `/courses/${courseId}`,
+      url: environment.api_url + `/courses20/${courseId}`,
     });
     request.flush(successResponse);
     expect(successResponse.status.statusCode).toBe(200);
