@@ -4,7 +4,7 @@ import { CoursesComponent } from '../../components/courses/courses.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
 import { ModulosComponent } from '../../components/modulos/modulos.component';
 import { BloquesComponent } from '../../components/bloques/bloques.component';
-import { SalonesComponent } from '../../components/salones/salones.component';
+import { ClassroomsComponent } from '../../components/classrooms/classrooms.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { DashboardComponent } from './dashboard.component';
 
@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'salones',
-    component: SalonesComponent
+    component: ClassroomsComponent
   },
   {
     path: '',

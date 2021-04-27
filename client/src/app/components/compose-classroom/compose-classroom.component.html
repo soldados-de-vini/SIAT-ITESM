@@ -1,0 +1,67 @@
+<form nz-form [formGroup]="classroomForm">
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Salón</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input formControlName="classroom" id="salon" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Edificio</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="edificio" formControlName="building" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Capacidad</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="capacidad" formControlName="capacity" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Comentarios</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="comentarios" formControlName="comments" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Tipo</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="tipo" formControlName="type" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Escuela</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="escuela" formControlName="school" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Entrada</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="entrada" formControlName="entrance" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRight [nzSpan]="6" nzRequired>Division actual</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+        <input nz-input type="text" id="division-actual" formControlName="currentDiv" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzRight [nzSpan]="6" nzRequired>Administrador</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+            <input nz-input type="text" id="administrador" formControlName="administrator" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzRight [nzSpan]="6" nzRequired>Estado</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+            <input nz-input type="text" id="estado" formControlName="status" />
+        </nz-form-control>
+    </nz-form-item>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+      <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="loading">Aceptar</button>
+    </div>
+  </form>
+  

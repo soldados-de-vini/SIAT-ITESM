@@ -27,7 +27,7 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses(): void {
-    this.api.get('/courses').subscribe((res) => {
+    this.api.get('/courses20').subscribe((res) => {
       this.courses = res.result;
     });
   }

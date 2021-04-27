@@ -39,7 +39,7 @@ describe('CoursesComponent', () => {
   it('should be able to delete a course', () => {
     const courseId = 'abcd1234';
     const deleteCourse = (id) => {
-      api.delete(`/courses/${id}`).subscribe(
+      api.delete(`/courses20/${id}`).subscribe(
         (response) => {
           if (response.status?.statusCode === 200){
             console.log('Materia borrado con éxito');
