@@ -17,6 +17,9 @@ export class Course21Entity extends BaseCourseEntity {
   @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.course21)
   groups: GroupsEntity[];
 
-  @OneToMany(() => BloqueGroupsEntity, (BloqueGroupsEntity) => BloqueGroupsEntity.course21)
+  @OneToMany(
+    () => BloqueGroupsEntity,
+    (BloqueGroupsEntity) => BloqueGroupsEntity.course21,
+  )
   bloqueGroups: BloqueGroupsEntity[];
 }
