@@ -22,28 +22,26 @@ export class BloqueModulesEntity {
   })
   key: string;
 
-  // CLASSROOM
-  @Column({
-    nullable: false,
-  })
-  classroom: string;
-
-  @Column('int', { array: true })
-  events: number[];
-
-  // PROFESSORS
-
-  // MODULE ID
-
   @Column('date', {
     nullable: false,
   })
   startDate: Date;
 
+  @Column({
+    nullable: false,
+  })
+  startDateString: string;
+
   @Column('date', {
     nullable: false,
   })
   endDate: Date;
+
+  @Column({
+    nullable: false,
+  })
+  endDateString: string;
+
 
   @Column({
     nullable: true,

@@ -25,10 +25,20 @@ export class BloqueGroupsEntity {
   })
   startDate: Date;
 
+  @Column({
+    nullable: false,
+  })
+  startDateString: string;
+
   @Column('date', {
     nullable: false,
   })
   endDate: Date;
+
+  @Column({
+    nullable: false,
+  })
+  endDateString: string;
 
   @Column({
     nullable: true,
