@@ -25,6 +25,7 @@ import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { ComposeModuleComponent } from 'src/app/components/compose-module/compose-module.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-block.component';
+import { ModulePipe } from 'src/app/components/blocks/module.pipe';
 
 
 @NgModule({
@@ -39,10 +40,10 @@ import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-
     SalonesComponent,
     PeriodosComponent,
     ComposeCourseComponent,
-    ComposeProfessorComponent
     ComposeProfessorComponent,
     ComposeModuleComponent,
-    ComposeBlockComponent
+    ComposeBlockComponent,
+    ModulePipe
   ],
   imports: [
     CommonModule,
