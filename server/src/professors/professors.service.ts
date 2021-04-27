@@ -28,7 +28,7 @@ export class ProfessorsService {
     createReq: CreateProfessorsReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-    return db.createWithRelation<ProfessorsEntity, ProfessorDto>(
+    return db.createWithUserRelation<ProfessorsEntity, ProfessorDto>(
       this.userRepository,
       this.professorsRepository,
       uuid,
