@@ -10,7 +10,7 @@ import {
 import { ModuleEntity } from '../../module/entity/module.entity';
 import { BloqueGroupsEntity } from '../../bloqueGroups/entity/bloqueGroups.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
-import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.enity';
+import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 
 @Entity('BloqueModuleEntity')
 export class BloqueModulesEntity {
@@ -41,7 +41,6 @@ export class BloqueModulesEntity {
     nullable: false,
   })
   endDateString: string;
-
 
   @Column({
     nullable: true,
