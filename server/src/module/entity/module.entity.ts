@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
+import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
 
 @Entity('modules')
 export class ModuleEntity {
@@ -14,4 +21,10 @@ export class ModuleEntity {
 
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.modules)
   user: UsersEntity;
+
+  @OneToMany(
+    () => BloqueModulesEntity,
+    (BloqueModulesEntity) => BloqueModulesEntity.moduleId,
+  )
+  bloqueModules: BloqueModulesEntity[];
 }
