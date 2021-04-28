@@ -1,4 +1,5 @@
-export interface Salon {
+export interface Classroom {
+    id: string;
     classroom: number;
     building: string;
     capacity: number;

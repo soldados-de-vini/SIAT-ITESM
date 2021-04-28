@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CoursesComponent } from '../../components/courses/courses.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
-import { SalonesComponent } from '../../components/salones/salones.component';
+import { ClassroomsComponent } from '../../components/classrooms/classrooms.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'salones',
-    component: SalonesComponent
+    component: ClassroomsComponent
   },
   {
     path: '',

@@ -44,7 +44,7 @@ export class ComposeCourseComponent implements OnInit {
 
   addCourse(){
     this.loading = true;
-    this.api.post(`/courses`, {courses: [this.courseForm.value]}).subscribe((res) => {
+    this.api.post(`/courses20`, {courses: [this.courseForm.value]}).subscribe((res) => {
       this.loading = false;
       if (res.status?.statusCode === 201){
         this.nzMessageService.success('Materia creada con éxito');
@@ -62,7 +62,7 @@ export class ComposeCourseComponent implements OnInit {
 
   editCourse(){
     this.loading = true;
-    this.api.put(`/courses/${this.course.id}`, this.courseForm.value).subscribe((res) => {
+    this.api.put(`/courses20/${this.course.id}`, this.courseForm.value).subscribe((res) => {
       this.loading = false;
       if (res.status?.statusCode === 200){
         this.nzMessageService.success('Materia editada con éxito');
