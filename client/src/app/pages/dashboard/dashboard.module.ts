@@ -40,7 +40,7 @@ import { ModulePipe } from 'src/app/components/blocks/module.pipe';
     PeriodosComponent,
     ComposeCourseComponent,
     ComposeProfessorComponent,
-    ComposeClassroomComponent
+    ComposeClassroomComponent,
     BlocksComponent,
     ModulesComponent,
     PeriodosComponent,
