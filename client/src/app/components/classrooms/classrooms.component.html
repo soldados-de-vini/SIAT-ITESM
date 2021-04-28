@@ -1,5 +1,5 @@
 <div nz-row nzJustify="end">
-    <siat-csv-uploader [endpoint]="'/salones'" [objectPrefix]="'classrooms'" [columns]="columnsToDisplay"></siat-csv-uploader>
+    <siat-csv-uploader [endpoint]="'/classrooms'" [objectPrefix]="'classrooms'" [columns]="columnsToDisplay"></siat-csv-uploader>
     <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createClassroom()">Agregar Salón</button>
   </div>
 <siat-table (edit)="editClassroom($event)" (delete)="onDelete($event)" [tableData]="classrooms" [columns]="columnsToDisplay"></siat-table>
