@@ -27,7 +27,7 @@ export class ModuleService {
     moduleReq: CreateModuleReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-    return await db.createWithRelation<ModuleEntity, ModuleDto>(
+    return await db.createWithUserRelation<ModuleEntity, ModuleDto>(
       this.userRepository,
       this.moduleRepository,
       uuid,

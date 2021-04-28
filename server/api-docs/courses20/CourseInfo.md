@@ -8,4 +8,4 @@ semester | string | Identifier that specifies which semester is taking the cours
 initialWeek | int | Week in which the course must start on a period.
 weeks | int | Duration of the course in a period.
 avenue | string[] | The set of avenues that this course belongs to.
-typeUF | string | Identifies the type of course. Must be "B" | "M" | "TEC20"
+typeUF | string | Identifies the type of course. Must be "M" | "TEC20"

@@ -5,12 +5,13 @@ import {
   ManyToOne,
   OneToMany,
   JoinTable,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 
 import { CourseEntity } from '../../courses20/entity/course20.entity';
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { ProfessorsToGroups } from '../../professorsToGroups/entity/professorsToGroups.entity';
-import { Course21Entity } from '../../courses21/entities/course21.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 
 @Entity('groups')
@@ -28,35 +29,59 @@ export class GroupsEntity {
   })
   startDate: Date;
 
+  @Column({
+    nullable: false,
+  })
+  startDateString: string;
+
   @Column('date', {
     nullable: false,
   })
   endDate: Date;
 
   @Column({
+    nullable: false,
+  })
+  endDateString: string;
+
+  @Column({
+    nullable: true,
+  })
+  formato: string;
+
+  @Column({
     nullable: true,
   })
   matricula: string;
 
-  @Column('int', { array: true })
-  events: number[];
-
   @ManyToOne(() => CourseEntity, (CourseEntity) => CourseEntity.groups)
-  course20: CourseEntity;
-
-  @ManyToOne(() => Course21Entity, (Course21Entity) => Course21Entity.groups)
-  course21: Course21Entity;
+  course: CourseEntity;
 
   @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.groups)
   period: PeriodsEntity;
 
   @ManyToOne(() => ClassroomsEntity)
   @JoinTable()
-  classroom: ClassroomsEntity[];
+  classroom: ClassroomsEntity;
 
   @OneToMany(
     () => ProfessorsToGroups,
     (ProfessorsToGroups) => ProfessorsToGroups.professors,
   )
   ProfessorsToGroups: ProfessorsToGroups[];
+
+  @BeforeInsert() dateStringGen() {
+    this._assignValues();
+  }
+
+  @BeforeUpdate() updateString() {
+    this._assignValues();
+  }
+
+  _assignValues() {
+    this.startDateString = this.startDate.toString();
+    this.endDateString = this.endDate.toString();
+    this.startDate = new Date(this.startDate.toString());
+    this.endDate = new Date(this.endDate.toString());
+  }
 }

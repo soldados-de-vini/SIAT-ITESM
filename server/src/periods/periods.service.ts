@@ -27,7 +27,7 @@ export class PeriodsService {
     createPeriodDto: CreatePeriodsReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-    const result = await db.createWithRelation<PeriodsEntity, PeriodDto>(
+    const result = await db.createWithUserRelation<PeriodsEntity, PeriodDto>(
       this.userRepository,
       this.periodsRepository,
       uuid,
