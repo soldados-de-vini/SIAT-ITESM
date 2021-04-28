@@ -14,17 +14,22 @@
             <thead>
               <tr>
                 <ng-container *ngFor="let column of columns">
-                  <th *ngIf="column !== 'ID'">{{ column }}</th>
+                  <th>{{ column }}</th>
                 </ng-container>
-                <th nzRight *ngIf="hasActions">Acciones</th>
+                <th nzRight *ngIf="hasActions" colspan="1">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of table.data">
                 <ng-container *ngFor="let key of getKeys()">
-                  <td *ngIf="data[key].length !== 36">{{data[key]}}</td>
+                  <td *ngIf="key === 'modules'; else normalKey">
+                    {{data[key] | module}}
+                  </td>
+                  <ng-template #normalKey>
+                    <td *ngIf="data[key].length !== 36">{{data[key]}}</td>
+                  </ng-template>
                 </ng-container>
-                <td *ngIf="hasActions" nzRight>
+                <td colspan="1" *ngIf="hasActions" nzRight>
                   <a (click)="editRow(data)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
                   <a (click)="deleteRow(data.id)" style="color: #ff4d4f">Borrar</a>

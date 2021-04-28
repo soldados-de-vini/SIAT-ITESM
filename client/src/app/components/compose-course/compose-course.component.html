@@ -1,0 +1,54 @@
+<form nz-form [formGroup]="courseForm">
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Clave</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input formControlName="key" id="clave" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Nombre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="nombre" formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Capacidad</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="capacidad" formControlName="capacity" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Semestre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="semestre" formControlName="semester" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Semana inicial</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="semana-inicial" formControlName="initialWeek" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Semanas</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="semanas" formControlName="weeks" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Avenidas</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="avenidas" formControlName="avenue" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired>Tipo</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+      <input nz-input type="text" id="tipo" formControlName="typeUF" />
+    </nz-form-control>
+  </nz-form-item>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="loading">Aceptar</button>
+  </div>
+</form>

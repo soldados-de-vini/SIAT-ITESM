@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
 import { ProfessorsToGroups } from '../../professorsToGroups/entity/professorsToGroups.entity';
+import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.enity';
 
 @Entity('professors')
 export class ProfessorsEntity {
@@ -53,4 +54,10 @@ export class ProfessorsEntity {
     (ProfessorsToGroups) => ProfessorsToGroups.professors,
   )
   ProfessorsToGroups: ProfessorsToGroups[];
+
+  @OneToMany(
+    () => ProfessorsToBloqueModules,
+    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professors,
+  )
+  ProfessorsToBloqueModules: ProfessorsToBloqueModules[];
 }

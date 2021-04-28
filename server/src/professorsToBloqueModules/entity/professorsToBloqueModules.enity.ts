@@ -1,11 +1,11 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
-import { GroupsEntity } from '../../groups/entity/groups.entity';
+import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
 
-@Entity('ProfessorsToGroups')
-export class ProfessorsToGroups {
+@Entity('ProfessorsToBloqueModules')
+export class ProfessorsToBloqueModules {
   @PrimaryGeneratedColumn()
-  ProfessorsToGroupsId: number;
+  ProfessorsToBloqueModulesId: number;
 
   @Column({
     nullable: false,
@@ -14,13 +14,13 @@ export class ProfessorsToGroups {
 
   @ManyToOne(
     () => ProfessorsEntity,
-    (ProfessorsEntity) => ProfessorsEntity.ProfessorsToGroups,
+    (ProfessorsEntity) => ProfessorsEntity.ProfessorsToBloqueModules,
   )
   professors: ProfessorsEntity;
 
   @ManyToOne(
-    () => GroupsEntity,
-    (GroupsEntity) => GroupsEntity.ProfessorsToGroups,
+    () => BloqueModulesEntity,
+    (BloqueModulesEntity) => BloqueModulesEntity.ProfessorsToBloqueModules,
   )
   groups: ProfessorsEntity;
 }
