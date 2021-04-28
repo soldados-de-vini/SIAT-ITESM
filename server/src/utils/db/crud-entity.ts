@@ -13,7 +13,7 @@ import { ResponseStatus } from '../interfaces/response';
  * @param userAttribute The name of the attribute of the entity in the user entity.
  * @returns A ResponseStatus to send back to the user.
  */
-async function createWithRelation<TypeEntity, TypeDto>(
+async function createWithUserRelation<TypeEntity, TypeDto>(
   userRepository: Repository<UsersEntity>,
   typeRepository: Repository<TypeEntity>,
   uuid: string,
@@ -43,6 +43,48 @@ async function createWithRelation<TypeEntity, TypeDto>(
   }
   // Save the relationship on the database.
   await userRepository.save(user);
+  return createResponseStatus(
+    HttpStatus.CREATED,
+    'Created successfully.',
+    resultEntities,
+  );
+}
+
+/**
+ * Creates a new entity with a relationship with the parent entity.
+ * @param userRepository The TypeORM repository of parent entity.
+ * @param typeRepository The TypeORM repository of the entity to be created.
+ * @param condition Condition to find the parent object.
+ * @param data The dto of the entity.
+ * @param userAttribute The name of the attribute of the entity in the parent entity.
+ * @returns A ResponseStatus to send back to the user.
+ */
+async function createWithRelation<TypeEntity, TypeDto, TypeParentEntity>(
+  parentRepository: Repository<TypeParentEntity>,
+  typeRepository: Repository<TypeEntity>,
+  options: FindOneOptions<TypeParentEntity>,
+  data: TypeDto[],
+  parentAttribute: string,
+): Promise<ResponseStatus> {
+  if (data.length == 0) {
+    return createResponseStatus(
+      HttpStatus.NO_CONTENT,
+      'No create data was provided.',
+    );
+  }
+  // Get the parent that will have the entity added.
+  const parent = await parentRepository.findOne(options);
+  const resultEntities = [];
+  for (let i = 0; i < data.length; i++) {
+    // Create new entity object with the provided information.
+    const newEntity = typeRepository.create(data[i]);
+    resultEntities.push(newEntity);
+    await typeRepository.save(newEntity);
+    // Assign the new entity to the user that created it.
+    parent[parentAttribute].push(newEntity);
+  }
+  // Save the relationship on the database.
+  await parentRepository.save(parent);
   return createResponseStatus(
     HttpStatus.CREATED,
     'Created successfully.',
@@ -253,6 +295,7 @@ async function createResponseStatus(
 
 export {
   createResponseStatus,
+  createWithUserRelation,
   createWithRelation,
   findAll,
   findWithCondition,

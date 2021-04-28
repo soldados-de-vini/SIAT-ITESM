@@ -28,7 +28,7 @@ export class ClassroomsService {
     createReq: CreateClassroomsReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-    return db.createWithRelation<ClassroomsEntity, ClassroomDto>(
+    return db.createWithUserRelation<ClassroomsEntity, ClassroomDto>(
       this.userRepository,
       this.classroomsRepository,
       uuid,

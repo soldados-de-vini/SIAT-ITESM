@@ -24,7 +24,7 @@ export class CoursesService {
    * @returns A response to send back to the user with the new courses created.
    */
   async create(data: CreateCourseReq, uuid: string): Promise<ResponseStatus> {
-    return db.createWithRelation<CourseEntity, Course20Dto>(
+    return db.createWithUserRelation<CourseEntity, Course20Dto>(
       this.userRepository,
       this.coursesRepository,
       uuid,

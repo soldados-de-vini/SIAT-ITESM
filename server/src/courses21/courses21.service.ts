@@ -45,7 +45,7 @@ export class Courses21Service {
       }
       coursesWithModules.push(newCourse);
     }
-    return db.createWithRelation<Course21Entity, Course21Dto>(
+    return db.createWithUserRelation<Course21Entity, Course21Dto>(
       this.userRepository,
       this.coursesRepository,
       uuid,

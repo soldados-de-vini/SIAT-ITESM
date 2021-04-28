@@ -16,14 +16,17 @@ import { DashboardComponent } from './dashboard.component';
 import { CoursesComponent } from '../../components/courses/courses.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
 import { TableComponent } from '../../components/table/table.component';
-import { ModulosComponent } from '../../components/modulos/modulos.component';
-import { BloquesComponent } from '../../components/bloques/bloques.component';
 import { ClassroomsComponent } from '../../components/classrooms/classrooms.component';
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ComposeCourseComponent } from '../../components/compose-course/compose-course.component';
 import { ComposeProfessorComponent } from 'src/app/components/compose-professor/compose-professor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComposeClassroomComponent } from 'src/app/components/compose-classroom/compose-classroom.component';
+import { ModulesComponent } from 'src/app/components/modules/modules.component';
+import { ComposeModuleComponent } from 'src/app/components/compose-module/compose-module.component';
+import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
+import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-block.component';
+import { ModulePipe } from 'src/app/components/blocks/module.pipe';
 
 
 @NgModule({
@@ -33,13 +36,17 @@ import { ComposeClassroomComponent } from 'src/app/components/compose-classroom/
     ProfessorsComponent,
     TableComponent,
     CoursesComponent,
-    ModulosComponent,
-    BloquesComponent,
     ClassroomsComponent,
     PeriodosComponent,
     ComposeCourseComponent,
     ComposeProfessorComponent,
     ComposeClassroomComponent
+    BlocksComponent,
+    ModulesComponent,
+    PeriodosComponent,
+    ComposeModuleComponent,
+    ComposeBlockComponent,
+    ModulePipe
   ],
   imports: [
     CommonModule,
