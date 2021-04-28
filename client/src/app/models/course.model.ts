@@ -1,12 +1,12 @@
 export interface Course {
-    id?: number;
-    key: string;
-    name: string;
-    capacity: number;
-    modules?: object [];
-    avenue: string [];
-    typeUF: string;
-    semester: string;
-    initialPeriod: number;
-    weeks: number;
+  id?: number;
+  key: string;
+  name: string;
+  capacity: number;
+  semester: number;
+  modules?: Array<any>;
+  avenue: Array<string>;
+  typeUF: string;
+  initialWeek: number;
+  weeks: number;
 }
