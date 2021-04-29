@@ -1,6 +1,6 @@
 <div nz-row nzJustify="end">
-  <siat-csv-uploader [endpoint]="'/courses'" [objectPrefix]="'courses'" [columns]="columnsToDisplay"></siat-csv-uploader>
-  <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createModule()">Agregar Bloque</button>
+  <siat-csv-uploader [endpoint]="'/courses21'" [objectPrefix]="'courses'" [columns]="columnsToDisplay" [areArray]="[6]" (afterSuccess)="afterCsvSuccess($event)"></siat-csv-uploader>
+  <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createBlock()">Agregar Bloque</button>
 </div>
 <ng-container *ngIf="blocks">
   <siat-table [loading]="loading" [tableData]="blocks" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>

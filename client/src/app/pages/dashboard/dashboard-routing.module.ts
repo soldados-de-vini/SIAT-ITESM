@@ -6,36 +6,39 @@ import { ClassroomsComponent } from '../../components/classrooms/classrooms.comp
 import { PeriodosComponent } from '../../components/periodos/periodos.component';
 import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
+import { LayoutComponent } from 'src/app/components/layout/layout.component';
 
 
 const routes: Routes = [
   {
-    path: 'periodos',
-    component: PeriodosComponent,
-  },
-  {
-    path: 'maestros',
-    component: ProfessorsComponent
-  },
-  {
-    path: 'materias',
-    component: CoursesComponent
-  },
-  {
-    path: 'modulos',
-    component: ModulesComponent
-  },
-  {
-    path: 'bloques',
-    component: BlocksComponent
-  },
-  {
-    path: 'salones',
-    component: ClassroomsComponent
-  },
-  {
     path: '',
-    redirectTo: 'periodos'
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'periodos',
+        component: PeriodosComponent,
+      },
+      {
+        path: 'maestros',
+        component: ProfessorsComponent
+      },
+      {
+        path: 'materias',
+        component: CoursesComponent
+      },
+      {
+        path: 'modulos',
+        component: ModulesComponent
+      },
+      {
+        path: 'bloques',
+        component: BlocksComponent
+      },
+      {
+        path: 'salones',
+        component: ClassroomsComponent
+      },
+    ]
   }
 ];
 

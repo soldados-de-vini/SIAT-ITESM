@@ -5,7 +5,6 @@ import { StorageService } from '../storage/storage.service';
 import { User } from '../../models/user.model';
 import { environment } from 'src/environments/environment';
 import { NzMessageService } from 'ng-zorro-antd';
-import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,6 @@ export class AuthService {
 
   constructor(
     private apiService: ApiService,
-    private eventService: EventService,
     private router: Router,
     private storageService: StorageService,
     private nzMessageService: NzMessageService
@@ -24,7 +22,6 @@ export class AuthService {
    * Logout from the application deleting the token from localstorage and returning to login
    */
   public logout(): void{
-    this.eventService.publish('user:loggedout');
     this.storageService.removeProperty(environment.TOKEN_KEY);
     this.router.navigate(['/login']);
   }

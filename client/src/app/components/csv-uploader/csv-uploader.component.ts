@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import * as csv from 'csvtojson';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { convertCsvToObject } from 'src/app/util/csv.util';
 
 @Component({
   selector: 'siat-csv-uploader',
@@ -18,6 +18,9 @@ export class CsvUploaderComponent implements OnInit {
   @Input() endpoint: string;
   @Input() objectPrefix: string;
   @Input() columns: Array<any>;
+  // The fields of the columns that are arrays represented by index for example: columns = [not_an_array,an_array], areArray = [1]
+  @Input() areArray: Array<number>;
+  @Output() afterSuccess = new EventEmitter<any>();
 
   constructor(
     private apiService: ApiService,
@@ -54,10 +57,8 @@ export class CsvUploaderComponent implements OnInit {
    */
   public async handleConfirm() {
     const csvString = await this.readFile(this.file);
-    csv().fromString(csvString).then(object => {
-      this.objectToUpload = object;
-      this.showConfirmationModal();
-    });
+    this.objectToUpload = convertCsvToObject(csvString, this.areArray);
+    this.showConfirmationModal();
   }
 
   /**
@@ -70,15 +71,18 @@ export class CsvUploaderComponent implements OnInit {
     this.apiService.post(this.endpoint, object).subscribe(
       (response) => {
         this.loadingUpload = false;
-        if (response.status.statusCode === 200){
+        if (response.result){
           this.messageService.success('Elementos creados con éxito');
+          this.afterSuccess.emit(response.result);
+          this.isVisible = false;
+          this.objectToUpload = null;
         } else {
-          this.messageService.error('Ha ocurrido un error intenta más tarde');
+          this.messageService.error('Ha ocurrido un error, favor de revisar los datos que se proporcionaron...');
         }
       },
       (error) => {
         console.error(error);
-        this.messageService.error('Ha ocurrido un error intenta más tarde');
+        this.messageService.error('Ha ocurrido un error, favor de revisar los datos que se proporcionaron...');
         this.loadingUpload = false;
       }
     );

@@ -21,7 +21,7 @@ export class BlocksComponent implements OnInit {
     'Semanas',
     'Avenida(s)',
     'Tipo',
-    'Modulos',
+    'Modulos'
   ];
   public loading: boolean;
 
@@ -51,7 +51,7 @@ export class BlocksComponent implements OnInit {
     );
   }
 
-  public createModule() {
+  public createBlock() {
     const modal = this.nzModalService.create({
       nzTitle: 'Agregar Bloque',
       nzContent: ComposeBlockComponent,
@@ -60,7 +60,7 @@ export class BlocksComponent implements OnInit {
 
     modal.afterClose.subscribe((result) => {
       if (result?.blocks) {
-        this.blocks = [...this.blocks, ...result.blocks];
+        this.blocks = [...result.blocks, ...this.blocks];
       }
     });
   }
@@ -99,6 +99,10 @@ export class BlocksComponent implements OnInit {
       },
       nzCancelText: 'Cancelar',
     });
+  }
+
+  public afterCsvSuccess(data){
+    this.blocks = [...data, ...this.blocks];
   }
 
   private deleteModule(id) {

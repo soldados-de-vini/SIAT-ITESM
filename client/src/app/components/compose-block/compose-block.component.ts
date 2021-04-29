@@ -96,12 +96,10 @@ export class ComposeBlockComponent implements OnInit {
 
   private createBlock(){
     this.loading = true;
-    console.log(this.blockForm.value);
     this.apiService.post('/courses21', {courses: [this.blockForm.value]}).subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 201){
-          console.log(response.result);
           this.nzMessageService.success('Bloque creado con éxito');
           this.nzModalRef.destroy({blocks: response.result});
         } else {
@@ -140,5 +138,9 @@ export class ComposeBlockComponent implements OnInit {
         return mod.id;
       }
     );
+  }
+
+  public isArray(object: any): boolean{
+    return Array.isArray(object);
   }
 }

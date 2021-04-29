@@ -20,10 +20,10 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzFor="area">Área</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <nz-select nzMode="multiple" id="area" formControlName="area" style="width: 100%;">
-        <nz-option [nzLabel]="'Mate'" [nzValue]="'Mate'"></nz-option>
-        <nz-option [nzLabel]="'Fisica'" [nzValue]="'Fisica'"></nz-option>
-        <nz-option [nzLabel]="'Computación'" [nzValue]="'Computación'"></nz-option>
+      <nz-select nzMode="tags" formControlName="area">
+        <ng-container *ngIf="isArray(professorForm.controls.area)">
+          <nz-option *ngFor="let ar of professorForm.controls.area" [nzLabel]="ar" [nzValue]="ar"></nz-option>
+        </ng-container>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
