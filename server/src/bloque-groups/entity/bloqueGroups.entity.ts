@@ -4,13 +4,15 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { Course21Entity } from '../../courses21/entities/course21.entity';
 import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
 
-@Entity('BloqueGroupsEntity')
+@Entity('bloque_groups')
 export class BloqueGroupsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -45,13 +47,18 @@ export class BloqueGroupsEntity {
   })
   matricula: string;
 
+  @Column({
+    nullable: true,
+  })
+  formato: string;
+
   @ManyToOne(
     () => Course21Entity,
     (Course21Entity) => Course21Entity.bloqueGroups,
   )
   course21: Course21Entity;
 
-  @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.groups)
+  @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.bloqueGroups)
   period: PeriodsEntity;
 
   @OneToMany(
@@ -59,4 +66,19 @@ export class BloqueGroupsEntity {
     (BloqueModulesEntity) => BloqueModulesEntity.groupId,
   )
   bloqueModules: BloqueModulesEntity[];
+
+  @BeforeInsert() dateStringGen() {
+    this._assignValues();
+  }
+
+  @BeforeUpdate() updateString() {
+    this._assignValues();
+  }
+
+  _assignValues() {
+    this.startDateString = this.startDate.toString();
+    this.endDateString = this.endDate.toString();
+    this.startDate = new Date(this.startDate.toString());
+    this.endDate = new Date(this.endDate.toString());
+  }
 }
