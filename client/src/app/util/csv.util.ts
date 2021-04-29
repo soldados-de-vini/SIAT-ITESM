@@ -14,7 +14,7 @@ export function convertCsvToObject(csv: string, areArray: Array<number>) {
       if (areArray.includes(j)){
         obj[headers[j].trim()] = currentline[j].split('|');
       } else {
-        obj[headers[j].trim()] = currentline[j];
+        obj[headers[j].trim()] = currentline[j].trim();
       }
     }
     result.push(obj);
