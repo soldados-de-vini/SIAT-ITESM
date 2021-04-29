@@ -68,7 +68,6 @@ export class CsvUploaderComponent implements OnInit {
     this.loadingUpload = true;
     const object = new Object();
     object[this.objectPrefix] = this.objectToUpload;
-    console.log(object);
     this.apiService.post(this.endpoint, object).subscribe(
       (response) => {
         this.loadingUpload = false;
