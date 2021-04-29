@@ -41,7 +41,7 @@ export class ProfessorsEntity {
   })
   email: string;
 
-  @Column({
+  @Column('real', {
     nullable: false,
   })
   loadLimit: number;
