@@ -54,12 +54,16 @@ export class ProfessorsComponent implements OnInit {
       (result) => {
         if (result?.professors){
           this.professors = [
-            ...this.professors,
-            ...result.professors
+            ...result.professors,
+            ...this.professors
           ];
         }
       }
     );
+  }
+
+  public afterCsvSuccess(data){
+    this.professors = [...data, ...this.professors];
   }
 
   public onDelete(id){
