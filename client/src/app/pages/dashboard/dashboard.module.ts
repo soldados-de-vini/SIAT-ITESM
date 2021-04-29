@@ -28,7 +28,6 @@ import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-block.component';
 import { ModulePipe } from 'src/app/components/blocks/module.pipe';
 
-
 @NgModule({
   declarations: [
     DashboardComponent,

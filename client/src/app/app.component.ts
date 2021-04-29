@@ -15,17 +15,8 @@ export class AppComponent implements OnInit{
 
   constructor(
     private apiService: ApiService,
-    private eventService: EventService,
     private storageService: StorageService,
-  ){
-    this.eventService.subscribe('user:logged', () => {
-      this.isLogged = true;
-    });
-
-    this.eventService.subscribe('user:loggedout', () => {
-      this.isLogged = false;
-    });
-  }
+  ){}
 
   ngOnInit(){
     const token = this.storageService.getProperty(environment.TOKEN_KEY);
