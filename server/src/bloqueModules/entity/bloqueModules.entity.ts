@@ -67,7 +67,6 @@ export class BloqueModulesEntity {
   )
   ProfessorsToBloqueModules: ProfessorsToBloqueModules[];
 
-
   @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.bloqueGroup)
   events: EventsEntity[];
 }

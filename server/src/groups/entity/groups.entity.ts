@@ -71,7 +71,6 @@ export class GroupsEntity {
   )
   ProfessorsToGroups: ProfessorsToGroups[];
 
-
   @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.group)
   events: EventsEntity[];
 
