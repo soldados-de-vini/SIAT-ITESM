@@ -39,8 +39,8 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired nzFor="avenue">Avenida(s)</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="Al menos una avenida es requerida...">
-      <nz-select nzMode="multiple" id="avenue" formControlName="avenue" style="width: 100%;">
-        <nz-option nzValue="IIC" nzLabel="IIC"></nz-option>
+      <nz-select nzMode="tags" formControlName="avenue">
+        <nz-option *ngFor="let av of blockForm.controls.avenue" [nzLabel]="av" [nzValue]="av"></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
