@@ -139,4 +139,8 @@ export class ComposeBlockComponent implements OnInit {
       }
     );
   }
+
+  public isArray(object: any): boolean{
+    return Array.isArray(object);
+  }
 }

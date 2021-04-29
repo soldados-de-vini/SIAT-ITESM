@@ -103,4 +103,8 @@ export class ComposeProfessorComponent implements OnInit {
       }
     );
   }
+
+  public isArray(object: any): boolean{
+    return Array.isArray(object);
+  }
 }
