@@ -1,5 +1,5 @@
 <div nz-row nzJustify="end">
-  <siat-csv-uploader [endpoint]="'/modules'" [objectPrefix]="'modules'" [columns]="columnsToDisplay"></siat-csv-uploader>
+  <siat-csv-uploader [endpoint]="'/modules'" [objectPrefix]="'modules'" [columns]="columnsToDisplay" (afterSuccess)="afterCsvSuccess($event)"></siat-csv-uploader>
   <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createModule()">Agregar Modulo</button>
 </div>
 <siat-table [loading]="loading" [tableData]="modules" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>

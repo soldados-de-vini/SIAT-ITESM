@@ -52,12 +52,16 @@ export class ModulesComponent implements OnInit {
       (result) => {
         if (result?.module){
           this.modules = [
-            ...this.modules,
-            ...result.module
+            ...result.module,
+            ...this.modules
           ];
         }
       }
     );
+  }
+
+  public afterCsvSuccess(data){
+    this.modules = [...data, ...this.modules];
   }
 
   public onEdit(data){
