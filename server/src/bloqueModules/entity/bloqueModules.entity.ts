@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { ModuleEntity } from '../../module/entity/module.entity';
-import { BloqueGroupsEntity } from '../../bloqueGroups/entity/bloqueGroups.entity';
+import { BloqueGroupsEntity } from '../../bloque-groups/entity/bloqueGroups.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 

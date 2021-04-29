@@ -11,6 +11,7 @@ import { ClassroomsModule } from './classrooms/classrooms.module';
 import { PeriodsModule } from './periods/periods.module';
 import { Courses21Module } from './courses21/courses21.module';
 import { GroupsModule } from './groups/groups.module';
+import { BloqueGroupsModule } from './bloque-groups/bloque-groups.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GroupsModule } from './groups/groups.module';
     PeriodsModule,
     Courses21Module,
     GroupsModule,
+    BloqueGroupsModule,
   ],
 })
 export class AppModule {}

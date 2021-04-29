@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
+import { BloqueGroupsEntity } from '../../bloque-groups/entity/bloqueGroups.entity';
 
 /**
  * TODO(hivini): Do the following fixes
@@ -67,4 +68,10 @@ export class PeriodsEntity {
 
   @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.period)
   groups: GroupsEntity[];
+
+  @OneToMany(
+    () => BloqueGroupsEntity,
+    (BloqueGroupsEntity) => BloqueGroupsEntity.period,
+  )
+  bloqueGroups: BloqueGroupsEntity[];
 }
