@@ -13,6 +13,7 @@ import { CourseEntity } from '../../courses20/entity/course20.entity';
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { ProfessorsToGroups } from '../../professorsToGroups/entity/professorsToGroups.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
+import { EventsEntity } from '../../events/entity/events.entity';
 
 @Entity('groups')
 export class GroupsEntity {
@@ -69,6 +70,9 @@ export class GroupsEntity {
     (ProfessorsToGroups) => ProfessorsToGroups.professors,
   )
   ProfessorsToGroups: ProfessorsToGroups[];
+
+  @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.group)
+  events: EventsEntity[];
 
   @BeforeInsert() dateStringGen() {
     this._assignValues();
