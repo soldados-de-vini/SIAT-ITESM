@@ -85,7 +85,7 @@ export class ComposeCourseComponent implements OnInit {
       semester: [null, [Validators.required]],
       initialWeek: [null, [Validators.required]],
       weeks: [null, [Validators.required]],
-      avenue: [null, [Validators.required]],
+      avenue: [[]],
       typeUF: [null, [Validators.required]],
     });
   }
@@ -98,9 +98,13 @@ export class ComposeCourseComponent implements OnInit {
       semester: [this.course.semester, [Validators.required]],
       initialWeek: [this.course.initialWeek, [Validators.required]],
       weeks: [this.course.weeks, [Validators.required]],
-      avenue: [this.course.avenue, [Validators.required]],
+      avenue: [[]],
       typeUF: [this.course.typeUF, [Validators.required]],
     });
+  }
+
+  public isArray(object: any): boolean{
+    return Array.isArray(object);
   }
 
 }
