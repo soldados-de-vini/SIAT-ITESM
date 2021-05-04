@@ -38,9 +38,9 @@
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Avenidas</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <nz-select nzMode="tags" formControlName="avenue">
+      <nz-select nzMode="tags" id="avenue">
         <ng-container *ngIf="isArray(courseForm.controls.avenue)">
-          <nz-option *ngFor="let ar of courseForm.controls.avenue" [nzLabel]="ar" [nzValue]="ar"></nz-option>
+          <nz-option formControlName="avenue" *ngFor="let av of courseForm.controls.avenue" [nzLabel]="av" [nzValue]="av"></nz-option>
         </ng-container>
       </nz-select>
     </nz-form-control>
