@@ -54,7 +54,7 @@ export class CoursesComponent implements OnInit {
 
   deleteCourse(event): void {
     const id = event;
-    this.api.delete(`/courses/${id}`).subscribe(
+    this.api.delete(`/courses20/${id}`).subscribe(
       success => this.afterDelete(event),
       error => console.log(error)
     );
@@ -94,6 +94,10 @@ export class CoursesComponent implements OnInit {
       },
       nzCancelText: 'Cancelar',
     });
+  }
+
+  public afterCsvSuccess(data){
+    this.courses = [...data, ...this.courses];
   }
 
 }

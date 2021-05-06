@@ -37,8 +37,12 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Avenidas</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="avenidas" formControlName="avenue" />
+    <nz-form-control [nzSpan]="16">
+      <nz-select nzMode="tags" id="avenue">
+        <ng-container *ngIf="isArray(courseForm.controls.avenue)">
+          <nz-option formControlName="avenue" *ngFor="let av of courseForm.controls.avenue" [nzLabel]="av" [nzValue]="av"></nz-option>
+        </ng-container>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

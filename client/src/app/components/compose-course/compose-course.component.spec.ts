@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
+import { NzMessageService, NzModalRef, NzSelectModule } from 'ng-zorro-antd';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { environment } from 'src/environments/environment';
@@ -23,6 +23,7 @@ describe('ComposeCourseComponent', () => {
         ApiService,
         NzMessageService,
         Overlay,
+        NzSelectModule,
         {
           provide: NzModalRef,
           useValue: {
