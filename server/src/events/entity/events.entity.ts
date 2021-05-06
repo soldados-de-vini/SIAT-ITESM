@@ -5,7 +5,7 @@ import {
   ManyToOne
 } from 'typeorm';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
-import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
+import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('events')
 export class EventsEntity {

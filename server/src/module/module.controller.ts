@@ -14,7 +14,9 @@ import { ModuleDto } from './dto/module.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { CreateModuleReq } from './interface/create-module.interface';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('modules')
 export class ModuleController {
   constructor(private readonly moduleService: ModuleService) {}

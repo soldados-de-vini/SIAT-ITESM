@@ -14,7 +14,9 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { GroupDto } from '../groups/dto/group.dto';
 import { BloqueGroupsService } from './bloque-groups.service';
 import { CreateBloqueGroupReq } from './interfaces/create-req-group.interface';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('groups21')
 export class BloqueGroupsController {
   constructor(private readonly bloqueGroupsService: BloqueGroupsService) {}

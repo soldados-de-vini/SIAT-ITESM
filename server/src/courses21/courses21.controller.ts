@@ -9,12 +9,14 @@ import {
   Request,
   Put,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { Courses21Service } from './courses21.service';
 import { Course21Dto } from './dto/course21.dto';
 import { CreateCourse21Req } from './interfaces/create-courses21-req.interface';
 
+@ApiBearerAuth('access-token')
 @Controller('courses21')
 export class Courses21Controller {
   constructor(private readonly courses21Service: Courses21Service) {}
