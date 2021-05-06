@@ -14,7 +14,9 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ClassroomsService } from './classrooms.service';
 import { CreateClassroomsReq } from './interfaces/create-classrooms-req.interface';
 import { UpdateClassroomDto } from './dto/update-classroom.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('classrooms')
 export class ClassroomsController {
   constructor(private readonly classroomsService: ClassroomsService) {}

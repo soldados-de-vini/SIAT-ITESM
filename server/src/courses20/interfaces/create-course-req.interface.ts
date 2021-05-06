@@ -1,5 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Course20Dto } from '../dto/course20.dto';
 
-export interface CreateCourseReq {
+export class CreateCourseReq {
+  @ApiProperty()
   courses: Course20Dto[];
 }

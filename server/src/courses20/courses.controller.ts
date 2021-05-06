@@ -14,13 +14,16 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CoursesService } from './courses.service';
 import { Course20Dto } from './dto/course20.dto';
 import { CreateCourseReq } from './interfaces/create-course-req.interface';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('courses20')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @ApiOperation({summary: 'Create a new course 20'})
   async create(
     @Request() req: JwtRequest,
     @Body() createCourseData: CreateCourseReq,

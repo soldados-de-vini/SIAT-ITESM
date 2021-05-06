@@ -14,7 +14,9 @@ import { CreateGroupReq } from './interfaces/create-group.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}

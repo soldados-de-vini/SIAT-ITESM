@@ -13,7 +13,7 @@ import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 import { EventsEntity } from '../../events/entity/events.entity';
 import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 
-@Entity('BloqueModuleEntity')
+@Entity('BloqueGroupModule')
 export class BloqueModulesEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

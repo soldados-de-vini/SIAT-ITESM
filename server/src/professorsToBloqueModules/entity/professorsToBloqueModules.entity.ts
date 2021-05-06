@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
-import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
+import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('ProfessorsToBloqueModules')
 export class ProfessorsToBloqueModules {

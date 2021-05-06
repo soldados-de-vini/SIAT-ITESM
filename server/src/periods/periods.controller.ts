@@ -14,7 +14,9 @@ import { CreatePeriodsReq } from './interfaces/create-period.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { PeriodDto } from './dto/period.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('periods')
 export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}

@@ -10,7 +10,7 @@ import {
 
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { Course21Entity } from '../../courses21/entities/course21.entity';
-import { BloqueModulesEntity } from '../../bloqueModules/entity/bloqueModules.entity';
+import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('bloque_groups')
 export class BloqueGroupsEntity {
