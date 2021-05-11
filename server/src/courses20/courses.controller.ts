@@ -23,7 +23,7 @@ export class CoursesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiOperation({summary: 'Create a new course 20'})
+  @ApiOperation({ summary: 'Create a new course 20' })
   async create(
     @Request() req: JwtRequest,
     @Body() createCourseData: CreateCourseReq,

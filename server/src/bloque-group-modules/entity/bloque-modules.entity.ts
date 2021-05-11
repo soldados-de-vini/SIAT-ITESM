@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinTable,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { ModuleEntity } from '../../module/entity/module.entity';
 import { BloqueGroupsEntity } from '../../bloque-groups/entity/bloqueGroups.entity';
@@ -13,53 +6,22 @@ import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 import { EventsEntity } from '../../events/entity/events.entity';
 import { ProfessorsToBloqueModules } from '../../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 
-@Entity('BloqueGroupModule')
-export class BloqueModulesEntity {
+@Entity('module_group')
+export class BloqueGroupModulesEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({
-    nullable: false,
-  })
-  key: string;
-
-  @Column('date', {
-    nullable: false,
-  })
-  startDate: Date;
-
-  @Column({
-    nullable: false,
-  })
-  startDateString: string;
-
-  @Column('date', {
-    nullable: false,
-  })
-  endDate: Date;
-
-  @Column({
-    nullable: false,
-  })
-  endDateString: string;
-
-  @Column({
-    nullable: true,
-  })
-  matricula: string;
 
   @ManyToOne(
     () => BloqueGroupsEntity,
     (BloqueGroupsEntity) => BloqueGroupsEntity.bloqueModules,
   )
-  groupId: BloqueGroupsEntity;
+  group: BloqueGroupsEntity;
 
   @ManyToOne(() => ModuleEntity, (ModuleEntity) => ModuleEntity.bloqueModules)
-  moduleId: ModuleEntity;
+  module: ModuleEntity;
 
   @ManyToOne(() => ClassroomsEntity)
-  @JoinTable()
-  classroomId: ClassroomsEntity[];
+  classroom: ClassroomsEntity[];
 
   @OneToMany(
     () => ProfessorsToBloqueModules,

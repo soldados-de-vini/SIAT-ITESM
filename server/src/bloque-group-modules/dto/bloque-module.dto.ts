@@ -1,22 +1,12 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
-export class CreateBloqueModuleDto {
-    @ApiProperty()
-    @IsNotEmpty()
-    number: number;
+export class CreateModuleGroupDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  groupId: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    startDate: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    endDate: string;
-
-    @ApiProperty()
-    matricula: string;
-
-    @ApiProperty()
-    formato: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  moduleId: string[];
 }

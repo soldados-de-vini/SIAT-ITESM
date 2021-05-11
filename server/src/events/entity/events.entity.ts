@@ -1,11 +1,6 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
-import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
+import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('events')
 export class EventsEntity {
@@ -42,8 +37,8 @@ export class EventsEntity {
   group: GroupsEntity;
 
   @ManyToOne(
-    () => BloqueModulesEntity,
-    (BloqueModulesEntity) => BloqueModulesEntity.events,
+    () => BloqueGroupModulesEntity,
+    (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.events,
   )
-  bloqueGroup: BloqueModulesEntity;
+  bloqueGroup: BloqueGroupModulesEntity;
 }
