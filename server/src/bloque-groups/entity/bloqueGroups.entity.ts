@@ -10,7 +10,7 @@ import {
 
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { Course21Entity } from '../../courses21/entities/course21.entity';
-import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
+import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('bloque_groups')
 export class BloqueGroupsEntity {
@@ -62,10 +62,10 @@ export class BloqueGroupsEntity {
   period: PeriodsEntity;
 
   @OneToMany(
-    () => BloqueModulesEntity,
-    (BloqueModulesEntity) => BloqueModulesEntity.groupId,
+    () => BloqueGroupModulesEntity,
+    (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
   )
-  bloqueModules: BloqueModulesEntity[];
+  bloqueModules: BloqueGroupModulesEntity[];
 
   @BeforeInsert() dateStringGen() {
     this._assignValues();

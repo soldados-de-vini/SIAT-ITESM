@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { UsersEntity } from '../../users/entity/users.entity';
-import { BloqueModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
+import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
 @Entity('modules')
 export class ModuleEntity {
@@ -23,8 +23,8 @@ export class ModuleEntity {
   user: UsersEntity;
 
   @OneToMany(
-    () => BloqueModulesEntity,
-    (BloqueModulesEntity) => BloqueModulesEntity.moduleId,
+    () => BloqueGroupModulesEntity,
+    (BloqueModulesEntity) => BloqueModulesEntity.module,
   )
-  bloqueModules: BloqueModulesEntity[];
+  bloqueModules: BloqueGroupModulesEntity[];
 }
