@@ -7,7 +7,7 @@ import { ResponseStatus } from '../utils/interfaces/response';
 import { CreateGroupReq } from './interfaces/create-group.interface';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
 import { CourseEntity } from '../courses20/entity/course20.entity';
-import { UpdateGroupDto } from './dto/update-group.dto';
+import { GroupDto } from './dto/group.dto';
 
 @Injectable()
 export class GroupsService {
@@ -135,7 +135,7 @@ export class GroupsService {
    */
   async update(
     groupId: string,
-    groupDto: UpdateGroupDto,
+    groupDto: GroupDto,
   ): Promise<ResponseStatus> {
     const toUpdate = await this.groupRepository.findOne({
       where: { id: groupId },

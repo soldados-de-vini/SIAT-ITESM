@@ -1,6 +1,6 @@
-# PATCH Group
+# Put Group
 
-    PATCH groups/:id
+    PUT groups/:id
     
 Updates the group of the given ID.
 
@@ -20,21 +20,23 @@ id | The ID of the group to be updated.
 
 Field | Data Type | Required | Description
 --- | --- | --- | ---
+number | int | [x] | The number of the group.
 startDate | string | [x] | The start date of the period.
 endDate | string | [x] | The end date of the period.
-matricula | string | [ ] | Defines if the course must be taken for students with a certain ID.
-formato | string | [ ] | The format in which the course will be taken.
+matricula | string | [x] | Defines if the course must be taken for students with a certain ID.
+formato | string | [x] | The format in which the course will be taken.
 
 **NOTE**: The date formats are 'YYYY-MM-DD'
 
 ## Example
 ### Request
 
-    POST https://[HOST]/groups/dd10ce30-d3f3-4ca9-9f15-02826eb2f720
+    PUT https://[HOST]/groups/dd10ce30-d3f3-4ca9-9f15-02826eb2f720
 
 #### Request Body    
 ```json
 {
+    "number": 1,
     "startDate": "2021-07-26",
     "endDate": "2021-08-28",
     "matricula": "TODOS",

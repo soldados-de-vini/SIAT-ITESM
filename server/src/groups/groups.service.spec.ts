@@ -4,7 +4,7 @@ import { MockType } from '../utils/mocks/mock-type';
 import { Repository } from 'typeorm';
 import { CourseEntity } from '../courses20/entity/course20.entity';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
-import { mockGroupDto, mockUpdateGroupDto } from '../utils/mocks/groups.mock';
+import { mockGroupDto } from '../utils/mocks/groups.mock';
 import { GroupsEntity } from './entity/groups.entity';
 import { GroupsService } from './groups.service';
 import { CreateGroupReq } from './interfaces/create-group.interface';
@@ -14,7 +14,6 @@ import { mockPeriodDto } from '../utils/mocks/periods.mock';
 
 describe('GroupsService', () => {
   const sampleGroup = mockGroupDto;
-  const sampleUpdateGroup = mockUpdateGroupDto;
   const sampleCreateReq: CreateGroupReq = {
     periodId: 'id',
     courseId: 'id',
@@ -137,7 +136,7 @@ describe('GroupsService', () => {
     it('should properly update the group', async () => {
       groupRepository.findOne.mockReturnValue(foundGroup);
       groupRepository.save.mockImplementation((entity) => entity);
-      expect(await service.update('id', sampleUpdateGroup)).toEqual({
+      expect(await service.update('id', sampleGroup)).toEqual({
         status: {
           statusCode: HttpStatus.OK,
           message: 'Updated successfully.',
@@ -148,7 +147,7 @@ describe('GroupsService', () => {
 
     it('should fail if the group that tries to update does not exist', async () => {
       periodRepository.findOne.mockReturnValue(null);
-      expect(await service.update('id', sampleUpdateGroup)).toEqual({
+      expect(await service.update('id', sampleGroup)).toEqual({
         status: {
           statusCode: HttpStatus.NOT_FOUND,
           message: 'Entity to update has not been found.',

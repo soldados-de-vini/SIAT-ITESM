@@ -22,6 +22,7 @@ export class GroupsEntity {
 
   @Column({
     nullable: false,
+    unique: true,
   })
   number: number;
 
