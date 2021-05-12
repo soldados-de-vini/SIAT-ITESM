@@ -7,14 +7,6 @@ export class BloqueGroupDto {
   number: number;
 
   @ApiProperty()
-  @IsNotEmpty()
-  startDate: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  endDate: string;
-
-  @ApiProperty()
   matricula: string;
 
   @ApiProperty()

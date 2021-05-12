@@ -22,26 +22,6 @@ export class BloqueGroupsEntity {
   })
   number: number;
 
-  @Column('date', {
-    nullable: false,
-  })
-  startDate: Date;
-
-  @Column({
-    nullable: false,
-  })
-  startDateString: string;
-
-  @Column('date', {
-    nullable: false,
-  })
-  endDate: Date;
-
-  @Column({
-    nullable: false,
-  })
-  endDateString: string;
-
   @Column({
     nullable: true,
   })
@@ -66,19 +46,4 @@ export class BloqueGroupsEntity {
     (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
   )
   bloqueModules: BloqueGroupModulesEntity[];
-
-  @BeforeInsert() dateStringGen() {
-    this._assignValues();
-  }
-
-  @BeforeUpdate() updateString() {
-    this._assignValues();
-  }
-
-  _assignValues() {
-    this.startDateString = this.startDate.toString();
-    this.endDateString = this.endDate.toString();
-    this.startDate = new Date(this.startDate.toString());
-    this.endDate = new Date(this.endDate.toString());
-  }
 }

@@ -28,9 +28,15 @@ export class GroupsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
+  @Get('period/:id')
   find(@Param('id') id: string) {
     return this.groupsService.findAll(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('period/:periodId/course/:courseId')
+  findOne(@Param('periodId') periodId: string, @Param('courseId') courseId: string) {
+    return this.groupsService.findOne(periodId, courseId);
   }
 
   @UseGuards(JwtAuthGuard)

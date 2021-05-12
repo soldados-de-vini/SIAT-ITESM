@@ -20,8 +20,6 @@ id | The ID of the group to be updated.
 
 Field | Data Type | Required | Description
 --- | --- | --- | ---
-startDate | string | [x] | The start date of the period.
-endDate | string | [x] | The end date of the period.
 matricula | string | [ ] | Defines if the course must be taken for students with a certain ID.
 formato | string | [ ] | The format in which the course will be taken.
 
@@ -30,17 +28,14 @@ formato | string | [ ] | The format in which the course will be taken.
 ## Example
 ### Request
 
-    POST https://[HOST]/groups/dd10ce30-d3f3-4ca9-9f15-02826eb2f720
+    PATCH https://[HOST]/groups/4bbd9ad8-5906-48de-99e9-56d28e7c026c
 
 #### Request Body    
 ```json
 {
-    "startDate": "2021-07-26",
-    "endDate": "2021-08-28",
-    "matricula": "TODOS",
-    "formato": "NSD"
+    "formato": "HDPA",
+    "matricula": "TODAS"
 }
-
 ```
 
 ### Response
@@ -51,15 +46,10 @@ formato | string | [ ] | The format in which the course will be taken.
         "message": "Updated successfully."
     },
     "result": {
-        "id": "dd10ce30-d3f3-4ca9-9f15-02826eb2f720",
+        "id": "4bbd9ad8-5906-48de-99e9-56d28e7c026c",
         "number": 1,
-        "startDate": "2021-07-26",
-        "endDate": "2021-08-28",
-        "matricula": "TODOS",
-        "formato": "NSD",
-        "courseId": "0d14788d-c767-4fd7-bb47-04f7c0c5b4fa",
-        "periodId": "0851274e-f1f1-4b68-a520-7545ad3f7e57",
-        "classroom": null
+        "formato": "HDPA",
+        "matricula": "TODAS"
     }
 }
 ```
