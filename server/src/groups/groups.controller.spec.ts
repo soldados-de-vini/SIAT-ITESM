@@ -9,7 +9,7 @@ import { GroupsEntity } from './entity/groups.entity';
 import { GroupsController } from './groups.controller';
 import { GroupsService } from './groups.service';
 import { jwtRequest } from '../utils/mocks/jwt-mock';
-import { mockGroupDto, mockUpdateGroupDto } from '../utils/mocks/groups.mock';
+import { mockGroupDto } from '../utils/mocks/groups.mock';
 
 describe('GroupsController', () => {
   let controller: GroupsController;
@@ -84,7 +84,7 @@ describe('GroupsController', () => {
 
   describe('update', () => {
     it('should send back the response of the service', async () => {
-      expect(await controller.update('id', mockUpdateGroupDto)).toEqual(
+      expect(await controller.update('id', mockGroupDto)).toEqual(
         standardResponse,
       );
     });

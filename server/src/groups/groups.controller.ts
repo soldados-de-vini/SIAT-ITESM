@@ -7,14 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
-  Patch,
+  Put,
 } from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { CreateGroupReq } from './interfaces/create-group.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
-import { UpdateGroupDto } from './dto/update-group.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { GroupDto } from './dto/group.dto';
 
 @ApiBearerAuth('access-token')
 @Controller('groups')
@@ -34,8 +34,8 @@ export class GroupsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() groupData: UpdateGroupDto) {
+  @Put(':id')
+  update(@Param('id') id: string, @Body() groupData: GroupDto) {
     return this.groupsService.update(id, groupData);
   }
 

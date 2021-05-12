@@ -101,6 +101,24 @@ describe('PeriodsService', () => {
     });
   });
 
+  describe('findOne', () => {
+    it('should retrieve a single period', async () => {
+      periodRepository.findOne.mockReturnValue({
+        ...samplePeriod,
+        startDateString: samplePeriod.startDate,
+        endDateString: samplePeriod.endDate,
+      });
+      expect(await service.findOne('uuid')).toEqual({
+        status: {
+          statusCode: HttpStatus.OK,
+          message: 'Searched user data successfully.',
+        },
+        result: samplePeriod,
+      });
+      expect(periodRepository.findOne).toBeCalled();
+    });
+  });
+
   describe('update', () => {
     it('should properly update the user', async () => {
       const userId = 'uuid';

@@ -34,6 +34,12 @@ export class ClassroomsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.classroomsService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Request() req: JwtRequest,
