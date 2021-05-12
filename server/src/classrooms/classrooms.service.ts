@@ -48,6 +48,15 @@ export class ClassroomsService {
   }
 
   /**
+   * Queries a single the classroom of the user and sends them back.
+   * @param uuid The uuid of the classroom.
+   * @returns A response with the result of the lookup in the DB.
+   */
+   async findOne(id: string): Promise<ResponseStatus> {
+    return db.findOne(id, this.classroomsRepository, {where: {id: id}});
+  }
+
+  /**
    * Updates a classroom of the user.
    * @param userId The ID of the user.
    * @param classroomId The ID of the classroom to update.
