@@ -27,6 +27,8 @@ export class PeriodsEntity {
   })
   name: string;
 
+
+
   @Column({ type: 'date', nullable: false })
   startDate: Date;
 
@@ -47,6 +49,11 @@ export class PeriodsEntity {
     array: true,
   })
   vacations: string[];
+
+  @Column({
+    nullable: false,
+  })
+  isIntesive: boolean;
 
   @BeforeInsert() dateStringGen() {
     this._assignValues();
