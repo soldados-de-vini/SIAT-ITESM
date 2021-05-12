@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CoursesComponent } from '../../components/courses/courses.component';
 import { ProfessorsComponent } from '../../components/professors/professors.component';
 import { ClassroomsComponent } from '../../components/classrooms/classrooms.component';
-import { PeriodosComponent } from '../../components/periodos/periodos.component';
+import { PeriodsComponent } from '../../components/periods/periods.component';
 import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { LayoutComponent } from 'src/app/components/layout/layout.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: 'periodos',
-        component: PeriodosComponent,
+        component: PeriodsComponent,
       },
       {
         path: 'maestros',
