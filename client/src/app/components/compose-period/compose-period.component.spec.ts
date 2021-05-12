@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeriodosComponent } from './periodos.component';
+import { ComposePeriodComponent } from './compose-period.component';
 
-describe('PeriodosComponent', () => {
-  let component: PeriodosComponent;
-  let fixture: ComponentFixture<PeriodosComponent>;
+describe('ComposePeriodComponent', () => {
+  let component: ComposePeriodComponent;
+  let fixture: ComponentFixture<ComposePeriodComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeriodosComponent ]
+      declarations: [ ComposePeriodComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeriodosComponent);
+    fixture = TestBed.createComponent(ComposePeriodComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
