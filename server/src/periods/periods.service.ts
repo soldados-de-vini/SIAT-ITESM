@@ -44,7 +44,7 @@ export class PeriodsService {
   }
 
   /**
-   * Queries all the professors of the user and sends them back.
+   * Queries all the periods of the user and sends them back.
    * @param uuid The user ID.
    * @returns A response with the result of the lookup in the DB.
    */
@@ -56,6 +56,21 @@ export class PeriodsService {
       for (let i = 0; i < result.result.length; i++) {
         result.result[i] = this._periodEntityToResult(result.result[i]);
       }
+    }
+    return result;
+  }
+
+  /**
+   * Queries a single period given the uuid.
+   * @param periodId The uuid of the period.
+   * @returns The result of the query.
+   */
+  async findOne(periodId: string): Promise<ResponseStatus> {
+    const result = await db.findOne(periodId, this.periodsRepository, {
+      where: { id: periodId },
+    });
+    if (result.result) {
+      result.result = this._periodEntityToResult(result.result);
     }
     return result;
   }

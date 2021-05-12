@@ -29,6 +29,7 @@ describe('PeriodsController', () => {
           useValue: {
             create: jest.fn().mockResolvedValue(standardResponse),
             findAll: jest.fn().mockResolvedValue(standardResponse),
+            findOne: jest.fn().mockResolvedValue(standardResponse),
             update: jest.fn().mockResolvedValue(standardResponse),
             remove: jest.fn().mockResolvedValue(standardResponse),
           },
@@ -66,6 +67,12 @@ describe('PeriodsController', () => {
   describe('findAll', () => {
     it('should send back the response of the service', async () => {
       expect(await controller.findAll(jwtRequest)).toEqual(standardResponse);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should send back the response of the service', async () => {
+      expect(await controller.findOne('id')).toEqual(standardResponse);
     });
   });
 
