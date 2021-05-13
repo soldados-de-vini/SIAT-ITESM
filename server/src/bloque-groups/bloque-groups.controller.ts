@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { GroupDto } from '../groups/dto/group.dto';
 import { BloqueGroupsService } from './bloque-groups.service';
-import { CreateBloqueGroupReq } from './interfaces/create-req-group.interface';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { UpdateGroupDto } from '../groups/dto/update-group.dto';
+import { CreateGroupReq } from '../groups/interfaces/create-group.interface';
 
 @ApiBearerAuth('access-token')
 @Controller('groups21')
@@ -23,20 +23,26 @@ export class BloqueGroupsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Request() jwt: JwtRequest, @Body() groupDto: CreateBloqueGroupReq) {
-    return this.bloqueGroupsService.create(groupDto, jwt.user.id);
+  create(@Request() jwt: JwtRequest, @Body() createReq: CreateGroupReq) {
+    return this.bloqueGroupsService.create(createReq, jwt.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  findAll(@Param('id') periodId: string) {
-    return this.bloqueGroupsService.findAll(periodId);
+  @Get('period/:id')
+  find(@Param('id') id: string) {
+    return this.bloqueGroupsService.findAll(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('period/:periodId/course/:courseId')
+  findOne(@Param('periodId') periodId: string, @Param('courseId') courseId: string) {
+    return this.bloqueGroupsService.findOne(periodId, courseId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBloqueGroupDto: GroupDto) {
-    return this.bloqueGroupsService.update(id, updateBloqueGroupDto);
+  update(@Param('id') id: string, @Body() updateData: UpdateGroupDto) {
+    return this.bloqueGroupsService.update(id, updateData);
   }
 
   @UseGuards(JwtAuthGuard)

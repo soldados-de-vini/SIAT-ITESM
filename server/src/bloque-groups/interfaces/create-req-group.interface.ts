@@ -1,12 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BloqueGroupDto } from '../dto/bloque-group.dto';
+import { GroupDto } from 'src/groups/dto/group.dto';
 
 export class CreateBloqueGroupReq {
   @ApiProperty()
-  groups: BloqueGroupDto[];
-
-  @ApiProperty()
-  course21Id: string;
+  groups: GroupDto[];
 
   @ApiProperty()
   periodId: string;

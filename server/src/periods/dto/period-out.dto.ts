@@ -20,5 +20,5 @@ export class PeriodOutDto {
   
   @ApiProperty()
   @IsNotEmpty()
-  isIntesive: boolean;
+  isIntensive: boolean;
 }
