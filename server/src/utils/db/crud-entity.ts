@@ -114,6 +114,22 @@ async function findAll(
   );
 }
 
+async function findOne<Type>(
+  id: string,
+  typeRepository: Repository<Type>,
+  findOptions: FindOneOptions,
+) {
+  const entity = await typeRepository.findOne(findOptions);
+  if (entity) {
+    return createResponseStatus(
+      HttpStatus.OK,
+      'Searched user data successfully.',
+      entity,
+    );
+  }
+  return createResponseStatus(HttpStatus.NO_CONTENT, 'Found no data.');
+}
+
 /**
  * Finds the user entities with the given condition.
  * @param uuid The id of the user.
@@ -298,6 +314,7 @@ export {
   createWithUserRelation,
   createWithRelation,
   findAll,
+  findOne,
   findWithCondition,
   update,
   remove,

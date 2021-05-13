@@ -96,6 +96,20 @@ describe('ClassroomsService', () => {
     });
   });
 
+  describe('findOne', () => {
+    it('should retrieve classrooms of the user', async () => {
+      classroomsRepository.findOne.mockReturnValue(sampleClassroom);
+      expect(await service.findOne('uuid')).toEqual({
+        status: {
+          statusCode: HttpStatus.OK,
+          message: 'Searched user data successfully.',
+        },
+        result: sampleClassroom,
+      });
+      expect(classroomsRepository.findOne).toBeCalled();
+    });
+  });
+
   describe('update', () => {
     it('should properly update the user', async () => {
       const userId = 'uuid';

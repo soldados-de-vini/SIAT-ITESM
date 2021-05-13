@@ -34,6 +34,12 @@ export class PeriodsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.periodsService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Request() req: JwtRequest,

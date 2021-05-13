@@ -1,6 +1,6 @@
-# PATCH Group
+# Put Group
 
-    PATCH groups/:id
+    PUT groups/:id
     
 Updates the group of the given ID.
 
