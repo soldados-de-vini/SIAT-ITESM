@@ -81,6 +81,10 @@ export class GroupsService {
       await this.courseRepository.save(courseEntities);
 
       let response = this._insertCourseKey(newEntities);
+      // Manually insert classrooms.
+      for (let i = 0; i < response.length; i++) {
+        response[i] = {...response[i], classroom: null};
+      }
 
       return db.createResponseStatus(
         HttpStatus.CREATED,
