@@ -7,7 +7,7 @@ import { ResponseStatus } from '../utils/interfaces/response';
 import { CreateGroupReq } from './interfaces/create-group.interface';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
 import { CourseEntity } from '../courses20/entity/course20.entity';
-import { GroupDto } from './dto/group.dto';
+import { UpdateGroupDto } from './dto/update-group.dto';
 
 @Injectable()
 export class GroupsService {
@@ -31,70 +31,66 @@ export class GroupsService {
   ): Promise<ResponseStatus> {
     if (createReq.groups.length == 0) {
       return db.createResponseStatus(
-        HttpStatus.NO_CONTENT,
-        'No create data was provided.',
+        HttpStatus.BAD_REQUEST,
+        'No group data was provided.',
       );
-    }
-    // Check the existing numbers of the groups of that course.
-    const existingGroups = await this.groupRepository.find({
-      where: { course: createReq.courseId },
-    });
-    const existingNumbers = [];
-    for (const i in existingGroups) {
-      existingNumbers.push(existingGroups[i].number);
     }
     // Get the period and courses that will have the entity added.
     const period = await this.periodRepository.findOne({
       where: { id: createReq.periodId, user: uuid },
       relations: ['groups'],
     });
-    const course = await this.courseRepository.findOne({
-      where: { id: createReq.courseId, user: uuid },
-      relations: ['groups'],
-    });
-    if (period && course) {
-      const resultEntities = [];
-      for (let i = 0; i < createReq.groups.length; i++) {
-        const currentGroup = createReq.groups[i];
-        // Verify that the group does not exists.
-        if (existingNumbers.length > 0) {
-          if (existingNumbers.indexOf(currentGroup.number) != -1) {
-            return db.createResponseStatus(
-              HttpStatus.BAD_REQUEST,
-              'Group number already exists in one of the groups.',
-            );
-          }
+    if (period) {
+      let courseEntities: CourseEntity[] = [];
+      let newEntities: GroupsEntity[] = [];
+      for (let group of createReq.groups) {
+        // Check if the groups to be created are less than one.
+        if (group.groupsAmount < 1) {
+          return db.createResponseStatus(HttpStatus.BAD_REQUEST, `Invalid groupAmount [${group.groupsAmount}] in course [${group.courseKey}]`);
         }
-        // Create new entity object with the provided information.
-        const newEntity = this.groupRepository.create(currentGroup);
-        resultEntities.push(newEntity);
-        // Assign the new entity to the corresponding period and course.
-        period.groups.push(newEntity);
-        course.groups.push(newEntity);
+        // Grab the corresponding course to verify that it exists.
+        const course = await this.courseRepository.findOne({
+          where: { key: group.courseKey, user: uuid },
+        });
+        if (course) {
+          // Create the requested groups.
+          const existingGroups = await this.groupRepository.find({where: {course: course.id}});
+          for (let i = 1 + existingGroups.length; i <= group.groupsAmount + existingGroups.length; i++) {
+            // Create new entity object with the provided information.
+            const newEntity = this.groupRepository.create();
+            newEntity.number = i;
+            newEntity.course = course;
+            newEntity.matricula = group.matricula;
+            newEntity.formato = group.formato;
+            newEntities.push(newEntity);
+            // Assign the new entity to the corresponding period and course.
+            period.groups.push(newEntity);
+          }
+          courseEntities.push(course);
+        } else {
+          // Cancel the operation if one course ID is wrong.
+          return db.createResponseStatus(
+            HttpStatus.BAD_REQUEST,
+            `Invalid course ID: ${group.courseKey}`,
+          );
+        }
       }
       // Save the relationship on the database.
-      await this.groupRepository.save(resultEntities);
+      await this.groupRepository.save(newEntities);
       await this.periodRepository.save(period);
-      await this.courseRepository.save(course);
-      if (resultEntities.length > 0) {
-        for (let i = 0; i < resultEntities.length; i++) {
-          const current = resultEntities[i];
-          resultEntities[i] = {
-            ...this._groupEntityToResult(current),
-            courseId: createReq.courseId,
-            periodId: createReq.periodId,
-          };
-        }
-      }
+      await this.courseRepository.save(courseEntities);
+
+      let response = this._insertCourseKey(newEntities);
+
       return db.createResponseStatus(
         HttpStatus.CREATED,
         'Created successfully.',
-        resultEntities,
+        response,
       );
     }
     return db.createResponseStatus(
       HttpStatus.BAD_REQUEST,
-      'Invalid course or period ID.',
+      `Invalid period ID: '${createReq.periodId}'`,
     );
   }
 
@@ -106,22 +102,36 @@ export class GroupsService {
   async findAll(periodId: string): Promise<ResponseStatus> {
     const result = await this.groupRepository.find({
       where: { period: periodId },
-      relations: ['course', 'period', 'classroom'],
+      order: { course: "DESC", number: "ASC"},
+      relations: ['course', 'classroom'],
     });
     if (result) {
-      const resultGroups = [];
-      for (let i = 0; i < result.length; i++) {
-        resultGroups.push({
-          ...this._groupEntityToResult(result[i]),
-          courseId: result[i].course.id,
-          periodId: result[i].period.id,
-          classroom: result[i].classroom,
-        });
-      }
+      const resultGroups = this._insertCourseKey(result)
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
         resultGroups,
+      );
+    }
+    return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
+  }
+
+  /**
+   * Queries all the groups of a course and sends them back.
+   * @param periodID The ID of the period.
+   * @returns A response with the result of the lookup in the DB.
+   */
+   async findOne(periodId: string, courseId: string): Promise<ResponseStatus> {
+    const result = await this.groupRepository.find({
+      where: { period: periodId, course: courseId },
+      order: { number: "ASC"},
+      relations: ['classroom'],
+    });
+    if (result) {
+      return db.createResponseStatus(
+        HttpStatus.OK,
+        'Successful search',
+        result,
       );
     }
     return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
@@ -135,11 +145,10 @@ export class GroupsService {
    */
   async update(
     groupId: string,
-    groupDto: GroupDto,
+    groupDto: UpdateGroupDto,
   ): Promise<ResponseStatus> {
     const toUpdate = await this.groupRepository.findOne({
       where: { id: groupId },
-      relations: ['course', 'period', 'classroom'],
     });
     // Check if the object exists.
     if (!toUpdate) {
@@ -150,17 +159,11 @@ export class GroupsService {
     }
     const updated = Object.assign(toUpdate, groupDto);
     const newValue = await this.groupRepository.save(updated);
-    const result = {
-      ...this._groupEntityToResult(newValue),
-      courseId: toUpdate.course.id,
-      periodId: toUpdate.period.id,
-      classroom: toUpdate.classroom == null ? null : toUpdate.classroom.id,
-    };
 
     return db.createResponseStatus(
       HttpStatus.OK,
       'Updated successfully.',
-      result,
+      newValue,
     );
   }
 
@@ -184,19 +187,17 @@ export class GroupsService {
   }
 
   /**
-   * Converts a group entity result from the database into a format for the user.
-   * @param result The result from the db.
-   * @param courseId An object that contains the ID attribute to send back.
-   * @returns The entity to send back to the user.
+   * Removes the course information and inserts only the course key.
+   * @param entities The group entities to do this operation.
+   * @returns The entities with the course key added.
    */
-  _groupEntityToResult(result: GroupsEntity) {
-    return {
-      id: result.id,
-      number: result.number,
-      startDate: result.startDateString,
-      endDate: result.endDateString,
-      matricula: result.matricula,
-      formato: result.formato,
-    };
+  _insertCourseKey(entities: GroupsEntity[]) {
+    let response = [];
+    for (let entity of entities) {
+      const courseKey = entity.course.key;
+      delete entity.course;
+      response.push({...entity, courseKey: courseKey});
+    }
+    return response;
   }
 }

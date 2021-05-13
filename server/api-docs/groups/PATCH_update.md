@@ -1,8 +1,8 @@
-# PATCH Block Group
+# Put Group
 
-    PATCH groups21/:id
+    PUT groups/:id
     
-Updates the block group of the given ID.
+Updates the group of the given ID.
 
 ## Parameters
 
@@ -14,7 +14,7 @@ Authorization | Bearer Token
 ### URI Parameters
 Field | Description
 --- | ---
-id | The ID of the block group to be updated.
+id | The ID of the group to be updated.
 
 ### Body Parameters
 
@@ -28,13 +28,13 @@ formato | string | [ ] | The format in which the course will be taken.
 ## Example
 ### Request
 
-    POST https://[HOST]/groups21/032a6c89-4e0d-4ef1-ae10-54477d0a7c73
+    PATCH https://[HOST]/groups/4bbd9ad8-5906-48de-99e9-56d28e7c026c
 
 #### Request Body    
 ```json
 {
-    "matricula": "TODAS",
-    "formato": "PAS"
+    "formato": "HDPA",
+    "matricula": "TODAS"
 }
 ```
 
@@ -46,10 +46,10 @@ formato | string | [ ] | The format in which the course will be taken.
         "message": "Updated successfully."
     },
     "result": {
-        "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+        "id": "4bbd9ad8-5906-48de-99e9-56d28e7c026c",
         "number": 1,
-        "matricula": null,
-        "formato": "HDPA"
+        "formato": "HDPA",
+        "matricula": "TODAS"
     }
 }
 ```

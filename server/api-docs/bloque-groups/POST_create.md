@@ -16,8 +16,7 @@ Authorization | Bearer Token
 Field | Data Type | Required | Description
 --- | --- | --- | ---
 periodId | string | [X] | The UUID of the period where the group will be created.
-course21Id | string | [X] | The UUID of the course.
-groups | [Group21Info][] | [X] | The data of the groups to be added.
+groups | [GroupCreate][] | [X] | The data of the groups to be added.
 
 ## Example
 ### Request
@@ -28,21 +27,14 @@ groups | [Group21Info][] | [X] | The data of the groups to be added.
 ```json
 {
     "periodId": "b7126849-a3de-4b40-8c1f-61e79e65ec9a",
-    "course21Id": "a395d93d-5d72-472b-930a-c0d79961c54c",
     "groups": [
         {
-            "number": 1,
-            "startDate": "2021-07-26",
-            "endDate": "2021-08-28",
-            "matricula": "PAR",
-            "formato": "HDPA"
+            "groupsAmount": 2,
+            "courseKey": "FSC21"
         },
         {
-            "number": 2,
-            "startDate": "2021-07-26",
-            "endDate": "2021-08-28",
-            "matricula": "TODAS",
-            "formato": "HDPA"
+            "groupsAmount": 5,
+            "courseKey": "MAT1B"
         }
     ]
 }
@@ -57,28 +49,57 @@ groups | [Group21Info][] | [X] | The data of the groups to be added.
     },
     "result": [
         {
-            "id": "d7b6ce63-683b-4c7b-93af-89a2d376f0e2",
             "number": 1,
-            "startDate": "2021-07-26",
-            "endDate": "2021-08-28",
-            "matricula": "PAR",
-            "formato": "HDPA",
-            "course21Id": "a395d93d-5d72-472b-930a-c0d79961c54c",
-            "periodId": "b7126849-a3de-4b40-8c1f-61e79e65ec9a"
+            "matricula": null,
+            "formato": null,
+            "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+            "courseKey": "FSC21"
         },
         {
-            "id": "032a6c89-4e0d-4ef1-ae10-54477d0a7c73",
             "number": 2,
-            "startDate": "2021-07-26",
-            "endDate": "2021-08-28",
-            "matricula": "TODAS",
-            "formato": "HDPA",
-            "course21Id": "a395d93d-5d72-472b-930a-c0d79961c54c",
-            "periodId": "b7126849-a3de-4b40-8c1f-61e79e65ec9a"
+            "matricula": null,
+            "formato": null,
+            "id": "50bc6e79-fa7f-4e4a-852e-1375ead1be1b",
+            "courseKey": "FSC21"
+        },
+        {
+            "number": 1,
+            "matricula": null,
+            "formato": null,
+            "id": "dca3f5f9-8359-4724-8087-e17a06648e07",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 2,
+            "matricula": null,
+            "formato": null,
+            "id": "63f304c9-5327-44b0-ae3e-c9aded9bf926",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 3,
+            "matricula": null,
+            "formato": null,
+            "id": "366f9329-1bdb-4253-8fb2-17354e11c2b1",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 4,
+            "matricula": null,
+            "formato": null,
+            "id": "e53624a3-804b-4181-a368-8b80446e867f",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 5,
+            "matricula": null,
+            "formato": null,
+            "id": "835fe146-4101-428e-bca5-32411d0b9eee",
+            "courseKey": "MAT1B"
         }
     ]
 }
 ```
 
-[Group21Info]: /server/api-docs/bloque-groups/Group21Info.md
+[GroupCreate]: /server/api-docs/groups/GroupCreate.md
 [PeriodInfo]: /server/api-docs/periods/PeriodInfo.md

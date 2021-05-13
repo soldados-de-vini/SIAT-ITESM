@@ -4,15 +4,11 @@ import { IsNotEmpty } from 'class-validator';
 export class GroupDto {
   @ApiProperty()
   @IsNotEmpty()
-  number: number;
+  groupsAmount: number;
 
   @ApiProperty()
   @IsNotEmpty()
-  startDate: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  endDate: string;
+  courseKey: string;
 
   @ApiProperty()
   matricula: string;
