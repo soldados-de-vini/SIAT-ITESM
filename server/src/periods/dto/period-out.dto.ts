@@ -17,4 +17,8 @@ export class PeriodOutDto {
   @ApiProperty()
   @IsNotEmpty()
   vacations: string[];
+  
+  @ApiProperty()
+  @IsNotEmpty()
+  isIntesive: boolean;
 }

@@ -52,8 +52,8 @@ export class ClassroomsService {
    * @param uuid The uuid of the classroom.
    * @returns A response with the result of the lookup in the DB.
    */
-   async findOne(id: string): Promise<ResponseStatus> {
-    return db.findOne(id, this.classroomsRepository, {where: {id: id}});
+  async findOne(id: string): Promise<ResponseStatus> {
+    return db.findOne(id, this.classroomsRepository, { where: { id: id } });
   }
 
   /**

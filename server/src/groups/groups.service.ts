@@ -133,10 +133,7 @@ export class GroupsService {
    * @param groupDto The UpdateGroupDto with the data to be updated.
    * @returns A response with the new value as a result.
    */
-  async update(
-    groupId: string,
-    groupDto: GroupDto,
-  ): Promise<ResponseStatus> {
+  async update(groupId: string, groupDto: GroupDto): Promise<ResponseStatus> {
     const toUpdate = await this.groupRepository.findOne({
       where: { id: groupId },
       relations: ['course', 'period', 'classroom'],
