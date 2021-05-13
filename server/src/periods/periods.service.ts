@@ -124,6 +124,7 @@ export class PeriodsService {
       startDate: result.startDateString,
       endDate: result.endDateString,
       vacations: result.vacations,
+      isIntensive: result.isIntensive,
     };
   }
 }

@@ -80,20 +80,7 @@ export class GroupsService {
       await this.periodRepository.save(period);
       await this.courseRepository.save(courseEntities);
 
-      let response = [];
-      let previousCourse = '';
-      for (let entity of newEntities) {
-        const courseKey = entity.course.key;
-        delete entity.course;
-        if (courseKey == previousCourse) {
-          // The latest element in the array it's where the assigned group should be.
-          response[response.length - 1].groups.push(entity);
-        } else {
-          // Delete the course information and add to the response a new dictionary.
-          previousCourse = courseKey;
-          response.push({courseKey: courseKey, groups: [entity]});
-        }
-      }
+      let response = this._insertCourseKey(newEntities);
 
       return db.createResponseStatus(
         HttpStatus.CREATED,
@@ -119,21 +106,7 @@ export class GroupsService {
       relations: ['course', 'classroom'],
     });
     if (result) {
-      const resultGroups = [];
-      let previousCourse: CourseEntity;
-      for (let i = 0; i < result.length; i++) {
-        if (previousCourse && previousCourse.id == result[i].course.id) {
-          delete result[i].course;
-          resultGroups[resultGroups.length - 1].groups.push(result[i]);
-        } else {
-          previousCourse = {...result[i].course};
-          delete result[i].course;
-          resultGroups.push({
-            course: previousCourse,
-            groups: [result[i]],
-          });
-        }
-      }
+      const resultGroups = this._insertCourseKey(result)
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
@@ -155,14 +128,10 @@ export class GroupsService {
       relations: ['classroom'],
     });
     if (result) {
-      const resultGroups = [];
-      for (let i = 0; i < result.length; i++) {
-        resultGroups.push(result[i]);
-      }
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
-        resultGroups,
+        result,
       );
     }
     return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
@@ -215,5 +184,20 @@ export class GroupsService {
       HttpStatus.NOT_FOUND,
       'Entity to delete has not been found.',
     );
+  }
+
+  /**
+   * Removes the course information and inserts only the course key.
+   * @param entities The group entities to do this operation.
+   * @returns The entities with the course key added.
+   */
+  _insertCourseKey(entities: GroupsEntity[]) {
+    let response = [];
+    for (let entity of entities) {
+      const courseKey = entity.course.key;
+      delete entity.course;
+      response.push({...entity, courseKey: courseKey});
+    }
+    return response;
   }
 }

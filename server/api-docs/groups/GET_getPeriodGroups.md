@@ -30,110 +30,60 @@ id | The ID of the period that the groups belong to.
     },
     "result": [
         {
-            "course": {
-                "id": "0d14788d-c767-4fd7-bb47-04f7c0c5b4fa",
-                "key": "FSC22",
-                "name": "Fisica 3",
-                "capacity": 30,
-                "semester": "6",
-                "initialWeek": 6,
-                "weeks": 5,
-                "avenue": [
-                    "ICN",
-                    "ISC"
-                ],
-                "typeUF": "B"
-            },
-            "groups": [
-                {
-                    "id": "c6d4b1ca-f6e6-40de-8954-284013e806f5",
-                    "number": 1,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "03bb784b-86f5-4f32-a27b-d9a5a52bab73",
-                    "number": 2,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "e70836dc-7b81-41bb-afff-64980f928ac3",
-                    "number": 3,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "b2741448-8d62-4927-bcc7-ba3020f03d1f",
-                    "number": 4,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                }
-            ]
+            "id": "8a0c9fbf-adda-4d3a-abe1-a988ba8f161a",
+            "number": 1,
+            "formato": "HDPA",
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "FSC1"
         },
         {
-            "course": {
-                "id": "0125a974-baef-45fa-bd4a-60f3ed2a3195",
-                "key": "MAT1",
-                "name": "Mate 1",
-                "capacity": 30,
-                "semester": "4",
-                "initialWeek": 6,
-                "weeks": 5,
-                "avenue": [
-                    "ICN",
-                    "ISC"
-                ],
-                "typeUF": "TEC20"
-            },
-            "groups": [
-                {
-                    "id": "4bbd9ad8-5906-48de-99e9-56d28e7c026c",
-                    "number": 1,
-                    "formato": "HDPA",
-                    "matricula": "TODAS",
-                    "classroom": null
-                },
-                {
-                    "id": "ee5b4667-e88f-4ce6-aeee-4774f37ee1b1",
-                    "number": 2,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "68b3870d-2e09-494c-aeeb-287090ef11af",
-                    "number": 3,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "7332c522-9733-4212-b8fb-4e4d4ade8feb",
-                    "number": 4,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "084c379a-7b42-4697-bd37-da2c47c338a3",
-                    "number": 5,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                },
-                {
-                    "id": "09dca748-eaa2-4437-8189-d6b62a05755c",
-                    "number": 6,
-                    "formato": null,
-                    "matricula": null,
-                    "classroom": null
-                }
-            ]
+            "id": "d05ecfe4-3d1f-4555-8a03-fa1d90bddc1b",
+            "number": 2,
+            "formato": null,
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "FSC1"
+        },
+        {
+            "id": "9324ff51-1b3e-4c9a-8eaa-39c356f35ae5",
+            "number": 1,
+            "formato": "HDPA",
+            "matricula": "TODAS",
+            "classroom": null,
+            "courseKey": "MATE1"
+        },
+        {
+            "id": "1c84377b-8809-4e9c-a307-31f07a35ea7c",
+            "number": 2,
+            "formato": null,
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "MATE1"
+        },
+        {
+            "id": "72ea112c-151a-4cc6-9c5f-eef5ebac3eb3",
+            "number": 3,
+            "formato": null,
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "MATE1"
+        },
+        {
+            "id": "9cb0d144-a0e8-43e0-b459-b49284387931",
+            "number": 4,
+            "formato": null,
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "MATE1"
+        },
+        {
+            "id": "2b7adb3e-dbf9-4122-ad00-8dde6cf52d6d",
+            "number": 5,
+            "formato": null,
+            "matricula": null,
+            "classroom": null,
+            "courseKey": "MATE1"
         }
     ]
 }

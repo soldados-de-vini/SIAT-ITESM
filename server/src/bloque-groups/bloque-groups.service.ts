@@ -80,20 +80,7 @@ export class BloqueGroupsService {
       await this.periodRepository.save(period);
       await this.course21Repository.save(courseEntities);
 
-      let response = [];
-      let previousCourse = '';
-      for (let entity of newEntities) {
-        const courseKey = entity.course21.key;
-        delete entity.course21;
-        if (courseKey == previousCourse) {
-          // The latest element in the array it's where the assigned group should be.
-          response[response.length - 1].groups.push(entity);
-        } else {
-          // Delete the course information and add to the response a new dictionary.
-          previousCourse = courseKey;
-          response.push({courseKey: courseKey, groups: [entity]});
-        }
-      }
+      let response = this._insertCourseKey(newEntities);
 
       return db.createResponseStatus(
         HttpStatus.CREATED,
@@ -119,21 +106,7 @@ export class BloqueGroupsService {
       relations: ['course21'],
     });
     if (result) {
-      const resultGroups = [];
-      let previousCourse: Course21Entity;
-      for (let i = 0; i < result.length; i++) {
-        if (previousCourse && previousCourse.id == result[i].course21.id) {
-          delete result[i].course21;
-          resultGroups[resultGroups.length - 1].groups.push(result[i]);
-        } else {
-          previousCourse = {...result[i].course21};
-          delete result[i].course21;
-          resultGroups.push({
-            course: previousCourse,
-            groups: [result[i]],
-          });
-        }
-      }
+      let resultGroups = this._insertCourseKey(result);
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
@@ -154,14 +127,10 @@ export class BloqueGroupsService {
       order: { number: "ASC"},
     });
     if (result) {
-      const resultGroups = [];
-      for (let i = 0; i < result.length; i++) {
-        resultGroups.push(result[i]);
-      }
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
-        resultGroups,
+        result,
       );
     }
     return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
@@ -216,4 +185,18 @@ export class BloqueGroupsService {
     );
   }
 
+  /**
+   * Removes the course information and inserts only the course key.
+   * @param entities The group entities to do this operation.
+   * @returns The entities with the course key added.
+   */
+   _insertCourseKey(entities: BloqueGroupsEntity[]) {
+    let response = [];
+    for (let entity of entities) {
+      const courseKey = entity.course21.key;
+      delete entity.course21;
+      response.push({...entity, courseKey: courseKey});
+    }
+    return response;
+  }
 }

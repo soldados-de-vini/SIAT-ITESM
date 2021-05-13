@@ -51,7 +51,7 @@ export class PeriodsEntity {
   @Column({
     nullable: false,
   })
-  isIntesive: boolean;
+  isIntensive: boolean;
 
   @BeforeInsert() dateStringGen() {
     this._assignValues();

@@ -49,56 +49,53 @@ groups | [GroupCreate][] | [X] | The data of the groups to be added.
     },
     "result": [
         {
-            "courseKey": "FSC21",
-            "groups": [
-                {
-                    "number": 1,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "d517cdc8-4c26-4914-8ab4-e29bd26c635f"
-                },
-                {
-                    "number": 2,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "c0175093-61eb-4180-b7b5-82d2b7779db1"
-                }
-            ]
+            "number": 1,
+            "matricula": null,
+            "formato": null,
+            "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+            "courseKey": "FSC21"
         },
         {
-            "courseKey": "MAT1B",
-            "groups": [
-                {
-                    "number": 1,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "59517554-fdb2-486c-8480-fde3239dc452"
-                },
-                {
-                    "number": 2,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "e89d8d0b-6f73-4850-8d22-ed2769e52ef3"
-                },
-                {
-                    "number": 3,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "765ed38b-8376-4828-9ab7-778eae107b55"
-                },
-                {
-                    "number": 4,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "80c0436d-d2c5-4ba9-8ca4-11dc7161d574"
-                },
-                {
-                    "number": 5,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "f832d8e3-287a-4a2a-9f1f-cbfb1a4b7e67"
-                }
-            ]
+            "number": 2,
+            "matricula": null,
+            "formato": null,
+            "id": "50bc6e79-fa7f-4e4a-852e-1375ead1be1b",
+            "courseKey": "FSC21"
+        },
+        {
+            "number": 1,
+            "matricula": null,
+            "formato": null,
+            "id": "dca3f5f9-8359-4724-8087-e17a06648e07",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 2,
+            "matricula": null,
+            "formato": null,
+            "id": "63f304c9-5327-44b0-ae3e-c9aded9bf926",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 3,
+            "matricula": null,
+            "formato": null,
+            "id": "366f9329-1bdb-4253-8fb2-17354e11c2b1",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 4,
+            "matricula": null,
+            "formato": null,
+            "id": "e53624a3-804b-4181-a368-8b80446e867f",
+            "courseKey": "MAT1B"
+        },
+        {
+            "number": 5,
+            "matricula": null,
+            "formato": null,
+            "id": "835fe146-4101-428e-bca5-32411d0b9eee",
+            "courseKey": "MAT1B"
         }
     ]
 }

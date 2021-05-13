@@ -46,12 +46,10 @@ formato | string | [ ] | The format in which the course will be taken.
         "message": "Updated successfully."
     },
     "result": {
-        "id": "032a6c89-4e0d-4ef1-ae10-54477d0a7c73",
-        "number": 2,
-        "matricula": "TODAS",
-        "formato": "PAS",
-        "course21Id": "a395d93d-5d72-472b-930a-c0d79961c54c",
-        "periodId": "b7126849-a3de-4b40-8c1f-61e79e65ec9a"
+        "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+        "number": 1,
+        "matricula": null,
+        "formato": "HDPA"
     }
 }
 ```

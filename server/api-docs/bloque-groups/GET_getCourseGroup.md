@@ -31,13 +31,13 @@ courseId | The ID of the course that the groups belongs to.
     },
     "result": [
         {
-            "id": "d517cdc8-4c26-4914-8ab4-e29bd26c635f",
+            "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
             "number": 1,
             "matricula": null,
             "formato": null
         },
         {
-            "id": "c0175093-61eb-4180-b7b5-82d2b7779db1",
+            "id": "50bc6e79-fa7f-4e4a-852e-1375ead1be1b",
             "number": 2,
             "matricula": null,
             "formato": null

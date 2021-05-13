@@ -31,15 +31,15 @@ groups | [GroupCreate][] | [X] | The data of the groups to be added.
 #### Request Body    
 ```json
 {
-    "periodId": "b7126849-a3de-4b40-8c1f-61e79e65ec9a",
+    "periodId": "66195ba1-ca0e-4f29-9eb8-eb35ddf7c9ee",
     "groups": [
         {
             "groupsAmount": 2,
-            "courseKey": "FSC22"
+            "courseKey": "FSC1"
         },
         {
             "groupsAmount": 5,
-            "courseKey": "MAT1"
+            "courseKey": "MATE1"
         }
     ]
 }
@@ -54,56 +54,53 @@ groups | [GroupCreate][] | [X] | The data of the groups to be added.
     },
     "result": [
         {
-            "courseKey": "FSC22",
-            "groups": [
-                {
-                    "number": 1,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "22c4ca88-3a1e-4cac-8419-04c86b955018"
-                },
-                {
-                    "number": 2,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "d0f30379-707a-4b1e-aeb3-2a1419b79488"
-                }
-            ]
+            "number": 1,
+            "matricula": null,
+            "formato": null,
+            "id": "e2c356d4-df6b-44cf-a0b6-a35fd433c5ca",
+            "courseKey": "FSC1"
         },
         {
-            "courseKey": "MAT1",
-            "groups": [
-                {
-                    "number": 1,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "b3314014-236e-4d30-8c55-861703952cdc"
-                },
-                {
-                    "number": 2,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "7d919026-7588-41bf-8a55-80e077bdccd6"
-                },
-                {
-                    "number": 3,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "c651f09e-08f3-4870-8846-962bf40524f4"
-                },
-                {
-                    "number": 4,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "fca5c992-2a31-48bc-a924-bcfe6ef6356a"
-                },
-                {
-                    "number": 5,
-                    "matricula": null,
-                    "formato": null,
-                    "id": "ed7b73ce-a7ab-42c6-945b-ece9b9bbf986"
-                }
-            ]
+            "number": 2,
+            "matricula": null,
+            "formato": null,
+            "id": "116d8783-ac07-4dd9-9414-e9e0b6f20ca1",
+            "courseKey": "FSC1"
+        },
+        {
+            "number": 1,
+            "matricula": null,
+            "formato": null,
+            "id": "51c0063f-989f-48a7-aa5e-bce593ca09bc",
+            "courseKey": "MATE1"
+        },
+        {
+            "number": 2,
+            "matricula": null,
+            "formato": null,
+            "id": "7b2d9506-bc66-4ef8-8858-e6cfe85a4b2f",
+            "courseKey": "MATE1"
+        },
+        {
+            "number": 3,
+            "matricula": null,
+            "formato": null,
+            "id": "c9f8918c-2d76-42a6-9a0b-841e1725a851",
+            "courseKey": "MATE1"
+        },
+        {
+            "number": 4,
+            "matricula": null,
+            "formato": null,
+            "id": "bd785715-fbdb-4e84-a9cd-273d74ef5473",
+            "courseKey": "MATE1"
+        },
+        {
+            "number": 5,
+            "matricula": null,
+            "formato": null,
+            "id": "fa8546f5-7b64-4d4a-b1ee-91a0495b2047",
+            "courseKey": "MATE1"
         }
     ]
 }
