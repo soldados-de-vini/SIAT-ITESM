@@ -48,6 +48,11 @@ export class PeriodsEntity {
   })
   vacations: string[];
 
+  @Column({
+    nullable: false,
+  })
+  isIntesive: boolean;
+
   @BeforeInsert() dateStringGen() {
     this._assignValues();
   }
