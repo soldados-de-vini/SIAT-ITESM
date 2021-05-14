@@ -3,6 +3,7 @@ import { Course } from 'src/app/models/course.model';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ComposeCourseComponent } from '../compose-course/compose-course.component';
+import { NzMessageService } from 'ng-zorro-antd';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { ComposeCourseComponent } from '../compose-course/compose-course.compone
 })
 export class CoursesComponent implements OnInit {
 
-  columnsToDisplay = [
+  public loading: boolean;
+  public columnsToDisplay = [
     'CLAVE', 'Nombre', 'Capacidad', 'Semestre',
-    'Semana inicial', 'Semanas', 'Avenida(s)', 'Tipo', 'Modulos'];
-  courses: Array<Course> = [];
+    'Semana inicial', 'Semanas', 'Avenida(s)', 'Tipo'];
+  public courses: Array<Course> = [];
 
   constructor(
     private api: ApiService,
+    private nzMessageService: NzMessageService,
     private nzModalService: NzModalService,
   ) { }
 
@@ -27,9 +30,21 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses(): void {
-    this.api.get('/courses20').subscribe((res) => {
-      this.courses = res.result;
-    });
+    this.api.get('/courses20').subscribe(
+      (response) => {
+        this.loading = false;
+        if (response.status?.statusCode === 200) {
+          this.courses = response.result;
+        } else {
+          this.nzMessageService.error('Error al cargar los materias');
+        }
+      },
+      (error) => {
+        this.loading = false;
+        this.nzMessageService.error('Error al cargar materias');
+        console.log('Error al cargar bloques', error);
+      }
+    );
   }
 
   createCourse(): void {
@@ -55,8 +70,19 @@ export class CoursesComponent implements OnInit {
   deleteCourse(event): void {
     const id = event;
     this.api.delete(`/courses20/${id}`).subscribe(
-      success => this.afterDelete(event),
-      error => console.log(error)
+      (response) => {
+        this.loading = false;
+        if (response.status?.statusCode === 200) {
+          this.afterDelete(event),
+          this.nzMessageService.success('Bloque borrado con éxito');
+        } else {
+          this.nzMessageService.error('Ocurrió un error al borrar el bloque');
+        }
+      },
+      (error) => {
+        this.nzMessageService.error('Ocurrió un error al borrar la materia.');
+        console.log(error);
+      }
     );
   }
 
@@ -67,6 +93,7 @@ export class CoursesComponent implements OnInit {
   afterDelete(event){
     const id = event;
     this.courses = this.courses.filter(d => d.id !== id);
+    this.nzMessageService.success('Materia borrada con éxito');
   }
 
   editCourse(event){
