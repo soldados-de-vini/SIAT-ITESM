@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="blockForm" class="professor-form">
+<form nz-form [formGroup]="blockForm">
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="key">Clave</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La clave del bloque es requerida...">
@@ -14,13 +14,13 @@
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="capacity">Capacidad</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La capacidad del bloque es requerida...">
-      <input nz-input formControlName="capacity" id="capacity" type="number"/>
+      <input nz-input formControlName="capacity" id="capacity" type="number" min="1" min="1"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="semester">Semestre</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="El semestre del bloque es requerido...">
-      <input nz-input formControlName="semester" id="semester" type="number"/>
+      <input nz-input formControlName="semester" id="semester" type="number" min="1" min="1"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -49,13 +49,13 @@
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="initialWeek">Semana Inicial</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La semana inicial del bloque es requerida...">
-      <input nz-input formControlName="initialWeek" id="initialWeek" type="number"/>
+      <input nz-input formControlName="initialWeek" id="initialWeek" type="number" min="1"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="weeks">Semanas</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="El número de semanas del bloque es requerido...">
-      <input nz-input formControlName="weeks" id="weeks" type="number"/>
+      <input nz-input formControlName="weeks" id="weeks" type="number" min="1"/>
     </nz-form-control>
   </nz-form-item>
 </form>

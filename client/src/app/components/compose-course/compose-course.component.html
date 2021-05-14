@@ -1,38 +1,38 @@
 <form nz-form [formGroup]="courseForm">
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Clave</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+    <nz-form-control [nzSpan]="16" nzErrorTip="La clave de la materia es requerida...">
       <input nz-input formControlName="key" id="clave" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Nombre</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
+    <nz-form-control [nzSpan]="16" nzErrorTip="El nombre de la materia es requerida...">
       <input nz-input type="text" id="nombre" formControlName="name" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Capacidad</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="capacidad" formControlName="capacity" />
+    <nz-form-control [nzSpan]="16" nzErrorTip="La capacidad de la materia es requerida...">
+      <input nz-input type="number" min="1" id="capacidad" formControlName="capacity" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Semestre</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="semestre" formControlName="semester" />
+    <nz-form-control [nzSpan]="16" nzErrorTip="El semestre de la materia es requerido...">
+      <input nz-input type="number" min="1" id="semestre" formControlName="semester" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Semana inicial</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="semana-inicial" formControlName="initialWeek" />
+    <nz-form-control [nzSpan]="16" nzErrorTip="La semana inicial de la materia es requerida...">
+      <input nz-input type="number" min="1" id="semana-inicial" formControlName="initialWeek" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Semanas</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="semanas" formControlName="weeks" />
+    <nz-form-control [nzSpan]="16" nzErrorTip="La semanas de la materia son requeridas...">
+      <input nz-input type="number" min="1" id="semanas" formControlName="weeks" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -43,12 +43,6 @@
           <nz-option formControlName="avenue" *ngFor="let av of courseForm.controls.avenue" [nzLabel]="av" [nzValue]="av"></nz-option>
         </ng-container>
       </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label nzRight [nzSpan]="6" nzRequired>Tipo</nz-form-label>
-    <nz-form-control [nzSpan]="16" nzErrorTip="Por favor ingrese un valor valido">
-      <input nz-input type="text" id="tipo" formControlName="typeUF" />
     </nz-form-control>
   </nz-form-item>
   <div *nzModalFooter>
