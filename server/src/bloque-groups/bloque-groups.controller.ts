@@ -35,7 +35,10 @@ export class BloqueGroupsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('period/:periodId/course/:courseId')
-  findOne(@Param('periodId') periodId: string, @Param('courseId') courseId: string) {
+  findOne(
+    @Param('periodId') periodId: string,
+    @Param('courseId') courseId: string,
+  ) {
     return this.bloqueGroupsService.findOne(periodId, courseId);
   }
 
