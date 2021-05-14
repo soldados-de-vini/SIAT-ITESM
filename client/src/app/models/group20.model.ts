@@ -1,5 +1,5 @@
 export interface Group20 {
-  number: number;
+  number: any;
   matricula: string;
   formato: string;
   classroom: string;
