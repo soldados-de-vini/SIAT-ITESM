@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Period } from 'src/app/models/period.model';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -11,14 +12,15 @@ import { ComposePeriodComponent } from '../compose-period/compose-period.compone
 })
 export class PeriodsComponent implements OnInit {
 
-  public columnsToDisplay = [ 'Nombre', 'Fecha de Inicio', 'Fecha de Fin', 'Vacaciones'];
+  public columnsToDisplay = [ 'Nombre', 'Fecha de Inicio', 'Fecha de Fin', 'Vacaciones', 'Intensivo'];
   public loading: boolean;
   public periods: Array<Period>;
 
   constructor(
     private apiService: ApiService,
     private nzMessageService: NzMessageService,
-    private nzModalService: NzModalService
+    private nzModalService: NzModalService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -112,5 +114,9 @@ export class PeriodsComponent implements OnInit {
         }
       }
     );
+  }
+
+  public openPeriod(data){
+    this.router.navigate(['/dashboard/periodo', data.id]);
   }
 }
