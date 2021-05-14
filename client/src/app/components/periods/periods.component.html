@@ -2,4 +2,4 @@
   <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createPeriod()">Agregar Periodo</button>
 </div>
 <siat-table [loading]="loading" [tableData]="periods" [columns]="columnsToDisplay" (delete)="onDelete($event)"
-  (edit)="onEdit($event)" [hasOpenButton]="true"></siat-table>
+  (edit)="onEdit($event)" [hasOpenButton]="true" (openElement)="openPeriod($event)"></siat-table>

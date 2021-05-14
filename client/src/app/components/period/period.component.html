@@ -1,0 +1,23 @@
+<nz-skeleton [nzActive]="true" *ngIf="loading"></nz-skeleton>
+
+<ng-container *ngIf="!loading">
+  <nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="period?.name" style="padding-left: 0;">
+  </nz-page-header>
+
+  <nz-descriptions nzTitle="Información del Periodo">
+    <nz-descriptions-item nzTitle="Fecha de Inicio">{{period?.startDate | date}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Fecha de Fin">{{period?.endDate | date}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <nz-tabset>
+    <nz-tab nzTitle="Subir Grupos Tec 20">
+      <siat-groups20 [periodId]="id"></siat-groups20>
+    </nz-tab>
+    <nz-tab nzTitle="Subir Grupos Tec 21">
+      <siat-groups21 [periodId]="id"></siat-groups21>
+    </nz-tab>
+    <nz-tab nzTitle="Asignación de Salones">
+      <siat-period-classroom-list></siat-period-classroom-list>
+    </nz-tab>
+  </nz-tabset>
+</ng-container>

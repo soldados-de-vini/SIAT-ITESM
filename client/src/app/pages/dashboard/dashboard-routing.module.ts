@@ -7,6 +7,7 @@ import { PeriodsComponent } from '../../components/periods/periods.component';
 import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { LayoutComponent } from 'src/app/components/layout/layout.component';
+import { PeriodComponent } from 'src/app/components/period/period.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
         path: 'salones',
         component: ClassroomsComponent
       },
+      {
+        path: 'periodo/:id',
+        component: PeriodComponent
+      }
     ]
   }
 ];
