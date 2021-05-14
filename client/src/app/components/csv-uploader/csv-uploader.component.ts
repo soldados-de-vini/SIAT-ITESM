@@ -15,6 +15,8 @@ export class CsvUploaderComponent implements OnInit {
   public loadingUpload: boolean;
   public file: NzUploadFile;
 
+  @Input() isGroup: boolean;
+  @Input() periodId: boolean;
   @Input() endpoint: string;
   @Input() objectPrefix: string;
   @Input() columns: Array<any>;
