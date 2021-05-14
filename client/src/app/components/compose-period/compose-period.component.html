@@ -1,0 +1,34 @@
+<form nz-form [formGroup]="periodForm" class="period-form">
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="name">Nombre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El nombre del periodo es requerido...">
+      <input nz-input formControlName="name" id="name" type="text" placeholder="Ingresa el nombre del periodo"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="startDate">Fecha de Inicio</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La fecha de inicio del periodo es requerida...">
+      <nz-date-picker formControlName="startDate" id="startDate" style="width: 100%;"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="endDate">Fecha de Fin</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La fecha de fin del periodo es requerida...">
+      <nz-date-picker formControlName="endDate" id="endDate" style="width: 100%;"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzFor="isIntensive">Tipo</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-radio-group id="isIntensive" formControlName="isIntensive">
+        <label nz-radio-button [nzValue]="true">Intensivo</label>
+        <label nz-radio-button [nzValue]="false">Normal</label>
+      </nz-radio-group>
+    </nz-form-control>
+
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="savePeriod()" [disabled]="!periodForm.valid">Guardar Periodo</button>
+</div>

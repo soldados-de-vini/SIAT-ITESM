@@ -37,7 +37,6 @@ export class BlocksComponent implements OnInit {
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 200) {
-          console.log(response.result);
           this.blocks = response.result;
         } else {
           this.nzMessageService.error('Error al cargar los bloques');
@@ -95,7 +94,7 @@ export class BlocksComponent implements OnInit {
       nzOkText: 'Borrar',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.deleteModule(id);
+        this.deleteBlock(id);
       },
       nzCancelText: 'Cancelar',
     });
@@ -105,7 +104,7 @@ export class BlocksComponent implements OnInit {
     this.blocks = [...data, ...this.blocks];
   }
 
-  private deleteModule(id) {
+  private deleteBlock(id) {
     this.loading = true;
     this.apiService.delete(`/courses21/${id}`).subscribe(
       (response) => {

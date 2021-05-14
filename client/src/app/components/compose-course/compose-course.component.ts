@@ -30,11 +30,11 @@ export class ComposeCourseComponent implements OnInit {
     }
   }
 
-  handleCancel(){
+  public handleCancel(){
     this.nzModalRef.destroy();
   }
 
-  handleOk(){
+  public handleOk(){
     if (this.isEditing){
       this.editCourse();
     }else{
@@ -42,7 +42,7 @@ export class ComposeCourseComponent implements OnInit {
     }
   }
 
-  addCourse(){
+  public addCourse(){
     this.loading = true;
     this.api.post(`/courses20`, {courses: [this.courseForm.value]}).subscribe((res) => {
       this.loading = false;
@@ -60,7 +60,7 @@ export class ComposeCourseComponent implements OnInit {
 
   }
 
-  editCourse(){
+  public editCourse(){
     this.loading = true;
     this.api.put(`/courses20/${this.course.id}`, this.courseForm.value).subscribe((res) => {
       this.loading = false;
@@ -77,7 +77,7 @@ export class ComposeCourseComponent implements OnInit {
     );
   }
 
-  initializeCreateForm(){
+  private initializeCreateForm(){
     this.courseForm = this.fb.group({
       key: [null, [Validators.required]],
       name: [null, [Validators.required]],
@@ -86,11 +86,11 @@ export class ComposeCourseComponent implements OnInit {
       initialWeek: [null, [Validators.required]],
       weeks: [null, [Validators.required]],
       avenue: [[]],
-      typeUF: [null, [Validators.required]],
+      typeUF: ['TEC20'],
     });
   }
 
-  initializeEditForm(){
+  private initializeEditForm(){
     this.courseForm = this.fb.group({
       key: [this.course.key, [Validators.required]],
       name: [this.course.name, [Validators.required]],
@@ -99,7 +99,7 @@ export class ComposeCourseComponent implements OnInit {
       initialWeek: [this.course.initialWeek, [Validators.required]],
       weeks: [this.course.weeks, [Validators.required]],
       avenue: [[]],
-      typeUF: [this.course.typeUF, [Validators.required]],
+      typeUF: [this.course.typeUF],
     });
   }
 

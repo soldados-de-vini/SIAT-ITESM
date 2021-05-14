@@ -9,11 +9,13 @@ export class TableComponent implements OnInit {
 
   @Output() delete = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
+  @Output() openElement = new EventEmitter<any>();
   @Input() tableData: Array<any>;
   @Input() columns: Array<any>;
   @Input() hasActions = true;
   @Input() hasSearchBar = true;
   @Input() loading: boolean;
+  @Input() hasOpenButton: boolean;
 
   constructor() { }
 
@@ -30,6 +32,10 @@ export class TableComponent implements OnInit {
 
   editRow(data){
     this.edit.emit(data);
+  }
+
+  openElementEvent(data){
+    this.openElement.emit(data);
   }
 
 }

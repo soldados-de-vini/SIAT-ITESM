@@ -1,0 +1,12 @@
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzSpan]="8" *ngFor="let classroom of classrooms">
+    <nz-card [nzTitle]="classroom.classroom" [nzExtra]="assign">
+      <span><strong>Tipo: </strong>{{classroom.type}}</span>
+      <br>
+      <span><strong>Edificio: </strong>{{classroom.building}}</span>
+    </nz-card>
+    <ng-template #assign>
+      <a (click)="assignClassroom(classroom)">Asignar</a>
+    </ng-template>
+  </div>
+</div>

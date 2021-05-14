@@ -22,9 +22,14 @@
             <tbody>
               <tr *ngFor="let data of table.data">
                 <ng-container *ngFor="let key of getKeys()">
-                  <td *ngIf="key === 'modules'; else normalKey">
+                  <td *ngIf="key === 'modules'; else date">
                     {{data[key] | module}}
                   </td>
+                  <ng-template #date>
+                    <td *ngIf="key.toLowerCase().includes('date'); else normalKey">
+                      {{data[key] | date}}
+                    </td>
+                  </ng-template>
                   <ng-template #normalKey>
                     <td *ngIf="data[key].length !== 36">{{data[key]}}</td>
                   </ng-template>
@@ -33,6 +38,10 @@
                   <a (click)="editRow(data)">Editar</a>
                   <nz-divider nzType="vertical"></nz-divider>
                   <a (click)="deleteRow(data.id)" style="color: #ff4d4f">Borrar</a>
+                  <ng-container *ngIf="hasOpenButton">
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <button nz-button nzType="primary" (click)="openElementEvent(data)">Abrir</button>
+                  </ng-container>
                 </td>
               </tr>
             </tbody>

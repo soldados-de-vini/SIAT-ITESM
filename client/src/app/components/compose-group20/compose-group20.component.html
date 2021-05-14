@@ -1,0 +1,60 @@
+<form nz-form [formGroup]="group20Form" *ngIf="!isEditing">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Claves</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
+      <nz-select id="courseKey" formControlName="courseKey" style="width: 100%;">
+        <ng-container *ngFor="let course of courses">
+          <nz-option *ngIf="!isLoadingCourses" [nzValue]="course.key" [nzLabel]="course.key + ' - ' + course.name"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoadingCourses" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Cargando Cursos...
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="groupsAmount">Cantidad de Grupos</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La cantidad de grupos es requerida...">
+      <input nz-input formControlName="groupsAmount" id="groupsAmount" type="number" min="1"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<form nz-form [formGroup]="group20Form" *ngIf="isEditing">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Clave</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
+      <nz-select id="courseKey" formControlName="courseKey" style="width: 100%;">
+        <ng-container *ngFor="let course of courses">
+          <nz-option *ngIf="!isLoadingCourses" [nzValue]="course.key" [nzLabel]="course.key + ' - ' + course.name"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoadingCourses" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Cargando Cursos...
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="number">Número de Grupo</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El número de grupo es requerido...">
+      <input nz-input formControlName="number" id="number" type="number" min="1"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzFor="formato">Formato</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <input nz-input formControlName="formato" id="formato" type="text"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzFor="matricula">Matricula</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <input nz-input formControlName="matricula" id="matricula" type="text"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="saveGroup()" [disabled]="!group20Form.valid">{{isEditing ? 'Guardar Grupo' : 'Agregar Grupos'}}</button>
+</div>

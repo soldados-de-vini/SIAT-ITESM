@@ -81,6 +81,20 @@ export class ApiService {
   }
 
   /**
+   * Perform a put request given an endpoint
+   *
+   * @param endpoint endpoint to be called
+   * @param body body of the request
+   * @param options options to be sent
+   */
+   public patch<T>(endpoint: string, body: any): Observable<any> {
+    return this.http.patch(environment.api_url + endpoint, body, this.options).pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
    * Perform a delete request given an endpoint
    *
    * @param endpoint endpoint to be called
