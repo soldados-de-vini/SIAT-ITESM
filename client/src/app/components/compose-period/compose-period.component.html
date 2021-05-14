@@ -17,6 +17,16 @@
       <nz-date-picker formControlName="endDate" id="endDate" style="width: 100%;"></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzFor="isIntensive">Tipo</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-radio-group id="isIntensive" formControlName="isIntensive">
+        <label nz-radio-button [nzValue]="true">Intensivo</label>
+        <label nz-radio-button [nzValue]="false">Normal</label>
+      </nz-radio-group>
+    </nz-form-control>
+
+  </nz-form-item>
 </form>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="cancel()">Cancelar</button>

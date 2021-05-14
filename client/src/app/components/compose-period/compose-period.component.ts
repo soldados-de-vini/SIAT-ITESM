@@ -36,7 +36,8 @@ export class ComposePeriodComponent implements OnInit {
       name: ['', Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
-      vacations: [[]]
+      vacations: [[]],
+      isIntensive: [false]
     });
   }
 
@@ -45,7 +46,8 @@ export class ComposePeriodComponent implements OnInit {
       name: [this.period.name, Validators.required],
       startDate: [this.period.startDate, Validators.required],
       endDate: [this.period.endDate, Validators.required],
-      vacations: [this.period.vacations]
+      vacations: [this.period.vacations],
+      isIntensive: [false]
     });
   }
 
