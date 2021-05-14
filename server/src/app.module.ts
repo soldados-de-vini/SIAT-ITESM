@@ -13,6 +13,7 @@ import { Courses21Module } from './courses21/courses21.module';
 import { GroupsModule } from './groups/groups.module';
 import { BloqueGroupsModule } from './bloque-groups/bloque-groups.module';
 import { BloqueModulesModule } from './bloque-group-modules/bloque-modules.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { BloqueModulesModule } from './bloque-group-modules/bloque-modules.modul
     GroupsModule,
     BloqueGroupsModule,
     BloqueModulesModule,
+    EventsModule,
   ],
 })
 export class AppModule {}

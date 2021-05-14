@@ -41,12 +41,15 @@ export class BloqueGroupsService {
       relations: ['bloqueGroups'],
     });
     if (period) {
-      let courseEntities: Course21Entity[] = [];
-      let newEntities: BloqueGroupsEntity[] = [];
-      for (let group of createReq.groups) {
+      const courseEntities: Course21Entity[] = [];
+      const newEntities: BloqueGroupsEntity[] = [];
+      for (const group of createReq.groups) {
         // Check if the groups to be created are less than one.
         if (group.groupsAmount < 1) {
-          return db.createResponseStatus(HttpStatus.BAD_REQUEST, `Invalid groupAmount [${group.groupsAmount}] in course [${group.courseKey}]`);
+          return db.createResponseStatus(
+            HttpStatus.BAD_REQUEST,
+            `Invalid groupAmount [${group.groupsAmount}] in course [${group.courseKey}]`,
+          );
         }
         // Grab the corresponding course to verify that it exists.
         const course = await this.course21Repository.findOne({
@@ -54,8 +57,14 @@ export class BloqueGroupsService {
         });
         if (course) {
           // Create the requested groups.
-          const existingGroups = await this.bloqueGroupRepository.find({where: {course21: course.id}});
-          for (let i = 1 + existingGroups.length; i <= group.groupsAmount + existingGroups.length; i++) {
+          const existingGroups = await this.bloqueGroupRepository.find({
+            where: { course21: course.id },
+          });
+          for (
+            let i = 1 + existingGroups.length;
+            i <= group.groupsAmount + existingGroups.length;
+            i++
+          ) {
             // Create new entity object with the provided information.
             const newEntity = this.bloqueGroupRepository.create();
             newEntity.number = i;
@@ -80,7 +89,7 @@ export class BloqueGroupsService {
       await this.periodRepository.save(period);
       await this.course21Repository.save(courseEntities);
 
-      let response = this._insertCourseKey(newEntities);
+      const response = this._insertCourseKey(newEntities);
 
       return db.createResponseStatus(
         HttpStatus.CREATED,
@@ -102,11 +111,11 @@ export class BloqueGroupsService {
   async findAll(periodId: string): Promise<ResponseStatus> {
     const result = await this.bloqueGroupRepository.find({
       where: { period: periodId },
-      order: { course21: "DESC", number: "ASC"},
+      order: { course21: 'DESC', number: 'ASC' },
       relations: ['course21'],
     });
     if (result) {
-      let resultGroups = this._insertCourseKey(result);
+      const resultGroups = this._insertCourseKey(result);
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
@@ -121,10 +130,10 @@ export class BloqueGroupsService {
    * @param periodID The ID of the period.
    * @returns A response with the result of the lookup in the DB.
    */
-   async findOne(periodId: string, courseId: string): Promise<ResponseStatus> {
+  async findOne(periodId: string, courseId: string): Promise<ResponseStatus> {
     const result = await this.bloqueGroupRepository.find({
       where: { period: periodId, course21: courseId },
-      order: { number: "ASC"},
+      order: { number: 'ASC' },
     });
     if (result) {
       return db.createResponseStatus(
@@ -171,7 +180,7 @@ export class BloqueGroupsService {
    * @param groupId The ID of the group.
    * @returns A status message stating success or failure.
    */
-   async remove(groupId: string): Promise<ResponseStatus> {
+  async remove(groupId: string): Promise<ResponseStatus> {
     const entity = await this.bloqueGroupRepository.findOne({
       where: { id: groupId },
     });
@@ -190,12 +199,12 @@ export class BloqueGroupsService {
    * @param entities The group entities to do this operation.
    * @returns The entities with the course key added.
    */
-   _insertCourseKey(entities: BloqueGroupsEntity[]) {
-    let response = [];
-    for (let entity of entities) {
+  _insertCourseKey(entities: BloqueGroupsEntity[]) {
+    const response = [];
+    for (const entity of entities) {
       const courseKey = entity.course21.key;
       delete entity.course21;
-      response.push({...entity, courseKey: courseKey});
+      response.push({ ...entity, courseKey: courseKey });
     }
     return response;
   }
