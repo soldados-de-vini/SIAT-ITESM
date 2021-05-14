@@ -21,7 +21,8 @@ id | The ID of the group to be updated.
 Field | Data Type | Required | Description
 --- | --- | --- | ---
 matricula | string | [ ] | Defines if the course must be taken for students with a certain ID.
-formato | string | [ ] | The format in which the course will be taken.
+formato | string | [ ] | The format in which the course will be taken.\
+number | number | [ ] | The group number to be assigned.
 
 **NOTE**: The date formats are 'YYYY-MM-DD'
 
@@ -34,7 +35,8 @@ formato | string | [ ] | The format in which the course will be taken.
 ```json
 {
     "formato": "HDPA",
-    "matricula": "TODAS"
+    "matricula": "TODAS",
+    "number": 1
 }
 ```
 
