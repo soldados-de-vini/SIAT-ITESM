@@ -14,7 +14,6 @@ import { CreateGroupReq } from './interfaces/create-group.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { GroupDto } from './dto/group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
 
 @ApiBearerAuth('access-token')
@@ -36,7 +35,10 @@ export class GroupsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('period/:periodId/course/:courseId')
-  findOne(@Param('periodId') periodId: string, @Param('courseId') courseId: string) {
+  findOne(
+    @Param('periodId') periodId: string,
+    @Param('courseId') courseId: string,
+  ) {
     return this.groupsService.findOne(periodId, courseId);
   }
 

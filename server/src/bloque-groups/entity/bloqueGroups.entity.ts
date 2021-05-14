@@ -4,8 +4,6 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
-  BeforeInsert,
-  BeforeUpdate,
 } from 'typeorm';
 
 import { PeriodsEntity } from '../../periods/entity/periods.entity';

@@ -34,7 +34,8 @@ formato | string | [ ] | The format in which the course will be taken.
 ```json
 {
     "matricula": "TODAS",
-    "formato": "PAS"
+    "formato": "PAS",
+    "number": 1
 }
 ```
 

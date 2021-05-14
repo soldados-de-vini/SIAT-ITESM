@@ -41,12 +41,15 @@ export class GroupsService {
       relations: ['groups'],
     });
     if (period) {
-      let courseEntities: CourseEntity[] = [];
-      let newEntities: GroupsEntity[] = [];
-      for (let group of createReq.groups) {
+      const courseEntities: CourseEntity[] = [];
+      const newEntities: GroupsEntity[] = [];
+      for (const group of createReq.groups) {
         // Check if the groups to be created are less than one.
         if (group.groupsAmount < 1) {
-          return db.createResponseStatus(HttpStatus.BAD_REQUEST, `Invalid groupAmount [${group.groupsAmount}] in course [${group.courseKey}]`);
+          return db.createResponseStatus(
+            HttpStatus.BAD_REQUEST,
+            `Invalid groupAmount [${group.groupsAmount}] in course [${group.courseKey}]`,
+          );
         }
         // Grab the corresponding course to verify that it exists.
         const course = await this.courseRepository.findOne({
@@ -54,8 +57,14 @@ export class GroupsService {
         });
         if (course) {
           // Create the requested groups.
-          const existingGroups = await this.groupRepository.find({where: {course: course.id}});
-          for (let i = 1 + existingGroups.length; i <= group.groupsAmount + existingGroups.length; i++) {
+          const existingGroups = await this.groupRepository.find({
+            where: { course: course.id },
+          });
+          for (
+            let i = 1 + existingGroups.length;
+            i <= group.groupsAmount + existingGroups.length;
+            i++
+          ) {
             // Create new entity object with the provided information.
             const newEntity = this.groupRepository.create();
             newEntity.number = i;
@@ -80,10 +89,10 @@ export class GroupsService {
       await this.periodRepository.save(period);
       await this.courseRepository.save(courseEntities);
 
-      let response = this._insertCourseKey(newEntities);
+      const response = this._insertCourseKey(newEntities);
       // Manually insert classrooms.
       for (let i = 0; i < response.length; i++) {
-        response[i] = {...response[i], classroom: null};
+        response[i] = { ...response[i], classroom: null };
       }
 
       return db.createResponseStatus(
@@ -106,11 +115,11 @@ export class GroupsService {
   async findAll(periodId: string): Promise<ResponseStatus> {
     const result = await this.groupRepository.find({
       where: { period: periodId },
-      order: { course: "DESC", number: "ASC"},
+      order: { course: 'DESC', number: 'ASC' },
       relations: ['course', 'classroom'],
     });
     if (result) {
-      const resultGroups = this._insertCourseKey(result)
+      const resultGroups = this._insertCourseKey(result);
       return db.createResponseStatus(
         HttpStatus.OK,
         'Successful search',
@@ -125,10 +134,10 @@ export class GroupsService {
    * @param periodID The ID of the period.
    * @returns A response with the result of the lookup in the DB.
    */
-   async findOne(periodId: string, courseId: string): Promise<ResponseStatus> {
+  async findOne(periodId: string, courseId: string): Promise<ResponseStatus> {
     const result = await this.groupRepository.find({
       where: { period: periodId, course: courseId },
-      order: { number: "ASC"},
+      order: { number: 'ASC' },
       relations: ['classroom'],
     });
     if (result) {
@@ -196,11 +205,11 @@ export class GroupsService {
    * @returns The entities with the course key added.
    */
   _insertCourseKey(entities: GroupsEntity[]) {
-    let response = [];
-    for (let entity of entities) {
+    const response = [];
+    for (const entity of entities) {
       const courseKey = entity.course.key;
       delete entity.course;
-      response.push({...entity, courseKey: courseKey});
+      response.push({ ...entity, courseKey: courseKey });
     }
     return response;
   }
