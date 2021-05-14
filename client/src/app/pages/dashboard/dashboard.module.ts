@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { NzButtonModule, NzDatePickerModule, NzFormModule, NzModalModule, NzSelectModule } from 'ng-zorro-antd';
+import {
+  NzButtonModule,
+  NzCardModule,
+  NzDatePickerModule,
+  NzDescriptionsModule,
+  NzFormModule,
+  NzModalModule,
+  NzPageHeaderModule,
+  NzRadioModule,
+  NzSelectModule,
+  NzSkeletonModule,
+  NzTabsModule,
+} from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,6 +40,11 @@ import { ComposeBlockComponent } from 'src/app/components/compose-block/compose-
 import { ModulePipe } from 'src/app/components/blocks/module.pipe';
 import { PeriodsComponent } from 'src/app/components/periods/periods.component';
 import { ComposePeriodComponent } from 'src/app/components/compose-period/compose-period.component';
+import { PeriodComponent } from 'src/app/components/period/period.component';
+import { Groups20Component } from 'src/app/components/groups20/groups20.component';
+import { Groups21Component } from 'src/app/components/groups21/groups21.component';
+import { ComposeGroup20Component } from 'src/app/components/compose-group20/compose-group20.component';
+import { PeriodClassroomListComponent } from 'src/app/components/period-classroom-list/period-classroom-list.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +63,12 @@ import { ComposePeriodComponent } from 'src/app/components/compose-period/compos
     ModulesComponent,
     ComposeModuleComponent,
     ComposeBlockComponent,
-    ModulePipe
+    ModulePipe,
+    PeriodComponent,
+    Groups20Component,
+    Groups21Component,
+    ComposeGroup20Component,
+    PeriodClassroomListComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +86,13 @@ import { ComposePeriodComponent } from 'src/app/components/compose-period/compos
     NzIconModule,
     NzSelectModule,
     NzFormModule,
-    NzDatePickerModule
-  ]
+    NzDatePickerModule,
+    NzPageHeaderModule,
+    NzDescriptionsModule,
+    NzTabsModule,
+    NzSkeletonModule,
+    NzRadioModule,
+    NzCardModule
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
