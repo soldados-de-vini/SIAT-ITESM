@@ -12,7 +12,7 @@ import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { ClassroomsEntity } from '../../classrooms/entity/classrooms.entity';
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
 import { Course21Entity } from '../../courses21/entities/course21.entity';
-import { AvenuesEntity } from '../../avenue/entity/avenues.entity';
+import { AvenueEntity } from '../../avenue/entity/avenue.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -70,6 +70,6 @@ export class UsersEntity {
   @OneToMany(() => ModuleEntity, (ModuleEntity) => ModuleEntity.user)
   modules: ModuleEntity[];
 
-  @OneToMany(() => AvenuesEntity, (AvenuesEntity) => AvenuesEntity.user)
-  avenues: AvenuesEntity[];
+  @OneToMany(() => AvenueEntity, (AvenueEntity) => AvenueEntity.user)
+  avenues: AvenueEntity[];
 }
