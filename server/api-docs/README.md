@@ -21,6 +21,12 @@ In this section, each endpoint is described with the parameters needed and examp
 - **[<code>PUT</code> Update Module](/server/api-docs/modules/PUT_update.md)**
 - **[<code>DELETE</code> Delete Single Module](/server/api-docs/modules/DELETE_delete.md)**
 
+### Avenues
+- **[<code>POST</code> Create Avenue](/server/api-docs/avenues/POST_create.md)**
+- **[<code>GET</code> Get All User Avenue](/server/api-docs/avenues/GET_getAll.md)**
+- **[<code>PUT</code> Update Avenue](/server/api-docs/avenues/PUT_update.md)**
+- **[<code>DELETE</code> Delete Single Avenue](/server/api-docs/avenues/DELETE_delete.md)**
+
 ### Professors
 - **[<code>POST</code> Create Professors](/server/api-docs/professors/POST_create.md)**
 - **[<code>GET</code> Get All User Professors](/server/api-docs/professors/GET_getAll.md)**
