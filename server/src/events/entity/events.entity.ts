@@ -9,15 +9,7 @@ import {
 import { GroupsEntity } from '../../groups/entity/groups.entity';
 import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
-export enum WeekDay {
-  Monday = 'Monday',
-  Tuesday = 'Tuesday',
-  Wednesday = 'Wednesday',
-  Thursday = 'Thursday',
-  Friday = 'Friday',
-  Saturday = 'Saturday',
-  Sunday = 'Sunday',
-}
+export const DEFAULT_DATE = '2000-01-01';
 
 @Entity('events')
 export class EventsEntity {
@@ -44,11 +36,10 @@ export class EventsEntity {
   })
   endTimeString: string;
 
-  @Column('enum', {
-    enum: WeekDay,
+  @Column({
     nullable: false,
   })
-  weekDay: string;
+  weekDay: number;
 
   @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.events)
   group: GroupsEntity;
@@ -70,7 +61,7 @@ export class EventsEntity {
   _assignValues() {
     this.startTimeString = this.startTime.toString();
     this.endTimeString = this.endTime.toString();
-    this.startTime = new Date(this.startTime.toString());
-    this.endTime = new Date(this.endTime.toString());
+    this.startTime = new Date(`${DEFAULT_DATE} ${this.startTime.toString()}`);
+    this.endTime = new Date(`${DEFAULT_DATE} ${this.endTime.toString()}`);
   }
 }
