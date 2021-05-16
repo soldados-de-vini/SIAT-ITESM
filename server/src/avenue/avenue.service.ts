@@ -5,7 +5,7 @@ import { ResponseStatus } from 'src/utils/interfaces/response';
 import { Db, Repository } from 'typeorm';
 import { AvenueDto } from './dto/avenue.dto';
 import { AvenueEntity } from './entity/avenue.entity';
-import { CreateAvenueReq } from './interface/create-module.interface';
+import { CreateAvenueReq } from './interface/create-avenue.interface';
 import * as db from '../utils/db/crud-entity';
 
 @Injectable()
@@ -27,6 +27,17 @@ export class AvenueService {
     avenueReq: CreateAvenueReq,
     uuid: string,
   ): Promise<ResponseStatus> {
+
+    let avenues = [];
+    for (let avenue of avenueReq.avenues) {
+      let newAvenue = {
+        name: avenue
+      }
+      avenues.push(newAvenue);
+    }
+
+    avenueReq.avenues = avenues;
+
     return await db.createWithUserRelation<AvenueEntity, AvenueDto>(
       this.userRepository,
       this.avenueRepository,
