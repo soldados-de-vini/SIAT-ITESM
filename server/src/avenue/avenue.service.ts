@@ -27,12 +27,11 @@ export class AvenueService {
     avenueReq: CreateAvenueReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-
     let avenues = [];
     for (let avenue of avenueReq.avenues) {
       let newAvenue = {
-        name: avenue
-      }
+        name: avenue,
+      };
       avenues.push(newAvenue);
     }
 
@@ -78,18 +77,13 @@ export class AvenueService {
     );
   }
 
-
-
   /**
    * Remove a single avenue from the DB.
    * @param userId The ID of the user who made the request.
    * @param avenueId The ID of the avenue to be deleted.
    * @returns A response stating success or failure.
    */
-   async remove(userId: string, avenueId: string): Promise<ResponseStatus> {
+  async remove(userId: string, avenueId: string): Promise<ResponseStatus> {
     return db.remove(userId, avenueId, this.avenueRepository, { id: avenueId });
   }
-
 }
-
-

@@ -7,8 +7,8 @@ import { AvenueService } from './avenue.service';
 import { AvenueEntity } from './entity/avenue.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([AvenueEntity,UsersEntity])],
-    controllers: [AvenueController],
-    providers: [AvenueService, JwtStrategy],
+  imports: [TypeOrmModule.forFeature([AvenueEntity, UsersEntity])],
+  controllers: [AvenueController],
+  providers: [AvenueService, JwtStrategy],
 })
 export class AvenueModule {}
