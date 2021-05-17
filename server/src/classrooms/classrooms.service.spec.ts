@@ -9,6 +9,8 @@ import { CreateClassroomsReq } from './interfaces/create-classrooms-req.interfac
 import { UsersEntity } from '../users/entity/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpStatus } from '@nestjs/common';
+import { GroupsEntity } from '../groups/entity/groups.entity';
+import { PeriodsEntity } from '../periods/entity/periods.entity';
 
 describe('ClassroomsService', () => {
   const sampleUser = baseEntity;
@@ -36,6 +38,22 @@ describe('ClassroomsService', () => {
         },
         {
           provide: getRepositoryToken(UsersEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(GroupsEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(PeriodsEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),
