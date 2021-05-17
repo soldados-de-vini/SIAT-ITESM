@@ -40,6 +40,15 @@ export class ClassroomsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':classroomId/period/:periodId/events')
+  findGroups(
+    @Param('classroomId') classroomId: string,
+    @Param('periodId') periodId: string,
+  ) {
+    return this.classroomsService.findEvents(classroomId, periodId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Request() req: JwtRequest,
