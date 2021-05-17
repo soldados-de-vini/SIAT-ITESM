@@ -45,7 +45,7 @@ export class GroupsEntity {
 
   @OneToMany(
     () => ProfessorsToGroups,
-    (ProfessorsToGroups) => ProfessorsToGroups.professors,
+    (ProfessorsToGroups) => ProfessorsToGroups.professor,
   )
   ProfessorsToGroups: ProfessorsToGroups[];
 

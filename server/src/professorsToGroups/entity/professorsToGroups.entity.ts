@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
 
-@Entity('ProfessorsToGroups')
+@Entity('professors_to_groups')
 export class ProfessorsToGroups {
   @PrimaryGeneratedColumn()
   ProfessorsToGroupsId: number;
@@ -16,11 +16,11 @@ export class ProfessorsToGroups {
     () => ProfessorsEntity,
     (ProfessorsEntity) => ProfessorsEntity.ProfessorsToGroups,
   )
-  professors: ProfessorsEntity;
+  professor: ProfessorsEntity;
 
   @ManyToOne(
     () => GroupsEntity,
     (GroupsEntity) => GroupsEntity.ProfessorsToGroups,
   )
-  groups: ProfessorsEntity;
+  group: GroupsEntity;
 }

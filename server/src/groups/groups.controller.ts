@@ -15,6 +15,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { GroupEventDataDto } from './dto/group-event.dto';
 
 @ApiBearerAuth('access-token')
 @Controller('groups')
@@ -43,14 +44,38 @@ export class GroupsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':id/event')
+  findEvents(@Param('id') id: string) {
+    return this.groupsService.getEvents(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() groupData: UpdateGroupDto) {
     return this.groupsService.update(id, groupData);
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch(':id/event')
+  assignEvent(
+    @Param('id') id: string,
+    @Body() groupEventData: GroupEventDataDto,
+  ) {
+    return this.groupsService.assignEvent(id, groupEventData);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.groupsService.remove(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':groupId/event/:eventId')
+  removeEvent(
+    @Param('groupId') groupId: string,
+    @Param('eventId') eventId: string,
+  ) {
+    return this.groupsService.removeEvent(groupId, eventId);
   }
 }

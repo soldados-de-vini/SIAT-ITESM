@@ -8,6 +8,12 @@ import { CreateGroupReq } from './interfaces/create-group.interface';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
 import { CourseEntity } from '../courses20/entity/course20.entity';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { EventsService } from '../events/events.service';
+import { GroupEventDataDto } from './dto/group-event.dto';
+import { ProfessorsEntity } from '../professors/entity/professors.entity';
+import { ClassroomsEntity } from 'src/classrooms/entity/classrooms.entity';
+import { ProfessorsToGroups } from 'src/professorsToGroups/entity/professorsToGroups.entity';
+import { CreateEventDto } from 'src/events/dto/create-event.dto';
 
 @Injectable()
 export class GroupsService {
@@ -18,6 +24,13 @@ export class GroupsService {
     private periodRepository: Repository<PeriodsEntity>,
     @InjectRepository(CourseEntity)
     private courseRepository: Repository<CourseEntity>,
+    @InjectRepository(ProfessorsEntity)
+    private professorRepository: Repository<ProfessorsEntity>,
+    @InjectRepository(ClassroomsEntity)
+    private classroomsRepository: Repository<ClassroomsEntity>,
+    @InjectRepository(ProfessorsToGroups)
+    private professorsToGroupsRepository: Repository<ProfessorsToGroups>,
+    private readonly eventsService: EventsService,
   ) {}
 
   /**
@@ -177,6 +190,184 @@ export class GroupsService {
       HttpStatus.OK,
       'Updated successfully.',
       newValue,
+    );
+  }
+
+  /**
+   * Creates a new event for a group.
+   * The professor and classroom needs to be available for the times defined for the event,
+   * otherwise, a bad request response is arised.
+   * @param groupId  The UUID of the group.
+   * @param dtoData The data of the event.
+   * @returns A response for the user.
+   */
+  async assignEvent(
+    groupId: string,
+    dtoData: GroupEventDataDto,
+  ): Promise<ResponseStatus> {
+    // Verify the length of both professors field.
+    if (
+      dtoData.professorsIds.length != dtoData.professorsResponsability.length
+    ) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'professorsIds and professorsResponsability must be the same length.',
+      );
+    }
+    // Verify that the responsability of the professors has the correct format.
+    let sum = 0;
+    for (const r of dtoData.professorsResponsability) {
+      if (r <= 0 || r > 1) {
+        return db.createResponseStatus(
+          HttpStatus.BAD_REQUEST,
+          'Elements in professorsResponsability field must be greater than 0 and less or equal than 1.',
+        );
+      }
+      sum += r;
+    }
+    if (sum != 1) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'The sum of the elements in professorsResponsability field must be equal to 1.',
+      );
+    }
+    // Check if the group exists.
+    const group = await this.groupRepository.findOne({
+      where: { id: groupId },
+    });
+    if (!group) {
+      return db.createResponseStatus(
+        HttpStatus.NOT_FOUND,
+        'Group to update was not found.',
+      );
+    }
+    // Check if the classroom exists.
+    const classroom = await this.classroomsRepository.findOne({
+      where: { id: dtoData.classroomId },
+    });
+    if (!classroom) {
+      return db.createResponseStatus(
+        HttpStatus.NOT_FOUND,
+        'Classroom was not found.',
+      );
+    }
+    const classroomCollision = await this.eventsService.searchClassroomCollision(
+      classroom,
+      dtoData.events,
+    );
+    if (classroomCollision.valueOf()) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Classroom collision!',
+      );
+    }
+    // Get the professors.
+    const professors = await this.professorRepository.findByIds(
+      dtoData.professorsIds,
+    );
+    if (professors.length != dtoData.professorsIds.length) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Invalid professor ID.',
+      );
+    }
+    const professorCollision = await this.eventsService.searchProfessorsCollision(
+      dtoData.professorsIds,
+      dtoData.events,
+    );
+    if (professorCollision.valueOf()) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Professor collision!',
+      );
+    }
+
+    group.classroom = classroom;
+    const relationships: ProfessorsToGroups[] = [];
+    for (let i = 0; i < professors.length; i++) {
+      const professorGroup = this.professorsToGroupsRepository.create();
+      professorGroup.group = group;
+      professorGroup.responsabilityPercent =
+        dtoData.professorsResponsability[i];
+      professorGroup.professor = professors[i];
+      relationships.push(professorGroup);
+    }
+
+    const eventReq = new CreateEventDto();
+    eventReq.groupId = groupId;
+    eventReq.events = dtoData.events;
+    const result = await this.eventsService.createEventTec20(eventReq);
+    await this.professorRepository.save(professors);
+    await this.groupRepository.save(group);
+    await this.professorsToGroupsRepository.save(relationships);
+    return db.createResponseStatus(
+      HttpStatus.CREATED,
+      'Event created successfully',
+      result,
+    );
+  }
+
+  /**
+   * Gets all the events that correspond to a group.
+   * @param groupId The ID of the group to be added.
+   * @returns A response for the user.
+   */
+  async getEvents(groupId: string): Promise<ResponseStatus> {
+    const events = await this.eventsService.findEventTec20(groupId);
+    if (!events) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Group not found.',
+      );
+    }
+    return db.createResponseStatus(
+      HttpStatus.OK,
+      'Events successfully found.',
+      events,
+    );
+  }
+
+  /**
+   * Removes an event from the group.
+   * @param groupId The group UUID.
+   * @param eventId The event UUID.
+   * @returns A response for the user.
+   */
+  async removeEvent(groupId: string, eventId: string): Promise<ResponseStatus> {
+    // Check if the group exists.
+    const group = await this.groupRepository.findOne({
+      where: { id: groupId },
+      relations: ['events'],
+    });
+    if (!group) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Group not found.',
+      );
+    }
+    if (group.events.length == 0) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        "The event doesn't correspond to this group.",
+      );
+    }
+    const valid = await this.eventsService.removeEvent(eventId);
+    if (!valid.valueOf()) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'Event not found.',
+      );
+    }
+    group.events = group.events.filter((obj) => obj.id != eventId);
+    // Remove the professors and classroom if there are no more events.
+    if (group.events.length == 0) {
+      group.classroom = null;
+      await this.professorsToGroupsRepository.delete({ group: group });
+      await this.groupRepository.save(group);
+    }
+    return db.createResponseStatus(
+      HttpStatus.OK,
+      'Event successfully deleted.',
     );
   }
 
