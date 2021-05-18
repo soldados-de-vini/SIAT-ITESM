@@ -8,6 +8,13 @@ import { standardResponse } from '../utils/mocks/standard-response.mock';
 import { BloqueModulesController } from './bloque-modules.controller';
 import { BloqueModulesService } from './bloque-modules.service';
 import { BloqueGroupModulesEntity } from './entity/bloque-modules.entity';
+import { ProfessorsEntity } from '../professors/entity/professors.entity';
+import { ClassroomsEntity } from '../classrooms/entity/classrooms.entity';
+import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
+import { EventsEntity } from '../events/entity/events.entity';
+import { EventsService } from '../events/events.service';
+import { GroupsEntity } from '../groups/entity/groups.entity';
+import { ProfessorsToGroups } from '../professorsToGroups/entity/professorsToGroups.entity';
 
 describe('BloqueModulesController', () => {
   let controller: BloqueModulesController;
@@ -17,6 +24,7 @@ describe('BloqueModulesController', () => {
       imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [BloqueModulesController],
       providers: [
+        EventsService,
         {
           provide: JwtStrategy,
           useValue: {
@@ -45,6 +53,42 @@ describe('BloqueModulesController', () => {
         },
         {
           provide: getRepositoryToken(ModuleEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ClassroomsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(GroupsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsToBloqueModules),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsToGroups),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(EventsEntity),
           useValue: {
             save: jest.fn(),
           },

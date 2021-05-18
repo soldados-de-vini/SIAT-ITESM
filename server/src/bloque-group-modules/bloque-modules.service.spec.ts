@@ -7,9 +7,16 @@ import { ModuleEntity } from '../module/entity/module.entity';
 import { BloqueModulesService } from './bloque-modules.service';
 import { BloqueGroupModulesEntity } from './entity/bloque-modules.entity';
 import { mockModuleGroup } from '../utils/mocks/module_group.mock';
-import { MockType } from 'src/utils/mocks/mock-type';
+import { MockType } from '../utils/mocks/mock-type';
 import { Repository } from 'typeorm';
 import { HttpStatus } from '@nestjs/common';
+import { ProfessorsEntity } from '../professors/entity/professors.entity';
+import { ClassroomsEntity } from '../classrooms/entity/classrooms.entity';
+import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
+import { EventsEntity } from '../events/entity/events.entity';
+import { EventsService } from '../events/events.service';
+import { GroupsEntity } from '../groups/entity/groups.entity';
+import { ProfessorsToGroups } from '../professorsToGroups/entity/professorsToGroups.entity';
 
 describe('BloqueModulesService', () => {
   let moduleGroupRepository: MockType<Repository<BloqueGroupModulesEntity>>;
@@ -20,6 +27,7 @@ describe('BloqueModulesService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BloqueModulesService,
+        EventsService,
         {
           provide: getRepositoryToken(BloqueGroupModulesEntity),
           useValue: {
@@ -44,6 +52,42 @@ describe('BloqueModulesService', () => {
               where: jest.fn().mockReturnThis(),
               getMany: jest.fn().mockReturnValue([mockModuleEntity]),
             })),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ClassroomsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsToBloqueModules),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(GroupsEntity),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(ProfessorsToGroups),
+          useValue: {
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(EventsEntity),
+          useValue: {
+            save: jest.fn(),
           },
         },
       ],

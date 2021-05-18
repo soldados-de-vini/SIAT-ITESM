@@ -8,7 +8,8 @@ import { BaseEventDto } from './dto/base-event.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { EventDto } from './dto/event-entity.dto';
 import { DEFAULT_DATE, EventsEntity } from './entity/events.entity';
-import { ProfessorsToGroups } from 'src/professorsToGroups/entity/professorsToGroups.entity';
+import { ProfessorsToGroups } from '../professorsToGroups/entity/professorsToGroups.entity';
+import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 
 @Injectable()
 export class EventsService {
@@ -21,6 +22,8 @@ export class EventsService {
     private bloqueGroupsRepository: Repository<BloqueGroupModulesEntity>,
     @InjectRepository(ProfessorsToGroups)
     private professorsToGroupsRepository: Repository<ProfessorsToGroups>,
+    @InjectRepository(ProfessorsToBloqueModules)
+    private professorModuleGroupRepository: Repository<ProfessorsToBloqueModules>,
   ) {}
 
   /**
@@ -107,6 +110,7 @@ export class EventsService {
   async findEventTec21(groupId: string): Promise<EventDto[]> {
     const group21 = await this.bloqueGroupsRepository.findOne({
       where: { id: groupId },
+      relations: ['events'],
     });
     const events: EventDto[] = [];
     for (const event of group21.events) {
@@ -146,6 +150,12 @@ export class EventsService {
     return eventDto;
   }
 
+  /**
+   * Searches if a classroom is available at the events given.
+   * @param classroom The classroom entity.
+   * @param eventDtos The events data.
+   * @returns True if it's available, false otherwise.
+   */
   async searchClassroomCollision(
     classroom: ClassroomsEntity,
     eventDtos: BaseEventDto[],
@@ -167,21 +177,63 @@ export class EventsService {
         }
       }
     }
+
+    const groups21 = await this.groupsRepository.find({
+      where: { classroom: classroom },
+      relations: ['events'],
+    });
+    if (groups21.length > 0) {
+      // There must be another way to do this faster using the query builder,
+      // but because of time will leave it on a nice to have.
+      for (const group of groups21) {
+        for (const event of group.events) {
+          for (const dtoEvent of eventDtos) {
+            if (this._checkTimeCollision(dtoEvent, event)) {
+              return true;
+            }
+          }
+        }
+      }
+    }
     return false;
   }
 
+  /**
+   * Searches if all the requested professors are available at the time.
+   * @param professors The professor UUIDs.
+   * @param eventDtos The event data.
+   * @returns True if is available, false otherwise.
+   */
   async searchProfessorsCollision(
     professors: string[],
     eventDtos: BaseEventDto[],
   ): Promise<boolean> {
-    const entities = await this.professorsToGroupsRepository
+    const entitiesTec20 = await this.professorsToGroupsRepository
       .createQueryBuilder('rel')
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
       .where('rel.professor IN(:...ids)', { ids: professors })
       .getMany();
-    if (entities.length > 0) {
-      for (const entity of entities) {
+    if (entitiesTec20.length > 0) {
+      for (const entity of entitiesTec20) {
+        for (const event of entity.group.events) {
+          for (const dtoEvent of eventDtos) {
+            if (this._checkTimeCollision(dtoEvent, event)) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    const entitiesTec21 = await this.professorModuleGroupRepository
+      .createQueryBuilder('rel')
+      .innerJoinAndSelect('rel.group', 'group')
+      .innerJoinAndSelect('group.events', 'events')
+      .where('rel.professor IN(:...ids)', { ids: professors })
+      .getMany();
+    if (entitiesTec21.length > 0) {
+      for (const entity of entitiesTec21) {
         for (const event of entity.group.events) {
           for (const dtoEvent of eventDtos) {
             if (this._checkTimeCollision(dtoEvent, event)) {
@@ -194,6 +246,12 @@ export class EventsService {
     return false;
   }
 
+  /**
+   * Checks if two events are colliding.
+   * @param dtoEvent The event given by the user.
+   * @param event The event entity.
+   * @returns True if they collide, false otherwise.
+   */
   _checkTimeCollision(dtoEvent: BaseEventDto, event: EventsEntity) {
     const st = this._stringToDate(dtoEvent.startTime);
     const et = this._stringToDate(dtoEvent.endTime);
@@ -206,6 +264,11 @@ export class EventsService {
     );
   }
 
+  /**
+   * Transform a string date into a readable format for the DB.
+   * @param date The date to transform.
+   * @returns The transformed date.
+   */
   _stringToDate(date: string): Date {
     return new Date(`${DEFAULT_DATE} ${date}`);
   }

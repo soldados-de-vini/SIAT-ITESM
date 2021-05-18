@@ -5,6 +5,7 @@ import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-
 import { GroupsEntity } from '../groups/entity/groups.entity';
 import { EventsEntity } from './entity/events.entity';
 import { EventsService } from './events.service';
+import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { EventsService } from './events.service';
       GroupsEntity,
       BloqueGroupModulesEntity,
       ProfessorsToGroups,
+      ProfessorsToBloqueModules,
     ]),
   ],
   providers: [EventsService],

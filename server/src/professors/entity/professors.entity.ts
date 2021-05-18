@@ -57,7 +57,7 @@ export class ProfessorsEntity {
 
   @OneToMany(
     () => ProfessorsToBloqueModules,
-    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professors,
+    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professor,
   )
   ProfessorsToBloqueModules: ProfessorsToBloqueModules[];
 }
