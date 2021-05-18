@@ -100,7 +100,7 @@ export class BloqueModulesService {
    * @param dtoData The data of the event.
    * @returns A response for the user.
    */
-   async assignEvent(
+  async assignEvent(
     groupId: string,
     dtoData: GroupEventDataDto,
   ): Promise<ResponseStatus> {

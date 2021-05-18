@@ -20,8 +20,7 @@ export class ProfessorsToBloqueModules {
 
   @ManyToOne(
     () => BloqueGroupModulesEntity,
-    (BloqueGroupModulesEntity) =>
-      BloqueGroupModulesEntity.group,
+    (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
   )
   group: BloqueGroupModulesEntity;
 }
