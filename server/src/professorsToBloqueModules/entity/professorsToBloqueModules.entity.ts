@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProfessorsEntity } from '../../professors/entity/professors.entity';
 import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
 
-@Entity('ProfessorsToBloqueModules')
+@Entity('professor_to_bloque_modules')
 export class ProfessorsToBloqueModules {
   @PrimaryGeneratedColumn()
   ProfessorsToBloqueModulesId: number;
@@ -16,12 +16,11 @@ export class ProfessorsToBloqueModules {
     () => ProfessorsEntity,
     (ProfessorsEntity) => ProfessorsEntity.ProfessorsToBloqueModules,
   )
-  professors: ProfessorsEntity;
+  professor: ProfessorsEntity;
 
   @ManyToOne(
     () => BloqueGroupModulesEntity,
-    (BloqueGroupModulesEntity) =>
-      BloqueGroupModulesEntity.ProfessorsToBloqueModules,
+    (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
   )
-  groups: ProfessorsEntity;
+  group: BloqueGroupModulesEntity;
 }

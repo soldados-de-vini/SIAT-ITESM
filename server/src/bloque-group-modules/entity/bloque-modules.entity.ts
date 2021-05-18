@@ -21,13 +21,13 @@ export class BloqueGroupModulesEntity {
   module: ModuleEntity;
 
   @ManyToOne(() => ClassroomsEntity)
-  classroom: ClassroomsEntity[];
+  classroom: ClassroomsEntity;
 
   @OneToMany(
     () => ProfessorsToBloqueModules,
-    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professors,
+    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professor,
   )
-  ProfessorsToBloqueModules: ProfessorsToBloqueModules[];
+  professors: ProfessorsToBloqueModules[];
 
   @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.bloqueGroup)
   events: EventsEntity[];
