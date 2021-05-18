@@ -12,7 +12,13 @@ import { ComposePeriodComponent } from '../compose-period/compose-period.compone
 })
 export class PeriodsComponent implements OnInit {
 
-  public columnsToDisplay = [ 'Nombre', 'Fecha de Inicio', 'Fecha de Fin', 'Vacaciones', 'Intensivo'];
+  public columnsToDisplay = [
+    {display: 'Nombre', prop: 'name'},
+    {display: 'Fecha de inicio', prop: 'startData'},
+    {display: 'Fecha de fin', prop: 'endData'},
+    {display: 'Vacaciones', prop: 'vacations'},
+    {display: 'Intenviso', prop: 'intensive'}
+  ];
   public loading: boolean;
   public periods: Array<Period>;
 
