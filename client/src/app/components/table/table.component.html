@@ -1,7 +1,7 @@
 <div nz-row *ngIf="hasSearchBar">
     <div class="searchbar" nz-col nzSpan="24">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input type="text" nz-input placeholder="Buscar" />
+            <input [(ngModel)]="searchValue" (input)="search()" type="text" nz-input placeholder="Buscar" />
           </nz-input-group>
         <ng-template #suffixIconSearch>
             <i nz-icon nzType="search"></i>

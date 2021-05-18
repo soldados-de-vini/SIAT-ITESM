@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'siat-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Output() delete = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
@@ -16,10 +16,16 @@ export class TableComponent implements OnInit {
   @Input() hasSearchBar = true;
   @Input() loading: boolean;
   @Input() hasOpenButton: boolean;
+  dataCopy: any;
+  searchValue: any;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
+  }
+
+  ngOnChanges(): void{
+    this.dataCopy = this.tableData;
   }
 
   getKeys(){
@@ -36,6 +42,13 @@ export class TableComponent implements OnInit {
 
   openElementEvent(data){
     this.openElement.emit(data);
+  }
+
+  search(){
+    const filteredResults = this.dataCopy.filter((data) =>
+      JSON.stringify(data).toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1
+    );
+    this.tableData = filteredResults;
   }
 
 }
