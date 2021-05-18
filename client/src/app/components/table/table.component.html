@@ -14,7 +14,10 @@
             <thead>
               <tr>
                 <ng-container *ngFor="let column of columns">
-                  <th>{{ column }}</th>
+                  <th
+                    nzShowSort 
+                    (nzSortOrderChange)="customSortFunction($event, column.prop)"
+                  >{{ column.display }}</th>
                 </ng-container>
                 <th nzRight *ngIf="hasActions" colspan="1">Acciones</th>
               </tr>

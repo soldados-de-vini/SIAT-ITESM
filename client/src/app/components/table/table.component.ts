@@ -18,6 +18,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() hasOpenButton: boolean;
   dataCopy: any;
   searchValue: any;
+  sortFunction: any;
 
   constructor() { }
 
@@ -26,6 +27,14 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void{
     this.dataCopy = this.tableData;
+  }
+
+  customSortFunction(e, prop){
+    if (e === 'ascend' || e === null){
+      this.tableData.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
+    }else if (e === 'descend'){
+      this.tableData.sort((a, b) => (a[prop] > b[prop] ? -1 : 1));
+    }
   }
 
   getKeys(){
