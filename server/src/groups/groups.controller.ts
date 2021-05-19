@@ -71,11 +71,8 @@ export class GroupsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(':groupId/event/:eventId')
-  removeEvent(
-    @Param('groupId') groupId: string,
-    @Param('eventId') eventId: string,
-  ) {
-    return this.groupsService.removeEvent(groupId, eventId);
+  @Delete(':groupId/event')
+  removeEvent(@Param('groupId') groupId: string) {
+    return this.groupsService.removeEvent(groupId);
   }
 }

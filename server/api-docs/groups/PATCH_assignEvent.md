@@ -57,26 +57,42 @@ events | [EventInfo][] | [X] | The events to be created.
     },
     "result": [
         {
-            "id": "f1b68950-36b6-44ca-ac4d-45feef40a2e1",
-            "startTime": "7:00",
-            "endTime": "9:00",
-            "weekDay": 0,
+            "startTime": "2000-01-01T13:00:00.000Z",
+            "endTime": "2000-01-01T15:00:00.000Z",
+            "weekDay": 4,
+            "startTimeString": "13:00",
+            "endTimeString": "15:00",
+            "id": "58ab0552-eb35-4d08-8eff-0afa50e210db",
             "group": {
-                "id": "38f91359-183d-48d4-aa53-ce9192e82048",
-                "number": 5,
-                "formato": null,
-                "matricula": null,
+                "id": "b486d00e-fdbb-4c79-bed4-87339e94b488",
+                "number": 1,
+                "formato": "HDPA",
+                "matricula": "TODAS",
+                "course": {
+                    "id": "8a4799c9-c3b4-4d21-b034-40c9cfd43704",
+                    "key": "FSC1",
+                    "name": "Fisica 1",
+                    "capacity": 30,
+                    "semester": "6",
+                    "initialWeek": 6,
+                    "weeks": 5,
+                    "avenue": [
+                        "ICN",
+                        "ISC"
+                    ],
+                    "typeUF": "TEC20"
+                },
                 "classroom": {
-                    "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
-                    "classroom": 238,
+                    "id": "d11407fb-c04f-45b1-bd19-2ea825452d1c",
+                    "classroom": 237,
                     "building": "EIAD",
                     "capacity": 30,
-                    "comments": "Cool comments",
+                    "comments": null,
                     "type": "L",
-                    "school": "Ciencias",
-                    "entrance": "B",
-                    "currentDiv": "NV",
-                    "administrator": "MVLKA",
+                    "school": null,
+                    "entrance": null,
+                    "currentDiv": null,
+                    "administrator": null,
                     "status": "activo"
                 }
             },
