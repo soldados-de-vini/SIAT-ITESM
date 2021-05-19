@@ -25,7 +25,7 @@ export class BloqueGroupModulesEntity {
 
   @OneToMany(
     () => ProfessorsToBloqueModules,
-    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.professor,
+    (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.group,
   )
   professors: ProfessorsToBloqueModules[];
 
