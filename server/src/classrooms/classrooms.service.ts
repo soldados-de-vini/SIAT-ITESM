@@ -94,10 +94,25 @@ export class ClassroomsService {
       where: { classroom: classroom, period: period },
       relations: ['course', 'events', 'professors', 'professors.professor'],
     });
+
+    const response = [];
+    for (const group of groups) {
+      const events = group.events;
+      const professors = group.professors;
+      delete group.events;
+      delete group.professors;
+      for (const event of events) {
+        response.push({
+          ...event,
+          group: group,
+          professors: professors,
+        });
+      }
+    }
     return db.createResponseStatus(
       HttpStatus.OK,
       'Successfully fetched data.',
-      groups,
+      response,
     );
   }
 

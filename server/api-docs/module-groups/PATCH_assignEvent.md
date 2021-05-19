@@ -35,22 +35,18 @@ events | [EventInfo][] | [X] | The events to be created.
 #### Request Body    
 ```json
 {
-    "classroomId": "d11407fb-c04f-45b1-bd19-2ea825452d1c",
+    "classroomId": "43d189b1-72cf-42c3-a70c-53dcc720416a",
     "professorsIds": ["8715bb45-e2d4-4144-975a-cd59ca8a13f2"],
     "professorsResponsability": [1],
     "events": [
         {
-        "startTime": "15:00",
-        "endTime": "17:00",
+        "startTime": "9:00",
+        "endTime": "11:00",
         "weekDay": 0
-        },
-        {
-        "startTime": "15:00",
-        "endTime": "17:00",
-        "weekDay": 4
         }
     ]
 }
+
 ```
 
 ### Response
@@ -62,16 +58,42 @@ events | [EventInfo][] | [X] | The events to be created.
     },
     "result": [
         {
-            "id": "f4a8711e-5965-4c6b-a223-26e1f534ca99",
-            "startTime": "15:00",
-            "endTime": "17:00",
-            "weekDay": 0
-        },
-        {
-            "id": "720606f2-2674-45ea-9433-bfb1a5f45e2c",
-            "startTime": "15:00",
-            "endTime": "17:00",
-            "weekDay": 4
+            "id": "cd9d1d15-3baf-4182-b838-f2d8ea72f5cf",
+            "startTime": "9:00",
+            "endTime": "11:00",
+            "weekDay": 0,
+            "group": {
+                "id": "ea0e5da5-97c9-4c10-96cf-72ffa728d62b",
+                "classroom": {
+                    "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
+                    "classroom": 238,
+                    "building": "EIAD",
+                    "capacity": 30,
+                    "comments": "Cool comments",
+                    "type": "L",
+                    "school": "Ciencias",
+                    "entrance": "B",
+                    "currentDiv": "NV",
+                    "administrator": "MVLKA",
+                    "status": "activo"
+                }
+            },
+            "professors": [
+                {
+                    "professor": {
+                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
+                        "nomina": "1M",
+                        "name": "Joane",
+                        "area": [
+                            "matemáticas"
+                        ],
+                        "coordination": "Omsk",
+                        "email": "l01234567@tec.mx",
+                        "loadLimit": 14
+                    },
+                    "responsabilityPercent": 1
+                }
+            ]
         }
     ]
 }
