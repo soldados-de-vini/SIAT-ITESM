@@ -7,6 +7,8 @@ import { UsersEntity } from '../users/entity/users.entity';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { GroupsEntity } from '../groups/entity/groups.entity';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
+import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { PeriodsEntity } from '../periods/entity/periods.entity';
       UsersEntity,
       GroupsEntity,
       PeriodsEntity,
+      BloqueGroupsEntity,
+      BloqueGroupModulesEntity,
     ]),
   ],
   controllers: [ClassroomsController],

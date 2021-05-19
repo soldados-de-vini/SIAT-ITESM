@@ -11,6 +11,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpStatus } from '@nestjs/common';
 import { GroupsEntity } from '../groups/entity/groups.entity';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
+import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
 
 describe('ClassroomsService', () => {
   const sampleUser = baseEntity;
@@ -54,6 +56,22 @@ describe('ClassroomsService', () => {
         },
         {
           provide: getRepositoryToken(PeriodsEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(BloqueGroupsEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(BloqueGroupModulesEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),

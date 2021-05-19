@@ -29,217 +29,116 @@ periodId | The ID of the period.
         "statusCode": 200,
         "message": "Successfully fetched data."
     },
-    "result": [
-        {
-            "id": "9aa54591-8dd0-43ff-bed4-921fb0372cf0",
-            "startTime": "13:00:00",
-            "startTimeString": "13:00",
-            "endTime": "15:00:00",
-            "endTimeString": "15:00",
-            "weekDay": 0,
-            "group": {
-                "id": "b486d00e-fdbb-4c79-bed4-87339e94b488",
-                "number": 1,
-                "formato": "HDPA",
-                "matricula": "TODAS",
-                "course": {
-                    "id": "8a4799c9-c3b4-4d21-b034-40c9cfd43704",
-                    "key": "FSC1",
-                    "name": "Fisica 1",
-                    "capacity": 30,
-                    "semester": "6",
-                    "initialWeek": 6,
-                    "weeks": 5,
-                    "avenue": [
-                        "ICN",
-                        "ISC"
-                    ],
-                    "typeUF": "TEC20"
-                }
-            },
-            "professors": [
-                {
-                    "id": 4,
-                    "responsabilityPercent": 1,
-                    "professor": {
-                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
-                        "nomina": "1M",
-                        "name": "Joane",
-                        "area": [
-                            "matemáticas"
+    "result": {
+        "tec20": [
+            {
+                "id": "f1b68950-36b6-44ca-ac4d-45feef40a2e1",
+                "startTime": "07:00:00",
+                "startTimeString": "7:00",
+                "endTime": "09:00:00",
+                "endTimeString": "9:00",
+                "weekDay": 0,
+                "group": {
+                    "id": "38f91359-183d-48d4-aa53-ce9192e82048",
+                    "number": 5,
+                    "formato": null,
+                    "matricula": null,
+                    "course": {
+                        "id": "14d0e48b-1bb7-41cc-a166-6871409ed59d",
+                        "key": "MATE1",
+                        "name": "Mate1",
+                        "capacity": 30,
+                        "semester": "6",
+                        "initialWeek": 6,
+                        "weeks": 5,
+                        "avenue": [
+                            "ICN",
+                            "ISC"
                         ],
-                        "coordination": "Omsk",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
-                    }
-                }
-            ]
-        },
-        {
-            "id": "5330d66e-b090-486d-bad2-3f57cad8226b",
-            "startTime": "13:00:00",
-            "startTimeString": "13:00",
-            "endTime": "15:00:00",
-            "endTimeString": "15:00",
-            "weekDay": 4,
-            "group": {
-                "id": "b486d00e-fdbb-4c79-bed4-87339e94b488",
-                "number": 1,
-                "formato": "HDPA",
-                "matricula": "TODAS",
-                "course": {
-                    "id": "8a4799c9-c3b4-4d21-b034-40c9cfd43704",
-                    "key": "FSC1",
-                    "name": "Fisica 1",
-                    "capacity": 30,
-                    "semester": "6",
-                    "initialWeek": 6,
-                    "weeks": 5,
-                    "avenue": [
-                        "ICN",
-                        "ISC"
-                    ],
-                    "typeUF": "TEC20"
-                }
-            },
-            "professors": [
-                {
-                    "id": 4,
-                    "responsabilityPercent": 1,
-                    "professor": {
-                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
-                        "nomina": "1M",
-                        "name": "Joane",
-                        "area": [
-                            "matemáticas"
-                        ],
-                        "coordination": "Omsk",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
-                    }
-                }
-            ]
-        },
-        {
-            "id": "5f38151f-1a8c-4402-89a3-98fcec587b86",
-            "startTime": "13:00:00",
-            "startTimeString": "13:00",
-            "endTime": "15:00:00",
-            "endTimeString": "15:00",
-            "weekDay": 2,
-            "group": {
-                "id": "eddd6734-f9a3-4eee-9e8e-dde67cfd7332",
-                "number": 2,
-                "formato": null,
-                "matricula": null,
-                "course": {
-                    "id": "8a4799c9-c3b4-4d21-b034-40c9cfd43704",
-                    "key": "FSC1",
-                    "name": "Fisica 1",
-                    "capacity": 30,
-                    "semester": "6",
-                    "initialWeek": 6,
-                    "weeks": 5,
-                    "avenue": [
-                        "ICN",
-                        "ISC"
-                    ],
-                    "typeUF": "TEC20"
-                }
-            },
-            "professors": [
-                {
-                    "id": 6,
-                    "responsabilityPercent": 0.5,
-                    "professor": {
-                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
-                        "nomina": "1M",
-                        "name": "Joane",
-                        "area": [
-                            "matemáticas"
-                        ],
-                        "coordination": "Omsk",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
+                        "typeUF": "TEC20"
                     }
                 },
-                {
-                    "id": 5,
-                    "responsabilityPercent": 0.5,
-                    "professor": {
-                        "id": "4e8fcb5a-899a-4cf0-aa38-f53e70d21ea4",
-                        "nomina": "3M",
-                        "name": "Caressa",
-                        "area": [
-                            "matemáticas"
-                        ],
-                        "coordination": "Qingdao",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
+                "professors": [
+                    {
+                        "id": 10,
+                        "responsabilityPercent": 1,
+                        "professor": {
+                            "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
+                            "nomina": "1M",
+                            "name": "Joane",
+                            "area": [
+                                "matemáticas"
+                            ],
+                            "coordination": "Omsk",
+                            "email": "l01234567@tec.mx",
+                            "loadLimit": 14
+                        }
                     }
-                }
-            ]
-        },
-        {
-            "id": "4431ab5f-7109-4a70-af15-f25bd4873dab",
-            "startTime": "13:00:00",
-            "startTimeString": "13:00",
-            "endTime": "15:00:00",
-            "endTimeString": "15:00",
-            "weekDay": 3,
-            "group": {
-                "id": "eddd6734-f9a3-4eee-9e8e-dde67cfd7332",
-                "number": 2,
-                "formato": null,
-                "matricula": null,
-                "course": {
-                    "id": "8a4799c9-c3b4-4d21-b034-40c9cfd43704",
-                    "key": "FSC1",
-                    "name": "Fisica 1",
-                    "capacity": 30,
-                    "semester": "6",
-                    "initialWeek": 6,
-                    "weeks": 5,
-                    "avenue": [
-                        "ICN",
-                        "ISC"
-                    ],
-                    "typeUF": "TEC20"
-                }
-            },
-            "professors": [
-                {
-                    "id": 6,
-                    "responsabilityPercent": 0.5,
-                    "professor": {
-                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
-                        "nomina": "1M",
-                        "name": "Joane",
-                        "area": [
-                            "matemáticas"
-                        ],
-                        "coordination": "Omsk",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
+                ]
+            }
+        ],
+        "tec21": [
+            {
+                "id": "fe541f5b-87f1-4ee9-a041-938077d8a5e8",
+                "startTime": "09:00:00",
+                "startTimeString": "9:00",
+                "endTime": "11:00:00",
+                "endTimeString": "11:00",
+                "weekDay": 0,
+                "group": {
+                    "id": "139fd0a2-4187-4ba2-a39f-d78eb84d13d1",
+                    "group": {
+                        "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+                        "number": 1,
+                        "matricula": null,
+                        "formato": "HDPA",
+                        "course21": {
+                            "id": "a395d93d-5d72-472b-930a-c0d79961c54c",
+                            "key": "FSC21",
+                            "name": "Fisica 2",
+                            "capacity": 30,
+                            "semester": "4",
+                            "initialWeek": 6,
+                            "weeks": 10,
+                            "avenue": [
+                                "ICN"
+                            ],
+                            "typeUF": "M"
+                        }
+                    },
+                    "classroom": {
+                        "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
+                        "classroom": 238,
+                        "building": "EIAD",
+                        "capacity": 30,
+                        "comments": "Cool comments",
+                        "type": "L",
+                        "school": "Ciencias",
+                        "entrance": "B",
+                        "currentDiv": "NV",
+                        "administrator": "MVLKA",
+                        "status": "activo"
                     }
                 },
-                {
-                    "id": 5,
-                    "responsabilityPercent": 0.5,
-                    "professor": {
-                        "id": "4e8fcb5a-899a-4cf0-aa38-f53e70d21ea4",
-                        "nomina": "3M",
-                        "name": "Caressa",
-                        "area": [
-                            "matemáticas"
-                        ],
-                        "coordination": "Qingdao",
-                        "email": "l01234567@tec.mx",
-                        "loadLimit": 14
+                "professors": [
+                    {
+                        "ProfessorsToBloqueModulesId": 7,
+                        "responsabilityPercent": 1,
+                        "professor": {
+                            "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
+                            "nomina": "1M",
+                            "name": "Joane",
+                            "area": [
+                                "matemáticas"
+                            ],
+                            "coordination": "Omsk",
+                            "email": "l01234567@tec.mx",
+                            "loadLimit": 14
+                        }
                     }
-                }
-            ]
-        }
-    ]
+                ]
+            }
+        ]
+    }
 }
 ```

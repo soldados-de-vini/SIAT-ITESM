@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from 'src/users/entity/users.entity';
 import { ResponseStatus } from 'src/utils/interfaces/response';
-import { Db, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { AvenueDto } from './dto/avenue.dto';
 import { AvenueEntity } from './entity/avenue.entity';
 import { CreateAvenueReq } from './interface/create-avenue.interface';
@@ -27,9 +27,9 @@ export class AvenueService {
     avenueReq: CreateAvenueReq,
     uuid: string,
   ): Promise<ResponseStatus> {
-    let avenues = [];
-    for (let avenue of avenueReq.avenues) {
-      let newAvenue = {
+    const avenues = [];
+    for (const avenue of avenueReq.avenues) {
+      const newAvenue = {
         name: avenue,
       };
       avenues.push(newAvenue);

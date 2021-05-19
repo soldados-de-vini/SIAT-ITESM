@@ -11,6 +11,8 @@ import { jwtRequest } from '../utils/mocks/jwt-mock';
 import { mockClassroomsDto } from '../utils/mocks/classrooms.mock';
 import { GroupsEntity } from '../groups/entity/groups.entity';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
+import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
 
 describe('ClassroomsController', () => {
   let controller: ClassroomsController;
@@ -62,6 +64,22 @@ describe('ClassroomsController', () => {
         },
         {
           provide: getRepositoryToken(PeriodsEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(BloqueGroupsEntity),
+          useValue: {
+            findOne: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(BloqueGroupModulesEntity),
           useValue: {
             findOne: jest.fn(),
             create: jest.fn(),

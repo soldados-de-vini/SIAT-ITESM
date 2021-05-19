@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from '../users/entity/users.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { ClassroomDto } from './dto/classroom.dto';
 import { ClassroomsEntity } from './entity/classrooms.entity';
 import { ResponseStatus } from '../utils/interfaces/response';
@@ -10,6 +10,8 @@ import * as db from '../utils/db/crud-entity';
 import { UpdateClassroomDto } from './dto/update-classroom.dto';
 import { GroupsEntity } from '../groups/entity/groups.entity';
 import { PeriodsEntity } from '../periods/entity/periods.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
+import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
 
 @Injectable()
 export class ClassroomsService {
@@ -20,6 +22,10 @@ export class ClassroomsService {
     private groupsRepository: Repository<GroupsEntity>,
     @InjectRepository(PeriodsEntity)
     private periodRepository: Repository<PeriodsEntity>,
+    @InjectRepository(BloqueGroupsEntity)
+    private bloqueGroupsRepository: Repository<BloqueGroupsEntity>,
+    @InjectRepository(BloqueGroupModulesEntity)
+    private moduleGroupsRepository: Repository<BloqueGroupModulesEntity>,
     @InjectRepository(UsersEntity)
     private userRepository: Repository<UsersEntity>,
   ) {}
@@ -95,14 +101,48 @@ export class ClassroomsService {
       relations: ['course', 'events', 'professors', 'professors.professor'],
     });
 
-    const response = [];
+    const bloqueGroups = await this.bloqueGroupsRepository.find({
+      where: { period: period },
+    });
+    const bloqueGroupsIds = [];
+    for (const group of bloqueGroups) {
+      bloqueGroupsIds.push(group.id);
+    }
+    const moduleGroups = await this.moduleGroupsRepository.find({
+      where: { group: In(bloqueGroupsIds), classroom: classroom },
+      relations: [
+        'group',
+        'group.course21',
+        'classroom',
+        'professors',
+        'professors.professor',
+        'events',
+      ],
+    });
+
+    const groups20 = [];
     for (const group of groups) {
       const events = group.events;
       const professors = group.professors;
       delete group.events;
       delete group.professors;
       for (const event of events) {
-        response.push({
+        groups20.push({
+          ...event,
+          group: group,
+          professors: professors,
+        });
+      }
+    }
+
+    const groups21 = [];
+    for (const group of moduleGroups) {
+      const events = group.events;
+      const professors = group.professors;
+      delete group.events;
+      delete group.professors;
+      for (const event of events) {
+        groups21.push({
           ...event,
           group: group,
           professors: professors,
@@ -112,7 +152,10 @@ export class ClassroomsService {
     return db.createResponseStatus(
       HttpStatus.OK,
       'Successfully fetched data.',
-      response,
+      {
+        tec20: groups20,
+        tec21: groups21,
+      },
     );
   }
 
