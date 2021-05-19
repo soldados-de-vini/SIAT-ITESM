@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
 import { ClassroomsEntity } from '../classrooms/entity/classrooms.entity';
 import { GroupsEntity } from '../groups/entity/groups.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { BaseEventDto } from './dto/base-event.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { EventDto } from './dto/event-entity.dto';
@@ -31,7 +31,7 @@ export class EventsService {
    * @param eventDto The data of the event.
    * @returns The data created.
    */
-  async createEventTec20(eventDto: CreateEventDto): Promise<EventDto[]> {
+  async createEventTec20(eventDto: CreateEventDto): Promise<EventsEntity[]> {
     const group20 = await this.groupsRepository.findOne({
       where: { id: eventDto.groupId },
       relations: ['events'],
@@ -45,11 +45,7 @@ export class EventsService {
       }
       await this.eventRepository.save(events);
       await this.groupsRepository.save(group20);
-      const response = [];
-      for (const event of events) {
-        response.push(this._eventEntityToDto(event));
-      }
-      return response;
+      return events;
     }
     return null;
   }
@@ -59,7 +55,7 @@ export class EventsService {
    * @param eventDto The data of the event.
    * @returns The data created.
    */
-  async createEventTec21(eventDto: CreateEventDto): Promise<EventDto[]> {
+  async createEventTec21(eventDto: CreateEventDto): Promise<EventsEntity[]> {
     const group21 = await this.bloqueGroupsRepository.findOne({
       where: { id: eventDto.bloqueGroupId },
       relations: ['events'],
@@ -73,11 +69,7 @@ export class EventsService {
       }
       await this.eventRepository.save(events);
       await this.bloqueGroupsRepository.save(group21);
-      const response = [];
-      for (const event of events) {
-        response.push(this._eventEntityToDto(event));
-      }
-      return response;
+      return events;
     }
     return null;
   }
@@ -120,19 +112,20 @@ export class EventsService {
   }
 
   /**
-   * Removes an event from the DB.
+   * Removes all events from the DB.
    * @param eventId The ID of the event.
-   * @returns A boolean stating if the event was found.
+   * @returns A boolean stating if the delete was successful.
    */
-  async removeEvent(eventId: string): Promise<boolean> {
-    const event = await this.eventRepository.findOne({
-      where: { id: eventId },
-    });
-    if (event) {
-      await this.eventRepository.remove(event);
-      return true;
+  async removeEvents(events: EventsEntity[]): Promise<boolean> {
+    if (events.length == 0) {
+      return false;
     }
-    return false;
+    const eventIds = [];
+    for (const ev of events) {
+      eventIds.push(ev.id);
+    }
+    await this.eventRepository.delete({ id: In(eventIds) });
+    return true;
   }
 
   /**

@@ -248,7 +248,7 @@ export class BloqueModulesService {
    * @param eventId The event UUID.
    * @returns A response for the user.
    */
-  async removeEvent(groupId: string, eventId: string): Promise<ResponseStatus> {
+  async removeEvent(groupId: string): Promise<ResponseStatus> {
     // Check if the group exists.
     const group = await this.moduleGroupRep.findOne({
       where: { id: groupId },
@@ -266,20 +266,18 @@ export class BloqueModulesService {
         "The event doesn't correspond to this group.",
       );
     }
-    const valid = await this.eventsService.removeEvent(eventId);
+    const valid = await this.eventsService.removeEvents(group.events);
     if (!valid.valueOf()) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
         'Event not found.',
       );
     }
-    group.events = group.events.filter((obj) => obj.id != eventId);
-    // Remove the professors and classroom if there are no more events.
-    if (group.events.length == 0) {
-      group.classroom = null;
-      await this.professorsToGroupsRepository.delete({ group: group });
-      await this.moduleGroupRep.save(group);
-    }
+    group.events = [];
+    // Remove the professors and classroom since there are no more events.
+    group.classroom = null;
+    await this.professorsToGroupsRepository.delete({ group: group });
+    await this.moduleGroupRep.save(group);
     return db.createResponseStatus(
       HttpStatus.OK,
       'Event successfully deleted.',

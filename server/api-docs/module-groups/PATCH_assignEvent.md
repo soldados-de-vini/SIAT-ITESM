@@ -46,7 +46,6 @@ events | [EventInfo][] | [X] | The events to be created.
         }
     ]
 }
-
 ```
 
 ### Response
