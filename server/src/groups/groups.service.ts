@@ -300,10 +300,26 @@ export class GroupsService {
     await this.professorRepository.save(professors);
     await this.groupRepository.save(group);
     await this.professorsToGroupsRepository.save(relationships);
+    const responseProfessors = [];
+    for (let i = 0; i < professors.length; i++) {
+      const id = professors[i].id;
+      for (const relation of relationships) {
+        if (relation.professor.id == id) {
+          responseProfessors.push({
+            professor: professors[i],
+            responsabilityPercent: relation.responsabilityPercent,
+          });
+        }
+      }
+    }
+    const response = [];
+    for (const event of result) {
+      response.push({ ...event, group: group, professors: responseProfessors });
+    }
     return db.createResponseStatus(
       HttpStatus.CREATED,
       'Event created successfully',
-      result,
+      response,
     );
   }
 

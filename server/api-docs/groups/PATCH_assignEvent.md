@@ -57,10 +57,45 @@ events | [EventInfo][] | [X] | The events to be created.
     },
     "result": [
         {
-            "id": "e565832e-8589-4115-bfb1-b7fd65241b84",
-            "startTime": "13:00",
-            "endTime": "15:00",
-            "weekDay": 4
+            "id": "f1b68950-36b6-44ca-ac4d-45feef40a2e1",
+            "startTime": "7:00",
+            "endTime": "9:00",
+            "weekDay": 0,
+            "group": {
+                "id": "38f91359-183d-48d4-aa53-ce9192e82048",
+                "number": 5,
+                "formato": null,
+                "matricula": null,
+                "classroom": {
+                    "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
+                    "classroom": 238,
+                    "building": "EIAD",
+                    "capacity": 30,
+                    "comments": "Cool comments",
+                    "type": "L",
+                    "school": "Ciencias",
+                    "entrance": "B",
+                    "currentDiv": "NV",
+                    "administrator": "MVLKA",
+                    "status": "activo"
+                }
+            },
+            "professors": [
+                {
+                    "professor": {
+                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
+                        "nomina": "1M",
+                        "name": "Joane",
+                        "area": [
+                            "matemáticas"
+                        ],
+                        "coordination": "Omsk",
+                        "email": "l01234567@tec.mx",
+                        "loadLimit": 14
+                    },
+                    "responsabilityPercent": 1
+                }
+            ]
         }
     ]
 }
