@@ -2,8 +2,7 @@
 
     DELETE module-groups/:groupId/event/:eventId
     
-Deletes the event given the ID and the GroupID.
-If there are no events left on the group, the professor and classroom is automatically deleted.
+Deletes all the events of the given groupID, the professor and classroom is automatically deleted.
 
 ## Parameters
 
