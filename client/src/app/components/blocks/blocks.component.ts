@@ -13,15 +13,15 @@ import { ComposeBlockComponent } from '../compose-block/compose-block.component'
 export class BlocksComponent implements OnInit {
   public blocks: Array<Course> = [];
   public columnsToDisplay = [
-    'CLAVE',
-    'Nombre',
-    'Capacidad',
-    'Semestre',
-    'Semana inicial',
-    'Semanas',
-    'Avenida(s)',
-    'Tipo',
-    'Modulos'
+    {display: 'CLAVE', prop: 'key'},
+    {display: 'Nombre', prop: 'name'},
+    {display: 'Capacidad', prop: 'capacity'},
+    {display: 'Semestre', prop: 'semester'},
+    {display: 'Semana inicial', prop: 'initialWeek'},
+    {display: 'Semanas', prop: 'weeks'},
+    {display: 'Avenida(s)', prop: 'avenue'},
+    {display: 'Tipo', prop: 'type'},
+    {display: 'Modulos', prop: 'modules'}
   ];
   public loading: boolean;
 

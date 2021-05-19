@@ -13,7 +13,9 @@ import { ComposeModuleComponent } from '../compose-module/compose-module.compone
 export class ModulesComponent implements OnInit {
 
   public modules: Array<Module>;
-  public columnsToDisplay = ['Nombre'];
+  public columnsToDisplay = [
+    {display : 'Nombre', prop: 'name'}
+  ];
   public loading: boolean;
 
   constructor(

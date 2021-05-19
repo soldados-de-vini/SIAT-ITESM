@@ -13,7 +13,14 @@ import { ComposeProfessorComponent } from '../compose-professor/compose-professo
 })
 export class ProfessorsComponent implements OnInit {
 
-  public columnsToDisplay = [ 'Nomina', 'Nombre', 'Área', 'Coordinación', 'Email', 'Límite de carga'];
+  public columnsToDisplay = [
+    {display: 'Nomina', prop: 'nomina'},
+    {display: 'Nombre', prop: 'name'},
+    {display: 'Área', prop: 'area'},
+    {display: 'Coordinación', prop: 'coordination'},
+    {display: 'Email', prop: 'email'},
+    {display: 'Límite de carga', prop: 'loadLimit'},
+  ];
   public professors: Array<Professor>;
   public loading: boolean;
 

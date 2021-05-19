@@ -15,8 +15,15 @@ export class CoursesComponent implements OnInit {
 
   public loading: boolean;
   public columnsToDisplay = [
-    'CLAVE', 'Nombre', 'Capacidad', 'Semestre',
-    'Semana inicial', 'Semanas', 'Avenida(s)', 'Tipo'];
+    {display: 'CLAVE', prop: 'key'},
+    {display: 'Nombre', prop: 'name'},
+    {display: 'Capacidad', prop: 'capacity'},
+    {display: 'Semestre', prop: 'semester'},
+    {display: 'Semana inicial', prop: 'initialWeek'},
+    {display: 'Semanas', prop: 'weeks'},
+    {display: 'Avenida(s)', prop: 'avenue'},
+    {display: 'Tipo', prop: 'type'}
+  ];
   public courses: Array<Course> = [];
 
   constructor(

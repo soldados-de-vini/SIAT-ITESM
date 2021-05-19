@@ -12,8 +12,16 @@ import { ComposeClassroomComponent } from '../compose-classroom/compose-classroo
 export class ClassroomsComponent implements OnInit {
 
   columnsToDisplay = [
-    'Salón', 'Edificio', 'Capacidad', 'Comentarios', 'Tipo',
-    'Escuela', 'Entrada', 'Division actual', 'Administrador', 'Estatus'
+    {display: 'Salon', prop: 'classroom'},
+    {display: 'Edificio', prop: 'building'},
+    {display: 'Capacity', prop: 'capacity'},
+    {display: 'Comentarios', prop: 'comments'},
+    {display: 'Tipo', prop: 'type'},
+    {display: 'Escuela', prop: 'school'},
+    {display: 'Entrada', prop: 'entrance'},
+    {display: 'Division Actual', prop: 'actualDivision'},
+    {display: 'Administrador', prop: 'administrator'},
+    {display: 'Estatus', prop: 'status'}
   ];
   classrooms: Array<Classroom>;
 
