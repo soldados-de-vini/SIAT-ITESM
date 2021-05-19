@@ -38,7 +38,7 @@ export class ModuleService {
   }
 
   /**
-   * Queries all the courses of the user and sends them back.
+   * Queries all the modules of the user and sends them back.
    * @param uuid The user ID.
    * @returns A response with the result of the lookup in the DB.
    */
@@ -49,7 +49,7 @@ export class ModuleService {
   /**
    * Updates a course of the user.
    * @param userId User ID requesting to update.
-   * @param moduleId The ID of the course to update.
+   * @param moduleId The ID of the module to update.
    * @param updateModuleDto The data up be replaced.
    * @returns A response with the new value as a result.
    */

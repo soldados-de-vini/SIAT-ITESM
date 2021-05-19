@@ -14,6 +14,7 @@ import { GroupsModule } from './groups/groups.module';
 import { BloqueGroupsModule } from './bloque-groups/bloque-groups.module';
 import { BloqueModulesModule } from './bloque-group-modules/bloque-modules.module';
 import { EventsModule } from './events/events.module';
+import { AvenueModule } from './avenue/avenue.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { EventsModule } from './events/events.module';
     BloqueGroupsModule,
     BloqueModulesModule,
     EventsModule,
+    AvenueModule,
   ],
 })
 export class AppModule {}
