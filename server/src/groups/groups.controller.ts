@@ -35,6 +35,12 @@ export class GroupsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('period/:periodId/remaining')
+  findRemaining(@Param('periodId') id: string) {
+    return this.groupsService.findRemaining(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('period/:periodId/course/:courseId')
   findOne(
     @Param('periodId') periodId: string,

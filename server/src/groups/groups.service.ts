@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import * as db from '../utils/db/crud-entity';
 import { GroupsEntity } from './entity/groups.entity';
 import { ResponseStatus } from '../utils/interfaces/response';
@@ -137,6 +137,27 @@ export class GroupsService {
         HttpStatus.OK,
         'Successful search',
         resultGroups,
+      );
+    }
+    return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
+  }
+
+  /**
+   * Finds all the groups that do not have any classroom assigned.
+   * @param periodId The period which the group is part of.
+   * @returns A response for the user.
+   */
+  async findRemaining(periodId: string): Promise<ResponseStatus> {
+    const result = await this.groupRepository.find({
+      where: { period: periodId, classroom: IsNull() },
+      order: { course: 'DESC', number: 'ASC' },
+      relations: ['course'],
+    });
+    if (result) {
+      return db.createResponseStatus(
+        HttpStatus.OK,
+        'Successful search',
+        result,
       );
     }
     return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');

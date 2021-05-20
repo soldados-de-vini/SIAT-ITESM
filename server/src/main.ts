@@ -9,7 +9,7 @@ const WHITELIST = ['http://localhost/'];
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.use(helmet())
+  app.use(helmet());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.enableCors({
     origin: function (origin, callback) {
