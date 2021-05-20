@@ -71,7 +71,7 @@ export class GroupsService {
         if (course) {
           // Create the requested groups.
           const existingGroups = await this.groupRepository.find({
-            where: { course: course.id },
+            where: { course: course.id, period: period },
           });
           for (
             let i = 1 + existingGroups.length;
