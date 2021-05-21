@@ -41,6 +41,12 @@ export class BloqueModulesController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('period/:periodId/remaining')
+  findRemaining(@Param('periodId') id: string) {
+    return this.bloqueModulesService.findRemaining(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(':id/event')
   assignEvent(
     @Param('id') id: string,

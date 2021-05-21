@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
-import { Repository } from 'typeorm';
+import { In, IsNull, Repository } from 'typeorm';
 import * as db from '../utils/db/crud-entity';
 import { BloqueGroupModulesEntity } from './entity/bloque-modules.entity';
 import { ResponseStatus } from '../utils/interfaces/response';
@@ -90,6 +90,41 @@ export class BloqueModulesService {
       'Searched successfully',
       moduleGroups,
     );
+  }
+
+  /**
+   * Finds all the groups that do not have any classroom assigned.
+   * @param periodId The period which the group is part of.
+   * @returns A response for the user.
+   */
+   async findRemaining(periodId: string): Promise<ResponseStatus> {
+     const bloqueGroup = await this.bloqueGroupRep.find({
+       where: {period: periodId}
+     });
+     const bloqueGroupIds = [];
+     for (let group of bloqueGroup) {
+       bloqueGroupIds.push(group.id);
+     }
+     if (bloqueGroup.length == 0) {
+      return db.createResponseStatus(
+        HttpStatus.OK,
+        'Successful search',
+        [],
+      );
+     }
+     const result = await this.moduleGroupRep.find({
+       where: {classroom: IsNull(), group: In(bloqueGroupIds)},
+       order: { group: 'DESC' },
+       relations: ['group', 'group.course21', 'module']
+     });
+    if (result) {
+      return db.createResponseStatus(
+        HttpStatus.OK,
+        'Successful search',
+        result,
+      );
+    }
+    return db.createResponseStatus(HttpStatus.NO_CONTENT, 'No groups found.');
   }
 
   /**

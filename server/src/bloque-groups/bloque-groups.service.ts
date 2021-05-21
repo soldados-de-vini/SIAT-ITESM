@@ -58,7 +58,7 @@ export class BloqueGroupsService {
         if (course) {
           // Create the requested groups.
           const existingGroups = await this.bloqueGroupRepository.find({
-            where: { course21: course.id },
+            where: { course21: course.id, period: period.id },
           });
           for (
             let i = 1 + existingGroups.length;
