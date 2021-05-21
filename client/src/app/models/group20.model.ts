@@ -5,4 +5,5 @@ export interface Group20 {
   classroom: string;
   courseKey: string;
   id?: string;
+  course?: any;
 }

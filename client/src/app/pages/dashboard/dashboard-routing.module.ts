@@ -8,6 +8,7 @@ import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { LayoutComponent } from 'src/app/components/layout/layout.component';
 import { PeriodComponent } from 'src/app/components/period/period.component';
+import { GroupClassroomComponent } from 'src/app/components/group-classroom/group-classroom.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'periodo/:id',
         component: PeriodComponent
+      },
+      {
+        path: 'periodo/:periodId/salon/:classroomId',
+        component: GroupClassroomComponent
       }
     ]
   }
