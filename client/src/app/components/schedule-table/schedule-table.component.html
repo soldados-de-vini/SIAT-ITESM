@@ -1,0 +1,50 @@
+<nz-table [nzBordered]="true" [nzData]="hourKeyIndexes" [nzShowPagination]="false" style="margin-top: 16px;"
+  [nzScroll]="{ y: '70vh' }">
+  <thead>
+    <tr>
+      <th>Hora</th>
+      <th>Lunes</th>
+      <th>Martes</th>
+      <th>Miércoles</th>
+      <th>Jueves</th>
+      <th>Viernes</th>
+      <th>Sábado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hour of getHours()">
+      <td>
+        {{hour}}
+      </td>
+      <ng-container *ngFor="let day of hourKeyIndexes">
+        <td>
+          <ng-container *ngIf="day[hour] as event;">
+            <small style="cursor: pointer;" nz-popover
+              [nzPopoverTitle]="event.group.course.key + ' - ' + event.group.course.name"
+              [nzPopoverContent]="popoverContent"
+              nzPopoverTrigger="hover"><a>{{event.group.course.key + ' - Grupo ' + event.group.number}}</a></small>
+            <ng-template #popoverContent>
+              <small>
+                Grupo {{event.group.number}}
+              </small>
+              <br>
+              <small>
+                {{event.startTimeString}} - {{event.endTimeString}}
+              </small>
+              <br>
+              <ng-container *ngFor="let cursor of event.professors">
+                <small>
+                  {{ cursor.professor.nomina }} - {{ cursor.professor.name }}
+                </small>
+                <br>
+              </ng-container>
+              <br>
+              <button nz-button nzType="danger" nzGhost nzSize="small" nzBlock (click)="deleteGroup(event)">Eliminar
+                Grupo</button>
+            </ng-template>
+          </ng-container>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</nz-table>
