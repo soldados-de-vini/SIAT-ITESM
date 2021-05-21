@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 
-const WHITELIST = ['http://localhost/'];
+const WHITELIST = ['http://localhost:4200'];
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -14,7 +14,7 @@ async function bootstrap() {
   app.enableCors({
     origin: function (origin, callback) {
       let corsOptions;
-      if (WHITELIST.indexOf(origin) !== -1) {
+      if (WHITELIST.includes(origin)) {
         corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
       } else {
         corsOptions = { origin: false }; // disable CORS for this request
@@ -22,8 +22,8 @@ async function bootstrap() {
       callback(null, corsOptions);
     },
     allowedHeaders:
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-    methods: 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
+      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, Authorization',
+    methods: 'GET,PUT,POST,PATCH,DELETE,UPDATE,OPTIONS',
     credentials: true,
   });
   const config = new DocumentBuilder()
