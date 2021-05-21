@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Claves</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
-      <nz-select id="courseKey" formControlName="courseKey" style="width: 100%;">
+      <nz-select nzShowSearch id="courseKey" formControlName="courseKey" style="width: 100%;">
         <ng-container *ngFor="let course of courses">
           <nz-option *ngIf="!isLoadingCourses" [nzValue]="course.key" [nzLabel]="course.key + ' - ' + course.name"></nz-option>
         </ng-container>
@@ -24,7 +24,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Clave</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
-      <nz-select id="courseKey" formControlName="courseKey" style="width: 100%;">
+      <nz-select nzShowSearch id="courseKey" formControlName="courseKey" style="width: 100%;">
         <ng-container *ngFor="let course of courses">
           <nz-option *ngIf="!isLoadingCourses" [nzValue]="course.key" [nzLabel]="course.key + ' - ' + course.name"></nz-option>
         </ng-container>

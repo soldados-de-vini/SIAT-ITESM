@@ -1,7 +1,7 @@
 <nz-skeleton [nzActive]="true" *ngIf="loading"></nz-skeleton>
 
 <ng-container *ngIf="!loading">
-  <nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="period?.name" style="padding-left: 0;">
+  <nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="period?.name" style="padding-left: 0; padding-top: 0;">
   </nz-page-header>
 
   <nz-descriptions nzTitle="Información del Periodo">
