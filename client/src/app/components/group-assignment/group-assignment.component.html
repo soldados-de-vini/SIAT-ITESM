@@ -1,0 +1,55 @@
+<h3>Seleccionar Días</h3>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 0)">Lunes</label>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 1)">Martes</label>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 2)">Miércoles</label>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 3)">Jueves</label>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 4)">Viernes</label>
+<label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 5)">Sábado</label>
+
+<ng-container *ngFor="let event of events; let i = index">
+  <ng-container *ngIf="event">
+    <div style="margin-top: 16px; margin-bottom: 16px;">
+      <h4>Horario para {{weekDays[i]}}</h4>
+      <div nz-row [nzGutter]="6">
+        <div nz-col [nzSpan]="12">
+          <nz-time-picker [(ngModel)]="event.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
+            nzFormat="HH:mm" [nzMinuteStep]="30"></nz-time-picker>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-time-picker [(ngModel)]="event.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
+            nzFormat="HH:mm" [nzMinuteStep]="30"></nz-time-picker>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="areAllEventsFilled()">
+  <h3>Seleccionar Maestros</h3>
+  <ng-container *ngFor="let professor of professors; let i = index">
+    <div nz-row [nzGutter]="[6, 12]">
+      <div nz-col [nzSpan]="12">
+        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="Selecciona a un profesor" [(ngModel)]="professors[i]">
+          <ng-container *ngFor="let professor of selectProfessors">
+            <nz-option *ngIf="!isLoadingProfessors" [nzValue]="professor.id" [nzLabel]="professor.nomina +' - '+ professor.name"></nz-option>
+          </ng-container>
+          <nz-option *ngIf="isLoadingProfessors" nzDisabled nzCustomContent>
+            <i nz-icon nzType="loading" class="loading-icon"></i> Cargando Cursos...
+          </nz-option>
+        </nz-select>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-input-number style="width: 100%;" [(ngModel)]="professorsResponsability[i]" [nzMin]="0" [nzMax]="1" [nzStep]="0.1" [nzPlaceHolder]="'Responsabilidad de Profesor (0 - 1)'"></nz-input-number>
+      </div>
+    </div>
+  </ng-container>
+  <div style="text-align: right;">
+    <button style="margin-top: 16px;" nz-button nzType="default" (click)="addProfessor()"><i nz-icon nzType="plus"></i>Agregar Maestro</button>
+    <button *ngIf="professors?.length > 0" style="margin-left: 6px; margin-top: 16px;" nz-button nzType="default" nzDanger (click)="deleteProfessor()"><i nz-icon nzType="minus"></i>Borrar Maestro</button>
+  </div>
+</ng-container>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="assignGroup()" [disabled]="!validForm()">Asignar Grupo</button>
+</div>
