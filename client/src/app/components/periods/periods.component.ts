@@ -17,7 +17,7 @@ export class PeriodsComponent implements OnInit {
     {display: 'Fecha de inicio', prop: 'startData'},
     {display: 'Fecha de fin', prop: 'endData'},
     {display: 'Vacaciones', prop: 'vacations'},
-    {display: 'Intenviso', prop: 'intensive'}
+    {display: 'Intensivo', prop: 'intensive'}
   ];
   public loading: boolean;
   public periods: Array<Period>;
@@ -91,7 +91,7 @@ export class PeriodsComponent implements OnInit {
         this.loading = false;
         if (response.status?.statusCode === 200){
           this.periods = this.periods.filter(period => period.id !== id);
-          this.nzMessageService.success('Periodod borrado con éxito');
+          this.nzMessageService.success('Periodo borrado con éxito');
         } else {
           this.nzMessageService.error('Ocurrió un error al borrar el periodo');
         }

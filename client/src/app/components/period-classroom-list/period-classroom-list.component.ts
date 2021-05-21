@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Classroom } from 'src/app/models/classroom.model';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -14,8 +15,10 @@ export class PeriodClassroomListComponent implements OnInit {
   public loading: boolean;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,6 @@ export class PeriodClassroomListComponent implements OnInit {
   }
 
   public assignClassroom(classroom: Classroom){
-    // TODO: Go to new page for classroom assign
+    this.router.navigate(['salon', classroom.id], {relativeTo: this.activatedRoute});
   }
 }

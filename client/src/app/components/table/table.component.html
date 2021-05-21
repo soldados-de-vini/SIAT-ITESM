@@ -10,12 +10,12 @@
 </div>
 <div nz-row>
     <div nz-col nzSpan="24">
-        <nz-table #table [nzData]="tableData" [nzLoading]="loading" [nzScroll]="{ x: '100vw' }">
+        <nz-table #table [nzData]="tableData" [nzLoading]="loading" [nzScroll]="{ x: '100vw', y: '60vh' }">
             <thead>
               <tr>
                 <ng-container *ngFor="let column of columns">
                   <th
-                    nzShowSort 
+                    nzShowSort
                     (nzSortOrderChange)="customSortFunction($event, column.prop)"
                   >{{ column.display }}</th>
                 </ng-container>

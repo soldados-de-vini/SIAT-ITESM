@@ -49,7 +49,7 @@ export class CoursesComponent implements OnInit {
       (error) => {
         this.loading = false;
         this.nzMessageService.error('Error al cargar materias');
-        console.log('Error al cargar bloques', error);
+        console.log('Error al cargar materias', error);
       }
     );
   }
@@ -81,9 +81,9 @@ export class CoursesComponent implements OnInit {
         this.loading = false;
         if (response.status?.statusCode === 200) {
           this.afterDelete(event),
-          this.nzMessageService.success('Bloque borrado con éxito');
+          this.nzMessageService.success('Materia borrada con éxito');
         } else {
-          this.nzMessageService.error('Ocurrió un error al borrar el bloque');
+          this.nzMessageService.error('Ocurrió un error al borrar la materia');
         }
       },
       (error) => {
@@ -100,7 +100,6 @@ export class CoursesComponent implements OnInit {
   afterDelete(event){
     const id = event;
     this.courses = this.courses.filter(d => d.id !== id);
-    this.nzMessageService.success('Materia borrada con éxito');
   }
 
   editCourse(event){

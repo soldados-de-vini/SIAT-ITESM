@@ -4,15 +4,21 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import {
   NzButtonModule,
   NzCardModule,
+  NzCheckboxModule,
+  NzCollapseModule,
   NzDatePickerModule,
   NzDescriptionsModule,
   NzFormModule,
+  NzInputNumberModule,
+  NzListModule,
   NzModalModule,
   NzPageHeaderModule,
+  NzPopoverModule,
   NzRadioModule,
   NzSelectModule,
   NzSkeletonModule,
   NzTabsModule,
+  NzTimePickerModule,
 } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { CsvUploaderComponent } from 'src/app/components/csv-uploader/csv-uploader.component';
@@ -45,6 +51,9 @@ import { Groups20Component } from 'src/app/components/groups20/groups20.componen
 import { Groups21Component } from 'src/app/components/groups21/groups21.component';
 import { ComposeGroup20Component } from 'src/app/components/compose-group20/compose-group20.component';
 import { PeriodClassroomListComponent } from 'src/app/components/period-classroom-list/period-classroom-list.component';
+import { GroupClassroomComponent } from 'src/app/components/group-classroom/group-classroom.component';
+import { GroupAssignmentComponent } from 'src/app/components/group-assignment/group-assignment.component';
+import { ScheduleTableComponent } from 'src/app/components/schedule-table/schedule-table.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +77,10 @@ import { PeriodClassroomListComponent } from 'src/app/components/period-classroo
     Groups20Component,
     Groups21Component,
     ComposeGroup20Component,
-    PeriodClassroomListComponent
+    PeriodClassroomListComponent,
+    GroupClassroomComponent,
+    GroupAssignmentComponent,
+    ScheduleTableComponent
   ],
   imports: [
     CommonModule,
@@ -92,7 +104,13 @@ import { PeriodClassroomListComponent } from 'src/app/components/period-classroo
     NzTabsModule,
     NzSkeletonModule,
     NzRadioModule,
-    NzCardModule
+    NzCardModule,
+    NzListModule,
+    NzCheckboxModule,
+    NzTimePickerModule,
+    NzInputNumberModule,
+    NzCollapseModule,
+    NzPopoverModule
   ],
 })
 export class DashboardModule {}

@@ -20,11 +20,11 @@ export class Groups20Component implements OnInit {
   }
 
   public columnsToDisplay = [
-    'Clave',
-    'Número de Grupo',
-    'Formato',
-    'Matricula',
-    'Salón',
+    {display: 'Clave', prop: 'courseKey'},
+    {display: 'Número de Grupo', prop: 'number'},
+    {display: 'Formato', prop: 'formato'},
+    {display: 'Matricula', prop: 'matricula'},
+    {display: 'Salón', prop: 'classroom'}
   ];
   public groups: Array<Group20>;
   public loading: boolean;
@@ -42,7 +42,6 @@ export class Groups20Component implements OnInit {
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 200) {
-          console.log(response.result);
           this.groups = response.result;
           this.parseGroups();
         } else {
