@@ -15,6 +15,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRequest } from '../utils/interfaces/request-token';
 import { UpdateProfessorDto } from './dto/update-professor.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { AvailableReq } from './interfaces/availableReq.interface';
 
 @ApiBearerAuth('access-token')
 @Controller('professors')
@@ -31,6 +32,13 @@ export class ProfessorsController {
   @Get()
   findAll(@Request() req: JwtRequest) {
     return this.professorsService.findAll(req.user.id);
+  }
+
+  /** A POST is not ideal, an alternative could be query parameters. */
+  @UseGuards(JwtAuthGuard)
+  @Post('remaining')
+  findAvailable(@Request() req: JwtRequest, @Body() info: AvailableReq) {
+    return this.professorsService.findAvailable(req.user.id, info);
   }
 
   @UseGuards(JwtAuthGuard)

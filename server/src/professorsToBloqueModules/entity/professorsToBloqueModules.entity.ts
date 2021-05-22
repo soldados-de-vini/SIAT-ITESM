@@ -5,7 +5,7 @@ import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloq
 @Entity('professor_to_bloque_modules')
 export class ProfessorsToBloqueModules {
   @PrimaryGeneratedColumn()
-  ProfessorsToBloqueModulesId: number;
+  id: number;
 
   @Column({
     nullable: false,
@@ -14,7 +14,7 @@ export class ProfessorsToBloqueModules {
 
   @ManyToOne(
     () => ProfessorsEntity,
-    (ProfessorsEntity) => ProfessorsEntity.ProfessorsToBloqueModules,
+    (ProfessorsEntity) => ProfessorsEntity.groups21,
   )
   professor: ProfessorsEntity;
 

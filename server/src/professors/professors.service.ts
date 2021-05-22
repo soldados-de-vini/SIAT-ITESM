@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from '../users/entity/users.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +8,8 @@ import { ResponseStatus } from '../utils/interfaces/response';
 import * as db from '../utils/db/crud-entity';
 import { CreateProfessorsReq } from './interfaces/createProfessorsReq';
 import { UpdateProfessorDto } from './dto/update-professor.dto';
+import { AvailableReq } from './interfaces/availableReq.interface';
+import { EventsService } from '../events/events.service';
 
 @Injectable()
 export class ProfessorsService {
@@ -16,6 +18,7 @@ export class ProfessorsService {
     private professorsRepository: Repository<ProfessorsEntity>,
     @InjectRepository(UsersEntity)
     private userRepository: Repository<UsersEntity>,
+    private readonly eventsService: EventsService,
   ) {}
 
   /**
@@ -45,6 +48,26 @@ export class ProfessorsService {
    */
   async findAll(uuid: string): Promise<ResponseStatus> {
     return db.findAll(uuid, 'professors', this.userRepository, ['professors']);
+  }
+
+  /**
+   * Queries all the professors that are available at the given times.
+   * @param uuid The user ID.
+   * @returns A response with the result of the lookup in the DB.
+   */
+  async findAvailable(
+    uuid: string,
+    data: AvailableReq,
+  ): Promise<ResponseStatus> {
+    const professors = await this.eventsService.findAvailableProfessors(
+      uuid,
+      data,
+    );
+    return db.createResponseStatus(
+      HttpStatus.OK,
+      'Searched successfully.',
+      professors,
+    );
   }
 
   /**
