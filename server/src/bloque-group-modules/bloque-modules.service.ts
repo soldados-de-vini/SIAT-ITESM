@@ -97,26 +97,22 @@ export class BloqueModulesService {
    * @param periodId The period which the group is part of.
    * @returns A response for the user.
    */
-   async findRemaining(periodId: string): Promise<ResponseStatus> {
-     const bloqueGroup = await this.bloqueGroupRep.find({
-       where: {period: periodId}
-     });
-     const bloqueGroupIds = [];
-     for (let group of bloqueGroup) {
-       bloqueGroupIds.push(group.id);
-     }
-     if (bloqueGroup.length == 0) {
-      return db.createResponseStatus(
-        HttpStatus.OK,
-        'Successful search',
-        [],
-      );
-     }
-     const result = await this.moduleGroupRep.find({
-       where: {classroom: IsNull(), group: In(bloqueGroupIds)},
-       order: { group: 'DESC' },
-       relations: ['group', 'group.course21', 'module']
-     });
+  async findRemaining(periodId: string): Promise<ResponseStatus> {
+    const bloqueGroup = await this.bloqueGroupRep.find({
+      where: { period: periodId },
+    });
+    const bloqueGroupIds = [];
+    for (const group of bloqueGroup) {
+      bloqueGroupIds.push(group.id);
+    }
+    if (bloqueGroup.length == 0) {
+      return db.createResponseStatus(HttpStatus.OK, 'Successful search', []);
+    }
+    const result = await this.moduleGroupRep.find({
+      where: { classroom: IsNull(), group: In(bloqueGroupIds) },
+      order: { group: 'DESC' },
+      relations: ['group', 'group.course21', 'module'],
+    });
     if (result) {
       return db.createResponseStatus(
         HttpStatus.OK,
