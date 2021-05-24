@@ -267,9 +267,6 @@ export class EventsService {
       for (const entity of entitiesTec21) {
         for (const event of entity.group.events) {
           for (const dtoEvent of eventDtos) {
-            // if (this._checkTimeCollision(dtoEvent, event)) {
-            //   return true;
-            // }
             if (
               this._checkTimeCollision(
                 dtoEvent,

@@ -11,6 +11,16 @@ Header | Type
 --- | ---
 Authorization | Bearer Token
 
+### Body Parameters
+
+Field | Data Type | Required | Description
+--- | --- | --- | ---
+periodId | string | [X] | The UUID of the period.
+groupId | string | [ ] | The UUID of TEC 20 Group.
+bloqueGroupId | string | [ ] | The UUID of TEC 21 Module Group.
+events | [EventInfo][] | [X] | The events to be created.
+
+**Note**: groupId and bloqueGroupId cannot be set at the same time, but at least one is required.
 ## Example
 ### Request
 
@@ -20,6 +30,7 @@ Authorization | Bearer Token
 ```json
 {
     "periodId": "66195ba1-ca0e-4f29-9eb8-eb35ddf7c9ee",
+    "groupId": "08cda927-570d-471a-ab7a-916266e87a64",
     "events": [
         {
         "startTime": "13:00",
