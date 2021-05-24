@@ -184,6 +184,8 @@ export class BloqueModulesService {
     const classroomCollision = await this.eventsService.searchClassroomCollision(
       classroom,
       dtoData.events,
+      group.group.course21.initialWeek,
+      group.group.course21.initialWeek + group.group.course21.weeks,
     );
     if (classroomCollision.valueOf()) {
       return db.createResponseStatus(
@@ -204,6 +206,8 @@ export class BloqueModulesService {
     const professorCollision = await this.eventsService.searchProfessorsCollision(
       dtoData.professorsIds,
       dtoData.events,
+      group.group.course21.initialWeek,
+      group.group.course21.initialWeek + group.group.course21.weeks,
     );
     if (professorCollision.valueOf()) {
       return db.createResponseStatus(
