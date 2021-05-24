@@ -14,7 +14,7 @@ export class ProfessorsToGroups {
 
   @ManyToOne(
     () => ProfessorsEntity,
-    (ProfessorsEntity) => ProfessorsEntity.ProfessorsToGroups,
+    (ProfessorsEntity) => ProfessorsEntity.groups20,
   )
   professor: ProfessorsEntity;
 

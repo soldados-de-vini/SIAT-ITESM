@@ -10,6 +10,8 @@ import { EventDto } from './dto/event-entity.dto';
 import { DEFAULT_DATE, EventsEntity } from './entity/events.entity';
 import { ProfessorsToGroups } from '../professorsToGroups/entity/professorsToGroups.entity';
 import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
+import { AvailableReq } from '../professors/interfaces/availableReq.interface';
+import { ProfessorsEntity } from '../professors/entity/professors.entity';
 
 @Injectable()
 export class EventsService {
@@ -20,6 +22,8 @@ export class EventsService {
     private groupsRepository: Repository<GroupsEntity>,
     @InjectRepository(BloqueGroupModulesEntity)
     private bloqueGroupsRepository: Repository<BloqueGroupModulesEntity>,
+    @InjectRepository(ProfessorsEntity)
+    private professorsRepository: Repository<ProfessorsEntity>,
     @InjectRepository(ProfessorsToGroups)
     private professorsToGroupsRepository: Repository<ProfessorsToGroups>,
     @InjectRepository(ProfessorsToBloqueModules)
@@ -232,6 +236,113 @@ export class EventsService {
             if (this._checkTimeCollision(dtoEvent, event)) {
               return true;
             }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Queries all the available professors of the user at the specified time.
+   * @param uuid The user ID.
+   * @returns A response with the result of the lookup in the DB.
+   */
+  async findAvailableProfessors(
+    uuid: string,
+    data: AvailableReq,
+  ): Promise<ProfessorsEntity[]> {
+    const emptyProfessors = await this.professorsRepository
+      .createQueryBuilder('professor')
+      .leftJoin('professor.user', 'user')
+      .leftJoin('professor.groups20', 'groups20')
+      .leftJoin('professor.groups21', 'groups21')
+      .where(
+        'user.id = :userId::uuid AND groups20 IS NULL AND groups21 IS NULL',
+        { userId: uuid },
+      )
+      .getMany();
+
+    const professorsWithGroups = await this.professorsRepository
+      .createQueryBuilder('professor')
+      .leftJoin('professor.user', 'user')
+      .leftJoinAndSelect('professor.groups20', 'groups20')
+      .leftJoinAndSelect('groups20.group', 'group20')
+      .leftJoin('group20.period', 'period20')
+      .leftJoinAndSelect('group20.events', 'events20')
+      .leftJoinAndSelect('professor.groups21', 'groups21')
+      .leftJoinAndSelect('groups21.group', 'groupModule')
+      .leftJoin('groupModule.group', 'group21')
+      .leftJoin('group21.period', 'period21')
+      .leftJoinAndSelect('groupModule.events', 'events21')
+      .where(
+        '(user.id = :userId::uuid) AND (period20.id = :periodId::uuid OR period21.id = :periodId::uuid)',
+        { periodId: data.periodId, userId: uuid },
+      )
+      .getMany();
+
+    const availableProfessors: ProfessorsEntity[] = [];
+    // Awful 3 nested for loops, I think it's better to add to the query above,
+    // but do not want to waste time figuring it out. Theoretically, the data.events
+    // will only have at max 7 events, so there is no worry on that one.
+    for (const professor of professorsWithGroups) {
+      // Check the TEC 20 groups.
+      if (professor.groups20.length > 0) {
+        if (this._checkProfessorTec20(professor, data.events)) {
+          continue;
+        }
+      }
+      // Check the TEC 21 groups
+      if (professor.groups21.length > 0) {
+        if (this._checkProfessorTec21(professor, data.events)) {
+          continue;
+        }
+      }
+      delete professor.groups20;
+      delete professor.groups21;
+      availableProfessors.push(professor);
+    }
+
+    return availableProfessors.concat(emptyProfessors);
+  }
+
+  /**
+   * Checks if the professor is available at the given time in Groups TEC 20.
+   * @param professor The professor object.
+   * @param events The events to verify.
+   * @returns True or false if there is a collision.
+   */
+  _checkProfessorTec20(
+    professor: ProfessorsEntity,
+    events: BaseEventDto[],
+  ): boolean {
+    for (const group of professor.groups20) {
+      for (const event of group.group.events) {
+        for (const dtoEvent of events) {
+          if (this._checkTimeCollision(dtoEvent, event)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Checks if the professor is available at the given time in Groups TEC 21.
+   * @param professor The professor object.
+   * @param events The events to verify.
+   * @returns True or false if there is a collision.
+   */
+  _checkProfessorTec21(
+    professor: ProfessorsEntity,
+    events: BaseEventDto[],
+  ): boolean {
+    for (const group of professor.groups21) {
+      for (const event of group.group.events) {
+        for (const dtoEvent of events) {
+          if (this._checkTimeCollision(dtoEvent, event)) {
+            return true;
           }
         }
       }
