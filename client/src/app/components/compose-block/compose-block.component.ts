@@ -18,16 +18,19 @@ export class ComposeBlockComponent implements OnInit {
   public modules: Array<Module>;
   public loading: boolean;
   public blockForm: FormGroup;
+  avenues: any;
 
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private nzModalRef: NzModalRef,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
     this.getModules();
+    this.getAvenues();
     if (this.block) {
       this.createFormWithBlock();
     } else {
@@ -142,5 +145,11 @@ export class ComposeBlockComponent implements OnInit {
 
   public isArray(object: any): boolean{
     return Array.isArray(object);
+  }
+
+  public getAvenues(){
+    this.api.get('/avenues').subscribe((res) => {
+      this.avenues = res.result;
+    });
   }
 }
