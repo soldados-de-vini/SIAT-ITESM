@@ -14,6 +14,7 @@ export class ComposeCourseComponent implements OnInit {
   loading: boolean;
   @Input() course;
   @Input() isEditing;
+  avenues: any;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +24,7 @@ export class ComposeCourseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAvenues();
     if (this.course){
       this.initializeEditForm();
     }else{
@@ -85,7 +87,7 @@ export class ComposeCourseComponent implements OnInit {
       semester: [null, [Validators.required]],
       initialWeek: [null, [Validators.required]],
       weeks: [null, [Validators.required]],
-      avenue: [[]],
+      avenue: [],
       typeUF: ['TEC20'],
     });
   }
@@ -105,6 +107,12 @@ export class ComposeCourseComponent implements OnInit {
 
   public isArray(object: any): boolean{
     return Array.isArray(object);
+  }
+
+  public getAvenues(){
+    this.api.get('/avenues').subscribe((res) => {
+      this.avenues = res.result;
+    });
   }
 
 }
