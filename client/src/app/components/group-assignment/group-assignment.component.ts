@@ -13,6 +13,7 @@ export class GroupAssignmentComponent implements OnInit {
   @Input() group: Group20 | any;
   @Input() periodId: string;
   @Input() classroomId: string;
+  @Input() isModule: boolean;
 
   public weekDays = [
     'Lunes',
@@ -28,6 +29,11 @@ export class GroupAssignmentComponent implements OnInit {
   public selectProfessors: Array<Professor>;
   public isLoadingProfessors: boolean;
   public loading: boolean;
+  public isSharedTime: boolean;
+  public sharedTime = {
+    startTime: null,
+    endTime: null,
+  };
 
   constructor(
     private apiService: ApiService,
@@ -35,8 +41,29 @@ export class GroupAssignmentComponent implements OnInit {
     private nzModalRef: NzModalRef
   ) {}
 
-  ngOnInit(): void {
-    this.apiService.get('/professors').subscribe(
+  ngOnInit(): void {}
+
+  public getProfessors() {
+    this.isLoadingProfessors = true;
+    this.professors = [];
+
+    let body = null;
+
+    if (this.isModule) {
+      body = {
+        periodId: this.periodId,
+        bloqueGroupId: this.group.group.id,
+        events: this.parseEvents(),
+      };
+    } else {
+      body = {
+        periodId: this.periodId,
+        groupId: this.group.id,
+        events: this.parseEvents(),
+      };
+    }
+
+    this.apiService.post('/professors/remaining', body).subscribe(
       (response) => {
         this.isLoadingProfessors = false;
         if (response.status?.statusCode === 200) {
@@ -113,9 +140,13 @@ export class GroupAssignmentComponent implements OnInit {
     return true;
   }
 
+  public isSharedTimeFilled(){
+    return this.isSharedTime && this.sharedTime.startTime && this.sharedTime.endTime;
+  }
+
   public validForm() {
     return (
-      this.areAllEventsFilled() &&
+      (this.areAllEventsFilled() || this.isSharedTimeFilled()) &&
       this.areAllProfessorsFilled() &&
       this.areAllResponsabilitiesFilled()
     );
@@ -143,36 +174,97 @@ export class GroupAssignmentComponent implements OnInit {
       events: this.parseEvents(),
     };
 
-    console.log(objectToSend);
-
     this.loading = true;
-    this.apiService.patch(`/groups/${this.group.id}/event`, objectToSend).subscribe(
-      (response) => {
-        this.loading = false;
-        if (response.status?.statusCode === 201) {
-          this.nzMessageService.success('Grupo asignado con éxito');
-          this.nzModalRef.close({events: response.result});
-        } else {
+    if (this.isModule) {
+      this.assignModuleGroup(objectToSend);
+    } else {
+      this.assignTec20Group(objectToSend);
+    }
+  }
+
+  private assignTec20Group(objectToSend) {
+    this.apiService
+      .patch(`/groups/${this.group.id}/event`, objectToSend)
+      .subscribe(
+        (response) => {
+          this.loading = false;
+          if (response.status?.statusCode === 201) {
+            this.nzMessageService.success('Grupo asignado con éxito');
+            this.nzModalRef.close({ events: response.result });
+          } else {
+            this.nzMessageService.error('Error al asignar grupo');
+          }
+        },
+        (error) => {
+          this.loading = false;
           this.nzMessageService.error('Error al asignar grupo');
+          console.log('Error al asignar grupo', error);
         }
-      },
-      (error) => {
-        this.loading = false;
-        this.nzMessageService.error('Error al asignar grupo');
-        console.log('Error al asignar grupo', error);
-      }
-    );
+      );
+  }
+
+  private assignModuleGroup(objectToSend) {
+    this.apiService
+      .patch(`/module-groups/${this.group.id}/event`, objectToSend)
+      .subscribe(
+        (response) => {
+          this.loading = false;
+          console.log(response);
+          if (response.status?.statusCode === 201) {
+            this.nzMessageService.success('Grupo asignado con éxito');
+            this.nzModalRef.close({
+              events: response.result,
+              isModule: this.isModule,
+            });
+          } else {
+            this.nzMessageService.error('Error al asignar grupo');
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.nzMessageService.error('Error al asignar grupo');
+          console.log('Error al asignar grupo', error);
+        }
+      );
   }
 
   public parseEvents() {
     const events = [];
     for (const [i, event] of this.events.entries()) {
       if (this.events[i] !== null) {
-        events.push({
-          startTime: event.startTime.getHours() + ':' + (event.startTime.getMinutes() === 0 ? '00' : event.startTime.getMinutes()),
-          endTime: event.endTime.getHours() + ':' + (event.endTime.getMinutes() === 0 ? '00' : event.endTime.getMinutes()),
-          weekDay: i,
-        });
+        if (this.isSharedTime) {
+          events.push({
+            startTime:
+              this.sharedTime.startTime?.getHours() +
+              ':' +
+              (this.sharedTime.startTime?.getMinutes() === 0
+                ? '00'
+                : this.sharedTime.startTime?.getMinutes()),
+            endTime:
+              this.sharedTime.endTime?.getHours() +
+              ':' +
+              (this.sharedTime.endTime?.getMinutes() === 0
+                ? '00'
+                : this.sharedTime.endTime?.getMinutes()),
+            weekDay: i,
+          });
+        } else {
+          events.push({
+            startTime:
+              event.startTime?.getHours() +
+              ':' +
+              (event.startTime?.getMinutes() === 0
+                ? '00'
+                : event.startTime?.getMinutes()),
+            endTime:
+              event.endTime?.getHours() +
+              ':' +
+              (event.endTime?.getMinutes() === 0
+                ? '00'
+                : event.endTime?.getMinutes()),
+            weekDay: i,
+          });
+        }
       }
     }
     return events;
