@@ -62,7 +62,7 @@ export class BloqueModulesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(':groupId/event/')
+  @Delete(':groupId/event')
   removeEvent(@Param('groupId') groupId: string) {
     return this.bloqueModulesService.removeEvent(groupId);
   }
