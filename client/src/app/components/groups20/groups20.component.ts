@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Group20 } from 'src/app/models/group20.model';
 import { ApiService } from 'src/app/services/api/api.service';
-import { ComposeGroupComponent } from '../compose-group20/compose-group.component';
+import { ComposeGroupComponent } from '../compose-group/compose-group.component';
 
 @Component({
   selector: 'siat-groups20',
