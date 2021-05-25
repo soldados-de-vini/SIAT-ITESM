@@ -63,7 +63,6 @@ export class CoursesComponent implements OnInit {
 
     modal.afterClose.subscribe(
       (result) => {
-        console.log(result);
         if (result?.course){
           this.courses = [
             ...this.courses,

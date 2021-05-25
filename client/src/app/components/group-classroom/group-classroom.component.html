@@ -1,4 +1,5 @@
-<nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="'Salón ' + classroom?.classroom" style="padding-left: 0; padding-top: 0;">
+<nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="'Salón ' + classroom?.classroom"
+  style="padding-left: 0; padding-top: 0;">
 </nz-page-header>
 <div nz-row [nzGutter]="16">
   <div nz-col [nzSpan]="6">
@@ -17,10 +18,13 @@
       <div nz-col [nzSpan]="24" #groups>
         <h3>Grupos Tec 21</h3>
         <nz-list [nzBordered]="true" class="group-list" nzSize="small">
-          <nz-list-item *ngFor="let group of remainingGroups">
-            {{ group.course.key }} - Grupo {{ group.number }}
+          <nz-list-item *ngFor="let module of remainingModules">
+            <small>
+              Módulo {{module.module.name}} <br>
+              Bloque {{ module.group.course21.key }} - Grupo {{ module.group.number }}
+            </small>
             <ul nz-list-item-actions>
-              <nz-list-item-action><a (click)="onGroupAssignment(group)">Asignar</a></nz-list-item-action>
+              <nz-list-item-action><a (click)="onGroupAssignment(module, true)">Asignar</a></nz-list-item-action>
             </ul>
           </nz-list-item>
         </nz-list>
@@ -28,7 +32,6 @@
     </div>
   </div>
   <div nz-col [nzSpan]="18">
-    <siat-schedule-table [events]="assignedGroups" (deleteGroupEvent)="addRemainingGroup($event)"></siat-schedule-table>
+    <siat-schedule-table [events]="getFlattenedAssignedGroups()" (deleteGroupEvent)="addRemainingGroup($event)" (deleteModuleEvent)="addRemainingModule($event)"></siat-schedule-table>
   </div>
 </div>
-

@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="group20Form" *ngIf="!isEditing">
+<form nz-form [formGroup]="groupForm" *ngIf="!isEditing">
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Claves</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
@@ -20,7 +20,7 @@
   </nz-form-item>
 </form>
 
-<form nz-form [formGroup]="group20Form" *ngIf="isEditing">
+<form nz-form [formGroup]="groupForm" *ngIf="isEditing">
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired nzFor="courseKey">Clave</nz-form-label>
     <nz-form-control [nzSpan]="16" nzErrorTip="La clave del grupo es requerida...">
@@ -56,5 +56,5 @@
 
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
-  <button nz-button [nzLoading]="loading" nzType="primary" (click)="saveGroup()" [disabled]="!group20Form.valid">{{isEditing ? 'Guardar Grupo' : 'Agregar Grupos'}}</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="saveGroup()" [disabled]="!groupForm.valid">{{isEditing ? 'Guardar Grupo' : 'Agregar Grupos'}}</button>
 </div>

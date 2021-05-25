@@ -49,7 +49,7 @@ import { ComposePeriodComponent } from 'src/app/components/compose-period/compos
 import { PeriodComponent } from 'src/app/components/period/period.component';
 import { Groups20Component } from 'src/app/components/groups20/groups20.component';
 import { Groups21Component } from 'src/app/components/groups21/groups21.component';
-import { ComposeGroup20Component } from 'src/app/components/compose-group20/compose-group20.component';
+import { ComposeGroupComponent } from 'src/app/components/compose-group/compose-group.component';
 import { PeriodClassroomListComponent } from 'src/app/components/period-classroom-list/period-classroom-list.component';
 import { GroupClassroomComponent } from 'src/app/components/group-classroom/group-classroom.component';
 import { GroupAssignmentComponent } from 'src/app/components/group-assignment/group-assignment.component';
@@ -76,7 +76,7 @@ import { ScheduleTableComponent } from 'src/app/components/schedule-table/schedu
     PeriodComponent,
     Groups20Component,
     Groups21Component,
-    ComposeGroup20Component,
+    ComposeGroupComponent,
     PeriodClassroomListComponent,
     GroupClassroomComponent,
     GroupAssignmentComponent,

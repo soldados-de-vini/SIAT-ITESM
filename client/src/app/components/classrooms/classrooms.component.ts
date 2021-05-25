@@ -36,7 +36,6 @@ export class ClassroomsComponent implements OnInit {
 
   getClassrooms(): void {
     this.api.get('/classrooms').subscribe((res) => {
-      console.log(res);
       this.classrooms = res.result;
     });
   }
@@ -50,7 +49,6 @@ export class ClassroomsComponent implements OnInit {
 
     modal.afterClose.subscribe(
       (result) => {
-        console.log(result);
         if (result?.classroom){
           this.classrooms = [
             ...this.classrooms,

@@ -1,5 +1,4 @@
-<nz-table [nzBordered]="true" [nzData]="hourKeyIndexes" [nzShowPagination]="false" style="margin-top: 16px;"
-  [nzScroll]="{ y: '70vh' }">
+<nz-table [nzBordered]="true" [nzData]="hourKeyIndexes" [nzShowPagination]="false" [nzScroll]="{ y: '70vh' }">
   <thead>
     <tr>
       <th>Hora</th>
@@ -19,28 +18,55 @@
       <ng-container *ngFor="let day of hourKeyIndexes">
         <td>
           <ng-container *ngIf="day[hour] as event;">
-            <small style="cursor: pointer;" nz-popover
-              [nzPopoverTitle]="event.group.course.key + ' - ' + event.group.course.name"
-              [nzPopoverContent]="popoverContent"
-              nzPopoverTrigger="hover"><a>{{event.group.course.key + ' - Grupo ' + event.group.number}}</a></small>
-            <ng-template #popoverContent>
-              <small>
-                Grupo {{event.group.number}}
-              </small>
-              <br>
-              <small>
-                {{event.startTimeString}} - {{event.endTimeString}}
-              </small>
-              <br>
-              <ng-container *ngFor="let cursor of event.professors">
+            <ng-container *ngIf="event.isModule; else course">
+              <small style="cursor: pointer;" nz-popover
+                [nzPopoverTitle]="'Modulo ' + event.group.module.name + ' - ' + event.group.group.course21.name"
+                [nzPopoverContent]="popoverContent"
+                nzPopoverTrigger="hover"><a>Modulo {{event.group.module.name + ' - ' + event.group.group.course21.key + ' - Grupo ' + event.group.group.number}}</a></small>
+                <ng-template #popoverContent>
+                  <small>
+                    Grupo {{event.group.group.number}}
+                  </small>
+                  <br>
+                  <small>
+                    {{event.startTimeString}} - {{event.endTimeString}}
+                  </small>
+                  <br>
+                  <ng-container *ngFor="let cursor of event.professors">
+                    <small>
+                      {{ cursor.professor.nomina }} - {{ cursor.professor.name }}
+                    </small>
+                    <br>
+                  </ng-container>
+                  <br>
+                  <button nz-button nzType="danger" nzGhost nzSize="small" nzBlock (click)="deleteModule(event)">Eliminar
+                    Grupo</button>
+                </ng-template>
+              </ng-container>
+            <ng-template #course>
+              <small style="cursor: pointer;" nz-popover
+                [nzPopoverTitle]="event.group.course.key + ' - ' + event.group.course.name"
+                [nzPopoverContent]="popoverContent"
+                nzPopoverTrigger="hover"><a>{{event.group.course.key + ' - Grupo ' + event.group.number}}</a></small>
+              <ng-template #popoverContent>
                 <small>
-                  {{ cursor.professor.nomina }} - {{ cursor.professor.name }}
+                  Grupo {{event.group.number}}
                 </small>
                 <br>
-              </ng-container>
-              <br>
-              <button nz-button nzType="danger" nzGhost nzSize="small" nzBlock (click)="deleteGroup(event)">Eliminar
-                Grupo</button>
+                <small>
+                  {{event.startTimeString}} - {{event.endTimeString}}
+                </small>
+                <br>
+                <ng-container *ngFor="let cursor of event.professors">
+                  <small>
+                    {{ cursor.professor.nomina }} - {{ cursor.professor.name }}
+                  </small>
+                  <br>
+                </ng-container>
+                <br>
+                <button nz-button nzType="danger" nzGhost nzSize="small" nzBlock (click)="deleteGroup(event)">Eliminar
+                  Grupo</button>
+              </ng-template>
             </ng-template>
           </ng-container>
         </td>

@@ -6,25 +6,50 @@
 <label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 4)">Viernes</label>
 <label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 5)">Sábado</label>
 
-<ng-container *ngFor="let event of events; let i = index">
-  <ng-container *ngIf="event">
+<h3 style="margin-top: 16px; margin-bottom: 16px;">
+  ¿Compartir Horario?
+</h3>
+<label nz-checkbox [(ngModel)]="isSharedTime"> Horario Compartido </label>
+
+<ng-container *ngIf="isSharedTime; else individualTime">
+  <ng-container *ngIf="events?.length > 0">
     <div style="margin-top: 16px; margin-bottom: 16px;">
-      <h4>Horario para {{weekDays[i]}}</h4>
+      <h4>Horario Compartido</h4>
       <div nz-row [nzGutter]="6">
         <div nz-col [nzSpan]="12">
-          <nz-time-picker [(ngModel)]="event.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
-            nzFormat="HH:mm" [nzMinuteStep]="30"></nz-time-picker>
+          <nz-time-picker [(ngModel)]="sharedTime.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
+            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()"></nz-time-picker>
         </div>
         <div nz-col [nzSpan]="12">
-          <nz-time-picker [(ngModel)]="event.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
-            nzFormat="HH:mm" [nzMinuteStep]="30"></nz-time-picker>
+          <nz-time-picker [(ngModel)]="sharedTime.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
+            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()"></nz-time-picker>
         </div>
       </div>
     </div>
   </ng-container>
 </ng-container>
 
-<ng-container *ngIf="areAllEventsFilled()">
+<ng-template #individualTime>
+  <ng-container *ngFor="let event of events; let i = index">
+    <ng-container *ngIf="event">
+      <div style="margin-top: 16px; margin-bottom: 16px;">
+        <h4>Horario para {{weekDays[i]}}</h4>
+        <div nz-row [nzGutter]="6">
+          <div nz-col [nzSpan]="12">
+            <nz-time-picker [(ngModel)]="event.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
+              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()"></nz-time-picker>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <nz-time-picker [(ngModel)]="event.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
+              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()"></nz-time-picker>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-container *ngIf="areAllEventsFilled() || (isSharedTime && sharedTime.startTime && sharedTime.endTime)">
   <h3>Seleccionar Maestros</h3>
   <ng-container *ngFor="let professor of professors; let i = index">
     <div nz-row [nzGutter]="[6, 12]">
