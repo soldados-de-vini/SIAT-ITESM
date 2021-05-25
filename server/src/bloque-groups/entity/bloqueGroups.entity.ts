@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  Index,
 } from 'typeorm';
 
 import { PeriodsEntity } from '../../periods/entity/periods.entity';
@@ -18,6 +19,7 @@ export class BloqueGroupsEntity {
   @Column({
     nullable: false,
   })
+  @Index()
   number: number;
 
   @Column({

@@ -15,12 +15,22 @@ export class ExportController {
   constructor(private readonly exportService: ExportService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get(':periodId')
+  @Get('tec20/:periodId')
   @Header('Content-type', 'application/csv')
-  findAll(
+  csvTec20(
     @Request() req: JwtRequest,
     @Param('periodId') periodId: string,
   ): Promise<Buffer> {
     return this.exportService.createTec20Csv(req.user.id, periodId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('tec21/:periodId')
+  @Header('Content-type', 'application/csv')
+  csvTec21(
+    @Request() req: JwtRequest,
+    @Param('periodId') periodId: string,
+  ): Promise<Buffer> {
+    return this.exportService.createTec21Csv(req.user.id, periodId);
   }
 }
