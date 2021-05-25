@@ -100,7 +100,7 @@ export class ComposeCourseComponent implements OnInit {
       semester: [this.course.semester, [Validators.required]],
       initialWeek: [this.course.initialWeek, [Validators.required]],
       weeks: [this.course.weeks, [Validators.required]],
-      avenue: [[]],
+      avenue: [this.course.avenue],
       typeUF: [this.course.typeUF],
     });
   }
