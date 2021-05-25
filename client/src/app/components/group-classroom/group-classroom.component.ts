@@ -17,8 +17,10 @@ export class GroupClassroomComponent implements OnInit {
   private classroomId: string;
 
   public loading: boolean;
-  public remainingGroups: Array<Group20>;
-  public assignedGroups: Array<any>;
+  public remainingGroups: Array<Group20> = [];
+  public remainingModules: Array<any> = [];
+  public assignedGroups: Array<any> = [];
+  public assignedModules: Array<any> = [];
   public classroom: Classroom;
 
   constructor(
@@ -36,6 +38,7 @@ export class GroupClassroomComponent implements OnInit {
     this.getClassroom();
     this.getAssignedGroups();
     this.getRemainingGroups();
+    this.getRemainingModules();
   }
 
   private getClassroom(){
@@ -54,11 +57,28 @@ export class GroupClassroomComponent implements OnInit {
     );
   }
 
+  private getRemainingModules(){
+    this.apiService.get(`/module-groups/period/${this.periodId}/remaining`).subscribe(
+      (response) => {
+        if (response.status.statusCode === 200) {
+          this.remainingModules = response.result;
+        } else {
+          this.nzMessageService.error('Error al cargar grupos tec 21');
+        }
+      },
+      (error) => {
+        this.nzMessageService.error('Error al cargar grupos tec 21');
+        console.log('Error al cargar grupos tec 21', error);
+      }
+    );
+  }
+
   private getAssignedGroups(){
     this.apiService.get(`/classrooms/${this.classroomId}/period/${this.periodId}/events`).subscribe(
       (response) => {
         if (response.status.statusCode === 200) {
           this.assignedGroups = response.result.tec20;
+          this.assignedModules = response.result.tec21;
         } else {
           this.nzMessageService.error('Error al cargar programación del salón');
         }
@@ -70,14 +90,17 @@ export class GroupClassroomComponent implements OnInit {
     );
   }
 
-  public getDayEvents(weekday: number){
-    const array = this.assignedGroups.filter(element => {
-      return element.weekDay === weekday;
+  public getFlattenedAssignedGroups(){
+    let allGroups = [];
+
+    const mappedModules = this.assignedModules?.map((mod) => {
+      mod.isModule = true;
+      return mod;
     });
 
-    return array.sort((a, b) => {
-      return b.startTime - a.startTime;
-    });
+    allGroups = [...this.assignedGroups, ...mappedModules];
+
+    return allGroups;
   }
 
   private getRemainingGroups(){
@@ -102,29 +125,41 @@ export class GroupClassroomComponent implements OnInit {
     this.location.back();
   }
 
-  public onGroupAssignment(group: Group20 | any){
+  public onGroupAssignment(group: any, isModule = false){
     const modal = this.nzModalService.create({
-      nzTitle: `Asignar ${group.course.key} - Grupo ${group.number}`,
+      nzTitle: isModule ?  `Asignar modulo ${group.module.name} del bloque ${group.group.course21.key }  - Grupo ${group.group.number}` : `Asignar ${group.course.key} - Grupo ${group.number}`,
       nzContent: GroupAssignmentComponent,
       nzStyle: {width: '80vw'},
       nzComponentParams: {
         periodId: this.periodId,
         classroomId: this.classroomId,
-        group
+        group,
+        isModule
       }
     });
 
     modal.afterClose.subscribe(
       (result) => {
-        if (result.events) {
-          this.deleteRemainingGroup(result.events);
-          this.assignedGroups = [...result.events, ...this.assignedGroups];
+        if (result?.events) {
+          if (result.isModule) {
+            this.deleteRemainingModules(result.events);
+            this.assignedModules = [...result.events, ...this.assignedModules];
+          } else {
+            this.deleteRemainingGroup(result.events);
+            this.assignedGroups = [...result.events, ...this.assignedGroups];
+          }
         }
       }
     );
   }
 
-  public deleteRemainingGroup(events: any){
+  private deleteRemainingModules(events: any){
+    for (const event of events) {
+      this.remainingModules = this.remainingModules.filter((remainginGroup) => remainginGroup.id !== event.group.id);
+    }
+  }
+
+  private deleteRemainingGroup(events: any){
     for (const event of events) {
       this.remainingGroups = this.remainingGroups.filter((remainginGroup) => remainginGroup.id !== event.group.id);
     }
@@ -145,6 +180,23 @@ export class GroupClassroomComponent implements OnInit {
       (error) => {
         this.nzMessageService.error('Error al devolver grupo a grupos restantes');
         console.log('Error al devolver grupo a grupos restantes', error);
+      });
+  }
+
+  public addRemainingModule(event: any){
+    this.apiService.delete(`/module-groups/${event.group.id}/event`).subscribe(
+      (response) => {
+        if (response.status.statusCode === 200) {
+          this.assignedModules = this.assignedModules.filter((assignedModule) => assignedModule.group.id !== event.group.id);
+          this.remainingModules.unshift(event.group);
+          this.nzMessageService.warning('Grupo devuelto a modulos restantes');
+        } else {
+          this.nzMessageService.error('Error al devolver grupo a modulos restantes');
+        }
+      },
+      (error) => {
+        this.nzMessageService.error('Error al devolver grupo a modulos restantes');
+        console.log('Error al devolver grupo a modulos restantes', error);
       });
   }
 }
