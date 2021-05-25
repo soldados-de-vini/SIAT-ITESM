@@ -1,6 +1,6 @@
 # Delete Group Event
 
-    DELETE groups/:groupId/event/:eventId
+    DELETE groups/:groupId/event/
     
 Deletes all the events of the given groupID, the professor and classroom is automatically deleted.
 
@@ -15,12 +15,11 @@ Authorization | Bearer Token
 Field | Description
 --- | ---
 groupId | The ID of the group.
-eventId | The ID of the event to be deleted.
 
 ## Example
 ### Request
 
-    DELETE https://[HOST]/groups/b486d00e-fdbb-4c79-bed4-87339e94b488/event/7b9537e0-b613-4929-aaca-f16c1be66889
+    DELETE https://[HOST]/groups/b486d00e-fdbb-4c79-bed4-87339e94b488/event/
 ### Response
 ``` json
 {

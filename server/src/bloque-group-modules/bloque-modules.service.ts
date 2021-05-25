@@ -299,7 +299,7 @@ export class BloqueModulesService {
     if (group.events.length == 0) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
-        "The event doesn't correspond to this group.",
+        "There are no events for this group.",
       );
     }
     const valid = await this.eventsService.removeEvents(group.events);
