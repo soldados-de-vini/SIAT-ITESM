@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExportToCsv } from 'export-to-csv';
-import { CourseEntity } from 'src/courses20/entity/course20.entity';
+import { CourseEntity } from '../courses20/entity/course20.entity';
+import { Course21Entity } from '../courses21/entities/course21.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class ExportService {
   constructor(
     @InjectRepository(CourseEntity)
     private coursesRepository: Repository<CourseEntity>,
+    @InjectRepository(Course21Entity)
+    private courses21Repository: Repository<Course21Entity>,
   ) {}
 
   /**
@@ -36,6 +39,37 @@ export class ExportService {
       )
       .orderBy('course', 'ASC')
       .addOrderBy('groups20.number', 'ASC')
+      .addOrderBy('events.weekDay', 'ASC')
+      .getMany();
+  }
+
+  /**
+   * Gets all the TEC21 assigned data of the current period.
+   * @param uuid The UUID of the user.
+   * @param periodId The UUID of the period.
+   * @returns All the courses with the groups that have been assigned for this period.
+   */
+  async getTec21PeriodData(
+    uuid: string,
+    periodId: string,
+  ): Promise<Course21Entity[]> {
+    return await this.courses21Repository
+      .createQueryBuilder('course')
+      .innerJoin('course.user', 'user')
+      .innerJoinAndSelect('course.bloqueGroups', 'bloqueGroups')
+      .innerJoin('bloqueGroups.period', 'period21')
+      .innerJoinAndSelect('bloqueGroups.bloqueModules', 'bloqueModules')
+      .innerJoinAndSelect('bloqueModules.classroom', 'classroom')
+      .innerJoinAndSelect('bloqueModules.professors', 'professors')
+      .innerJoinAndSelect('bloqueModules.module', 'module')
+      .innerJoinAndSelect('bloqueModules.events', 'events')
+      .innerJoinAndSelect('professors.professor', 'professor')
+      .where('(user.id = :userId::uuid) AND (period21.id = :periodId::uuid)', {
+        userId: uuid,
+        periodId: periodId,
+      })
+      .orderBy('course', 'ASC')
+      .addOrderBy('bloqueGroups.number', 'ASC')
       .addOrderBy('events.weekDay', 'ASC')
       .getMany();
   }
@@ -105,6 +139,83 @@ export class ExportService {
             ...eventData,
             ...professorData,
           });
+        }
+      }
+    }
+    return this._createCsvFile(data);
+  }
+
+  /**
+   * Creates a CSV file with the TEC 21 group information of a period.
+   * @param uuid The UUID of the user.
+   * @param periodId The period to export data from.
+   * @returns A CSV file.
+   */
+  async createTec21Csv(uuid: string, periodId: string) {
+    const periodData = await this.getTec21PeriodData(uuid, periodId);
+    const data = [];
+    for (const course of periodData) {
+      const courseData = {
+        Clave: course.key,
+        Nombre: course.name,
+        Capacidad: course.capacity,
+        Semestre: course.semester,
+        SemanaInicial: course.initialWeek,
+        Duracion: `${course.weeks} semanas`,
+        TipoUF: course.typeUF,
+        Avenidas: course.avenue.join(' '),
+      };
+      for (const group of course.bloqueGroups) {
+        const groupData = {
+          ...courseData,
+          Grupo: group.number,
+          Formato: group.formato ? group.formato : '',
+          Matriculas: group.matricula ? group.formato : '',
+        };
+        for (const moduleGroup of group.bloqueModules) {
+          const moduleData = {
+            ...groupData,
+            Salon: moduleGroup.classroom.classroom,
+            Edificio: moduleGroup.classroom.building,
+            Modulo: moduleGroup.module.name,
+          };
+          const professorData = {};
+          let counter = 1;
+          for (const professor of moduleGroup.professors) {
+            professorData[`Nomina ${counter}`] = professor.professor.nomina;
+            professorData[`Nombre ${counter}`] = professor.professor.name;
+            professorData[`Porcentaje De Responsabilidad ${counter}`] =
+              professor.responsabilityPercent;
+            professorData[`Area ${counter}`] = professor.professor.area;
+            professorData[`Coordination ${counter}`] =
+              professor.professor.coordination;
+            professorData[`Email ${counter}`] = professor.professor.email;
+            counter++;
+          }
+          // Fill the rest of the data.
+          if (counter <= 5) {
+            for (let i = counter; i <= 5; i++) {
+              professorData[`Nomina ${counter}`] = '';
+              professorData[`Nombre ${counter}`] = '';
+              professorData[`Porcentaje De Responsabilidad ${counter}`] = '';
+              professorData[`Area ${counter}`] = '';
+              professorData[`Coordination ${counter}`] = '';
+              professorData[`Email ${counter}`] = '';
+              counter++;
+            }
+          }
+          for (const event of moduleGroup.events) {
+            const eventData = {
+              Dia: this._weekDayToString(event.weekDay),
+              Inicio: event.startTimeString,
+              Fin: event.endTimeString,
+            };
+            data.push({
+              ...moduleData,
+              ...eventData,
+              ...professorData,
+            });
+          }
         }
       }
     }

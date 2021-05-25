@@ -5,6 +5,7 @@ import {
   ManyToOne,
   BeforeInsert,
   BeforeUpdate,
+  Index,
 } from 'typeorm';
 import { GroupsEntity } from '../../groups/entity/groups.entity';
 import { BloqueGroupModulesEntity } from '../../bloque-group-modules/entity/bloque-modules.entity';
@@ -39,6 +40,7 @@ export class EventsEntity {
   @Column({
     nullable: false,
   })
+  @Index()
   weekDay: number;
 
   @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.events)

@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   JoinTable,
+  Index,
 } from 'typeorm';
 
 import { CourseEntity } from '../../courses20/entity/course20.entity';
@@ -21,6 +22,7 @@ export class GroupsEntity {
   @Column({
     nullable: false,
   })
+  @Index()
   number: number;
 
   @Column({
