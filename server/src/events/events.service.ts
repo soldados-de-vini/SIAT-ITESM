@@ -473,6 +473,9 @@ export class EventsService {
     const et = this._stringToDate(dtoEvent.endTime);
     const eventSt = this._stringToDate(event.startTime.toString());
     const eventEt = this._stringToDate(event.endTime.toString());
+    // Reduce one to the end week since we want a exclusive comparison.
+    dtoEndWeek = dtoEndWeek - 1;
+    existingEndWeek = existingEndWeek - 1;
     // Check if the hours collide and verify that the courses do not collide.
     return (
       ((st >= eventSt && st < eventEt) || (et > eventSt && et <= eventEt)) &&
