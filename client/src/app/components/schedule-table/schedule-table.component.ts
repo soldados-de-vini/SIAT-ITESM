@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 export class ScheduleTableComponent implements OnInit, OnChanges{
   @Input() events: Array<any>;
   @Output() deleteGroupEvent = new EventEmitter<any>();
+  @Output() deleteModuleEvent = new EventEmitter<any>();
 
   public hourKeyIndexes: Array<Array<any>> = [[], [], [], [], [], []];
   private dayEvents: Array<Array<any>> = [[], [], [], [], [], []];
@@ -85,5 +86,9 @@ export class ScheduleTableComponent implements OnInit, OnChanges{
 
   public deleteGroup(event){
     this.deleteGroupEvent.emit(event);
+  }
+
+  public deleteModule(event){
+    this.deleteModuleEvent.emit(event);
   }
 }
