@@ -12,6 +12,7 @@ import { ProfessorsToGroups } from '../professorsToGroups/entity/professorsToGro
 import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 import { AvailableReq } from '../professors/interfaces/availableReq.interface';
 import { ProfessorsEntity } from '../professors/entity/professors.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
 
 @Injectable()
 export class EventsService {
@@ -20,8 +21,10 @@ export class EventsService {
     private eventRepository: Repository<EventsEntity>,
     @InjectRepository(GroupsEntity)
     private groupsRepository: Repository<GroupsEntity>,
+    @InjectRepository(BloqueGroupsEntity)
+    private bloqueGroupsRepository: Repository<BloqueGroupsEntity>,
     @InjectRepository(BloqueGroupModulesEntity)
-    private bloqueGroupsRepository: Repository<BloqueGroupModulesEntity>,
+    private moduleGroupsRepository: Repository<BloqueGroupModulesEntity>,
     @InjectRepository(ProfessorsEntity)
     private professorsRepository: Repository<ProfessorsEntity>,
     @InjectRepository(ProfessorsToGroups)
@@ -60,7 +63,7 @@ export class EventsService {
    * @returns The data created.
    */
   async createEventTec21(eventDto: CreateEventDto): Promise<EventsEntity[]> {
-    const group21 = await this.bloqueGroupsRepository.findOne({
+    const group21 = await this.moduleGroupsRepository.findOne({
       where: { id: eventDto.bloqueGroupId },
       relations: ['events'],
     });
@@ -72,7 +75,7 @@ export class EventsService {
         events.push(eventEntity);
       }
       await this.eventRepository.save(events);
-      await this.bloqueGroupsRepository.save(group21);
+      await this.moduleGroupsRepository.save(group21);
       return events;
     }
     return null;
@@ -104,7 +107,7 @@ export class EventsService {
    * @returns The events that correspond to the group.
    */
   async findEventTec21(groupId: string): Promise<EventDto[]> {
-    const group21 = await this.bloqueGroupsRepository.findOne({
+    const group21 = await this.moduleGroupsRepository.findOne({
       where: { id: groupId },
       relations: ['events'],
     });
@@ -309,10 +312,10 @@ export class EventsService {
     } else {
       const group = await this.bloqueGroupsRepository.findOne({
         where: { id: data.bloqueGroupId },
-        relations: ['group', 'group.course21'],
+        relations: ['course21'],
       });
-      initialWeek = group.group.course21.initialWeek;
-      endWeek = group.group.course21.weeks + initialWeek;
+      initialWeek = group.course21.initialWeek;
+      endWeek = group.course21.weeks + initialWeek;
     }
     const emptyProfessors = await this.professorsRepository
       .createQueryBuilder('professor')
