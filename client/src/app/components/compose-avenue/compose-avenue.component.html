@@ -1,0 +1,13 @@
+<form nz-form [formGroup]="avenueForm" class="professor-form">
+  <nz-form-item>
+    <nz-form-label nzRight [nzSpan]="6" nzRequired nzFor="name">Nombre</nz-form-label>
+    <nz-form-control [nzSpan]="16" nzErrorTip="El nombre de la avenida es requerido...">
+      <input nz-input formControlName="name" id="name" type="text" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Cancelar</button>
+  <button nz-button [nzLoading]="loading" nzType="primary" (click)="saveAvenue()" [disabled]="!avenueForm.valid">Guardar
+    Avenida</button>
+</div>

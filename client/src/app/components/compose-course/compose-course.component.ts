@@ -110,8 +110,12 @@ export class ComposeCourseComponent implements OnInit {
   }
 
   public getAvenues(){
-    this.api.get('/avenues').subscribe((res) => {
-      this.avenues = res.result;
+    this.api.get('/avenues').subscribe((response) => {
+      if (response.status?.statusCode === 200){
+        this.avenues = response.result;
+      } else {
+        this.nzMessageService.error('Error al cargar avenidas');
+      }
     });
   }
 

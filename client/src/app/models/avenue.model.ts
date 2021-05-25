@@ -1,4 +1,4 @@
 export interface Avenue {
-    id: number;
+    id: string;
     name: string;
 }
