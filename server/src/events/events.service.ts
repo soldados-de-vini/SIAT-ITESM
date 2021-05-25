@@ -336,7 +336,7 @@ export class EventsService {
       .leftJoinAndSelect('professor.groups21', 'groups21')
       .leftJoinAndSelect('groups21.group', 'groupModule')
       .leftJoinAndSelect('groupModule.group', 'group21')
-      .leftJoinAndSelect('group21.course', 'course21')
+      .leftJoinAndSelect('group21.course21', 'course21')
       .leftJoin('group21.period', 'period21')
       .leftJoinAndSelect('groupModule.events', 'events21')
       .where(
