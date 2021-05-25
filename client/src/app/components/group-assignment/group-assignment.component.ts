@@ -209,7 +209,6 @@ export class GroupAssignmentComponent implements OnInit {
       .subscribe(
         (response) => {
           this.loading = false;
-          console.log(response);
           if (response.status?.statusCode === 201) {
             this.nzMessageService.success('Grupo asignado con éxito');
             this.nzModalRef.close({

@@ -42,7 +42,6 @@ export class Groups21Component implements OnInit {
       (response) => {
         if (response.status?.statusCode === 200){
           this.groups = response.result;
-          console.log('groups', this.groups);
           this.parseGroups();
         } else {
           this.nzMessageService.error('Error al cargar grupos Tec 21');

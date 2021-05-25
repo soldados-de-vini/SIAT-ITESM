@@ -158,7 +158,6 @@ export class ComposeGroupComponent implements OnInit {
       matricula: this.groupForm.controls.matricula.value,
       number: this.groupForm.controls.number.value,
     };
-    console.log(objectToSend);
     this.apiService.patch(`/groups/${this.group.id}`, objectToSend).subscribe(
       (response) => {
         this.loading = false;
@@ -183,7 +182,6 @@ export class ComposeGroupComponent implements OnInit {
       matricula: this.groupForm.controls.matricula.value,
       number: this.groupForm.controls.number.value,
     };
-    console.log(objectToSend);
     this.apiService.patch(`/groups21/${this.group.id}`, objectToSend).subscribe(
       (response) => {
         this.loading = false;
