@@ -1,25 +1,21 @@
 # Get Tec 20 Period Data
 
-    GET export/:periodId
+    GET export/tec20/:userId/period/:periodId
     
 Returns a CSV with all the user assigned data of the given period.
 
 ## Parameters
 
-### Headers
-Header | Type
---- | ---
-Authorization | Bearer Token
-
 ### URI Parameters
 Field | Description
 --- | ---
+userId | The ID of the user that the period belongs to.
 periodId | The ID of the period that the groups belongs to.
 
 ## Example
 ### Request
 
-    GET https://[HOST]/export/66195ba1-ca0e-4f29-9eb8-eb35ddf7c9ee
+    GET https://[HOST]/export/tec20/faac7baa-b5be-49f6-9509-a99dcd4ea439/period/66195ba1-ca0e-4f29-9eb8-eb35ddf7c9ee
 
 ### Response
 ``` csv
