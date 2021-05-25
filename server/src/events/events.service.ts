@@ -189,9 +189,9 @@ export class EventsService {
       }
     }
 
-    const groups21 = await this.groupsRepository.find({
+    const groups21 = await this.moduleGroupsRepository.find({
       where: { classroom: classroom },
-      relations: ['events', 'course'],
+      relations: ['events', 'group', 'group.course21'],
     });
     if (groups21.length > 0) {
       // There must be another way to do this faster using the query builder,
@@ -205,8 +205,8 @@ export class EventsService {
                 groupInitialWeek,
                 groupEndWeek,
                 event,
-                group.course.initialWeek,
-                group.course.initialWeek + group.course.weeks,
+                group.group.course21.initialWeek,
+                group.group.course21.initialWeek + group.group.course21.weeks,
               )
             ) {
               return true;

@@ -117,6 +117,7 @@ export class ClassroomsService {
         'professors',
         'professors.professor',
         'events',
+        'module',
       ],
     });
 
