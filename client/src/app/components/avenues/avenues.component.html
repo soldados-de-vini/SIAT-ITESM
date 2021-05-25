@@ -1,0 +1,6 @@
+<div nz-row nzJustify="end">
+    <siat-csv-uploader [endpoint]="'/avenues'" [objectPrefix]="'avenues'" [columns]="columnsToDisplay" (afterSuccess)="afterCsvSuccess($event)"></siat-csv-uploader>
+    <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createAvenue()">Agregar Avenida</button>
+</div>
+<siat-table [loading]="loading" [tableData]="avenues" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>
+  

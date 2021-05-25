@@ -9,6 +9,7 @@ import { BlocksComponent } from 'src/app/components/blocks/blocks.component';
 import { LayoutComponent } from 'src/app/components/layout/layout.component';
 import { PeriodComponent } from 'src/app/components/period/period.component';
 import { GroupClassroomComponent } from 'src/app/components/group-classroom/group-classroom.component';
+import { AvenuesComponent } from 'src/app/components/avenues/avenues.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,10 @@ const routes: Routes = [
       {
         path: 'salones',
         component: ClassroomsComponent
+      },
+      {
+        path: 'avenidas',
+        component: AvenuesComponent
       },
       {
         path: 'periodo/:id',

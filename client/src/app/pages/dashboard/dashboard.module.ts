@@ -54,6 +54,8 @@ import { PeriodClassroomListComponent } from 'src/app/components/period-classroo
 import { GroupClassroomComponent } from 'src/app/components/group-classroom/group-classroom.component';
 import { GroupAssignmentComponent } from 'src/app/components/group-assignment/group-assignment.component';
 import { ScheduleTableComponent } from 'src/app/components/schedule-table/schedule-table.component';
+import { AvenuesComponent } from 'src/app/components/avenues/avenues.component';
+import { ComposeAvenueComponent } from 'src/app/components/compose-avenue/compose-avenue.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { ScheduleTableComponent } from 'src/app/components/schedule-table/schedu
     PeriodClassroomListComponent,
     GroupClassroomComponent,
     GroupAssignmentComponent,
-    ScheduleTableComponent
+    ScheduleTableComponent,
+    AvenuesComponent,
+    ComposeAvenueComponent
   ],
   imports: [
     CommonModule,
