@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Group20 } from 'src/app/models/group20.model';
 import { ApiService } from 'src/app/services/api/api.service';
-import { ComposeGroup20Component } from '../compose-group20/compose-group20.component';
+import { ComposeGroupComponent } from '../compose-group20/compose-group.component';
 
 @Component({
   selector: 'siat-groups20',
@@ -72,7 +72,7 @@ export class Groups20Component implements OnInit {
   public createGroup(){
     const modal = this.nzModalService.create({
       nzTitle: 'Agregar Grupos Tec 20',
-      nzContent: ComposeGroup20Component,
+      nzContent: ComposeGroupComponent,
       nzStyle: { width: '80vw' },
       nzComponentParams: {periodId: this._periodId}
     });
@@ -88,7 +88,7 @@ export class Groups20Component implements OnInit {
   public onEdit(data) {
     const modal = this.nzModalService.create({
       nzTitle: 'Editar Grupo',
-      nzContent: ComposeGroup20Component,
+      nzContent: ComposeGroupComponent,
       nzStyle: { width: '80vw' },
       nzComponentParams: { group: data, isEditing: true },
     });

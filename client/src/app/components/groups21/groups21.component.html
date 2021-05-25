@@ -1,1 +1,6 @@
-<p>groups21 works!</p>
+<div nz-row nzJustify="end">
+  <siat-csv-uploader [endpoint]="'/professors'" [objectPrefix]="'professors'" [columns]="columnsToDisplay"
+    [areArray]="[2]" (afterSuccess)="afterCsvSuccess($event)"></siat-csv-uploader>
+  <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createGroup()">Agregar Grupos Tec 21</button>
+</div>
+<siat-table [loading]="loading" [tableData]="groups" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>
