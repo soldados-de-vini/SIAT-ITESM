@@ -308,7 +308,7 @@ export class EventsService {
       endWeek = group.course.weeks + initialWeek;
     } else {
       const group = await this.bloqueGroupsRepository.findOne({
-        where: { id: data.groupId },
+        where: { id: data.bloqueGroupId },
         relations: ['group', 'group.course21'],
       });
       initialWeek = group.group.course21.initialWeek;
