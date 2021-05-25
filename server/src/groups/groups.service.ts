@@ -276,6 +276,8 @@ export class GroupsService {
     const classroomCollision = await this.eventsService.searchClassroomCollision(
       classroom,
       dtoData.events,
+      group.course.initialWeek,
+      group.course.initialWeek + group.course.weeks,
     );
     if (classroomCollision.valueOf()) {
       return db.createResponseStatus(
@@ -296,6 +298,8 @@ export class GroupsService {
     const professorCollision = await this.eventsService.searchProfessorsCollision(
       dtoData.professorsIds,
       dtoData.events,
+      group.course.initialWeek,
+      group.course.initialWeek + group.course.weeks,
     );
     if (professorCollision.valueOf()) {
       return db.createResponseStatus(

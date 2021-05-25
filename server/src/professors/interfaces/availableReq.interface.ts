@@ -8,6 +8,12 @@ export class AvailableReq {
   periodId: string;
 
   @ApiProperty()
+  groupId: string;
+
+  @ApiProperty()
+  bloqueGroupId: string;
+
+  @ApiProperty()
   @IsNotEmpty()
   events: BaseEventDto[];
 }

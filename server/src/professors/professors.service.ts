@@ -59,6 +59,12 @@ export class ProfessorsService {
     uuid: string,
     data: AvailableReq,
   ): Promise<ResponseStatus> {
+    if (data.groupId == null && data.bloqueGroupId == null) {
+      return db.createResponseStatus(
+        HttpStatus.BAD_REQUEST,
+        'At least a groupId or moduleGroupId must be specified.',
+      );
+    }
     const professors = await this.eventsService.findAvailableProfessors(
       uuid,
       data,

@@ -156,10 +156,12 @@ export class EventsService {
   async searchClassroomCollision(
     classroom: ClassroomsEntity,
     eventDtos: BaseEventDto[],
+    groupInitialWeek: number,
+    groupEndWeek: number,
   ): Promise<boolean> {
     const groups = await this.groupsRepository.find({
       where: { classroom: classroom },
-      relations: ['events'],
+      relations: ['events', 'course'],
     });
     if (groups.length > 0) {
       // There must be another way to do this faster using the query builder,
@@ -167,7 +169,16 @@ export class EventsService {
       for (const group of groups) {
         for (const event of group.events) {
           for (const dtoEvent of eventDtos) {
-            if (this._checkTimeCollision(dtoEvent, event)) {
+            if (
+              this._checkTimeCollision(
+                dtoEvent,
+                groupInitialWeek,
+                groupEndWeek,
+                event,
+                group.course.initialWeek,
+                group.course.initialWeek + group.course.weeks,
+              )
+            ) {
               return true;
             }
           }
@@ -177,7 +188,7 @@ export class EventsService {
 
     const groups21 = await this.groupsRepository.find({
       where: { classroom: classroom },
-      relations: ['events'],
+      relations: ['events', 'course'],
     });
     if (groups21.length > 0) {
       // There must be another way to do this faster using the query builder,
@@ -185,7 +196,16 @@ export class EventsService {
       for (const group of groups21) {
         for (const event of group.events) {
           for (const dtoEvent of eventDtos) {
-            if (this._checkTimeCollision(dtoEvent, event)) {
+            if (
+              this._checkTimeCollision(
+                dtoEvent,
+                groupInitialWeek,
+                groupEndWeek,
+                event,
+                group.course.initialWeek,
+                group.course.initialWeek + group.course.weeks,
+              )
+            ) {
               return true;
             }
           }
@@ -204,18 +224,30 @@ export class EventsService {
   async searchProfessorsCollision(
     professors: string[],
     eventDtos: BaseEventDto[],
+    groupInitialWeek: number,
+    groupEndWeek: number,
   ): Promise<boolean> {
     const entitiesTec20 = await this.professorsToGroupsRepository
       .createQueryBuilder('rel')
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
+      .innerJoinAndSelect('group.course', 'course')
       .where('rel.professor IN(:...ids)', { ids: professors })
       .getMany();
     if (entitiesTec20.length > 0) {
       for (const entity of entitiesTec20) {
         for (const event of entity.group.events) {
           for (const dtoEvent of eventDtos) {
-            if (this._checkTimeCollision(dtoEvent, event)) {
+            if (
+              this._checkTimeCollision(
+                dtoEvent,
+                entity.group.course.initialWeek,
+                entity.group.course.initialWeek + entity.group.course.weeks,
+                event,
+                groupInitialWeek,
+                groupEndWeek,
+              )
+            ) {
               return true;
             }
           }
@@ -227,13 +259,25 @@ export class EventsService {
       .createQueryBuilder('rel')
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
+      .innerJoinAndSelect('group.group', 'innerGroup')
+      .innerJoinAndSelect('innerGroup.course21', 'course')
       .where('rel.professor IN(:...ids)', { ids: professors })
       .getMany();
     if (entitiesTec21.length > 0) {
       for (const entity of entitiesTec21) {
         for (const event of entity.group.events) {
           for (const dtoEvent of eventDtos) {
-            if (this._checkTimeCollision(dtoEvent, event)) {
+            if (
+              this._checkTimeCollision(
+                dtoEvent,
+                entity.group.group.course21.initialWeek,
+                entity.group.group.course21.initialWeek +
+                  entity.group.group.course21.weeks,
+                event,
+                groupInitialWeek,
+                groupEndWeek,
+              )
+            ) {
               return true;
             }
           }
@@ -252,6 +296,24 @@ export class EventsService {
     uuid: string,
     data: AvailableReq,
   ): Promise<ProfessorsEntity[]> {
+    let initialWeek: number;
+    let endWeek: number;
+
+    if (data.groupId) {
+      const group = await this.groupsRepository.findOne({
+        where: { id: data.groupId },
+        relations: ['course'],
+      });
+      initialWeek = group.course.initialWeek;
+      endWeek = group.course.weeks + initialWeek;
+    } else {
+      const group = await this.bloqueGroupsRepository.findOne({
+        where: { id: data.groupId },
+        relations: ['group', 'group.course21'],
+      });
+      initialWeek = group.group.course21.initialWeek;
+      endWeek = group.group.course21.weeks + initialWeek;
+    }
     const emptyProfessors = await this.professorsRepository
       .createQueryBuilder('professor')
       .leftJoin('professor.user', 'user')
@@ -268,11 +330,13 @@ export class EventsService {
       .leftJoin('professor.user', 'user')
       .leftJoinAndSelect('professor.groups20', 'groups20')
       .leftJoinAndSelect('groups20.group', 'group20')
+      .leftJoinAndSelect('group20.course', 'course20')
       .leftJoin('group20.period', 'period20')
       .leftJoinAndSelect('group20.events', 'events20')
       .leftJoinAndSelect('professor.groups21', 'groups21')
       .leftJoinAndSelect('groups21.group', 'groupModule')
-      .leftJoin('groupModule.group', 'group21')
+      .leftJoinAndSelect('groupModule.group', 'group21')
+      .leftJoinAndSelect('group21.course', 'course21')
       .leftJoin('group21.period', 'period21')
       .leftJoinAndSelect('groupModule.events', 'events21')
       .where(
@@ -288,13 +352,27 @@ export class EventsService {
     for (const professor of professorsWithGroups) {
       // Check the TEC 20 groups.
       if (professor.groups20.length > 0) {
-        if (this._checkProfessorTec20(professor, data.events)) {
+        if (
+          this._checkProfessorTec20(
+            professor,
+            data.events,
+            initialWeek,
+            endWeek,
+          )
+        ) {
           continue;
         }
       }
       // Check the TEC 21 groups
       if (professor.groups21.length > 0) {
-        if (this._checkProfessorTec21(professor, data.events)) {
+        if (
+          this._checkProfessorTec21(
+            professor,
+            data.events,
+            initialWeek,
+            endWeek,
+          )
+        ) {
           continue;
         }
       }
@@ -315,11 +393,22 @@ export class EventsService {
   _checkProfessorTec20(
     professor: ProfessorsEntity,
     events: BaseEventDto[],
+    groupInitialWeek: number,
+    groupEndWeek: number,
   ): boolean {
     for (const group of professor.groups20) {
       for (const event of group.group.events) {
         for (const dtoEvent of events) {
-          if (this._checkTimeCollision(dtoEvent, event)) {
+          if (
+            this._checkTimeCollision(
+              dtoEvent,
+              groupInitialWeek,
+              groupEndWeek,
+              event,
+              group.group.course.initialWeek,
+              group.group.course.initialWeek + group.group.course.weeks,
+            )
+          ) {
             return true;
           }
         }
@@ -337,11 +426,24 @@ export class EventsService {
   _checkProfessorTec21(
     professor: ProfessorsEntity,
     events: BaseEventDto[],
+    groupInitialWeek: number,
+    groupEndWeek: number,
   ): boolean {
     for (const group of professor.groups21) {
       for (const event of group.group.events) {
         for (const dtoEvent of events) {
-          if (this._checkTimeCollision(dtoEvent, event)) {
+          // Tilted by the triple dot group.
+          const course = group.group.group.course21;
+          if (
+            this._checkTimeCollision(
+              dtoEvent,
+              groupInitialWeek,
+              groupEndWeek,
+              event,
+              course.initialWeek,
+              course.initialWeek + course.weeks,
+            )
+          ) {
             return true;
           }
         }
@@ -356,15 +458,25 @@ export class EventsService {
    * @param event The event entity.
    * @returns True if they collide, false otherwise.
    */
-  _checkTimeCollision(dtoEvent: BaseEventDto, event: EventsEntity) {
+  _checkTimeCollision(
+    dtoEvent: BaseEventDto,
+    dtoInitialWeek: number,
+    dtoEndWeek: number,
+    event: EventsEntity,
+    existingInitialWeek: number,
+    existingEndWeek: number,
+  ) {
     const st = this._stringToDate(dtoEvent.startTime);
     const et = this._stringToDate(dtoEvent.endTime);
     const eventSt = this._stringToDate(event.startTime.toString());
     const eventEt = this._stringToDate(event.endTime.toString());
-    // Check if the hours collide.
+    // Check if the hours collide and verify that the courses do not collide.
     return (
       ((st >= eventSt && st < eventEt) || (et > eventSt && et <= eventEt)) &&
-      dtoEvent.weekDay == event.weekDay
+      dtoEvent.weekDay == event.weekDay &&
+      ((dtoInitialWeek >= existingInitialWeek &&
+        dtoInitialWeek <= existingEndWeek) ||
+        (dtoEndWeek >= existingInitialWeek && dtoEndWeek <= existingEndWeek))
     );
   }
 
