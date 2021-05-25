@@ -3,6 +3,7 @@
     POST groups21/
     
 Creates a new set of Block Groups for the user requesting it on a Period ([PeriodInfo]).
+When the group is created, it's Module Groups are automatically created.
 
 ## Parameters
 
