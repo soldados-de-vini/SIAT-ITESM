@@ -38,8 +38,10 @@
   <nz-form-item>
     <nz-form-label nzRight [nzSpan]="6" nzRequired>Avenidas</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <nz-select formControlName="avenue" nzMode="tags" id="avenue">
-        <nz-option *ngFor="let avenue of avenues" [nzLabel]="avenue.name" [nzValue]="avenue.name"></nz-option>
+      <nz-select nzMode="tags" id="avenue">
+        <ng-container>
+          <nz-option formControlName="avenue" *ngFor="let avenue of avenues" [nzLabel]="avenue.name" [nzValue]="avenue.name"></nz-option>
+        </ng-container>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
