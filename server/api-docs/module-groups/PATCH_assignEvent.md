@@ -36,12 +36,12 @@ events | [EventInfo][] | [X] | The events to be created.
 ```json
 {
     "classroomId": "43d189b1-72cf-42c3-a70c-53dcc720416a",
-    "professorsIds": ["8715bb45-e2d4-4144-975a-cd59ca8a13f2"],
+    "professorsIds": ["6949889b-7203-489c-88d4-378152a5ba90"],
     "professorsResponsability": [1],
     "events": [
         {
-        "startTime": "9:00",
-        "endTime": "11:00",
+        "startTime": "11:00",
+        "endTime": "13:00",
         "weekDay": 0
         }
     ]
@@ -57,12 +57,37 @@ events | [EventInfo][] | [X] | The events to be created.
     },
     "result": [
         {
-            "id": "cd9d1d15-3baf-4182-b838-f2d8ea72f5cf",
-            "startTime": "9:00",
-            "endTime": "11:00",
+            "startTime": "2000-01-01T11:00:00.000Z",
+            "endTime": "2000-01-01T13:00:00.000Z",
             "weekDay": 0,
+            "startTimeString": "11:00",
+            "endTimeString": "13:00",
+            "id": "c37ba29f-ca95-4935-bbef-d8c679c271e9",
             "group": {
-                "id": "ea0e5da5-97c9-4c10-96cf-72ffa728d62b",
+                "id": "0b9ec4f5-5970-4af9-bbcb-9790f2da579f",
+                "group": {
+                    "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+                    "number": 1,
+                    "matricula": null,
+                    "formato": "HDPA",
+                    "course21": {
+                        "id": "a395d93d-5d72-472b-930a-c0d79961c54c",
+                        "key": "FSC21",
+                        "name": "Fisica 2",
+                        "capacity": 30,
+                        "semester": "4",
+                        "initialWeek": 6,
+                        "weeks": 10,
+                        "avenue": [
+                            "ICN"
+                        ],
+                        "typeUF": "M"
+                    }
+                },
+                "module": {
+                    "id": "bc8983d5-c8ab-4781-9719-6c25e22d077e",
+                    "name": "module1"
+                },
                 "classroom": {
                     "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
                     "classroom": 238,
@@ -80,13 +105,13 @@ events | [EventInfo][] | [X] | The events to be created.
             "professors": [
                 {
                     "professor": {
-                        "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
-                        "nomina": "1M",
-                        "name": "Joane",
+                        "id": "6949889b-7203-489c-88d4-378152a5ba90",
+                        "nomina": "2M",
+                        "name": "Candi",
                         "area": [
                             "matemáticas"
                         ],
-                        "coordination": "Omsk",
+                        "coordination": "Chongqing",
                         "email": "l01234567@tec.mx",
                         "loadLimit": 14
                     },

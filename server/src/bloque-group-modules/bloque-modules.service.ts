@@ -164,7 +164,7 @@ export class BloqueModulesService {
     // Check if the group exists.
     const group = await this.moduleGroupRep.findOne({
       where: { id: groupId },
-      relations: ['group', 'group.course21']
+      relations: ['group', 'group.course21', 'module'],
     });
     if (!group) {
       return db.createResponseStatus(

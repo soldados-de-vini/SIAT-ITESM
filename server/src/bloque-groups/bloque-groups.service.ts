@@ -58,7 +58,7 @@ export class BloqueGroupsService {
         // Grab the corresponding course to verify that it exists.
         const course = await this.course21Repository.findOne({
           where: { key: group.courseKey, user: uuid },
-          relations: ['modules']
+          relations: ['modules'],
         });
         if (course) {
           // Create the requested groups.
@@ -79,8 +79,8 @@ export class BloqueGroupsService {
             newEntities.push(newEntity);
             // Assign the new entity to the corresponding period and course.
             period.bloqueGroups.push(newEntity);
-            
-            for (let module of course.modules) {
+
+            for (const module of course.modules) {
               const newModule = this.moduleGroupRep.create();
               newModule.module = module;
               newModule.group = newEntity;

@@ -79,6 +79,70 @@ periodId | The ID of the period.
         ],
         "tec21": [
             {
+                "id": "c37ba29f-ca95-4935-bbef-d8c679c271e9",
+                "startTime": "11:00:00",
+                "startTimeString": "11:00",
+                "endTime": "13:00:00",
+                "endTimeString": "13:00",
+                "weekDay": 0,
+                "group": {
+                    "id": "0b9ec4f5-5970-4af9-bbcb-9790f2da579f",
+                    "group": {
+                        "id": "252b94a8-7562-4b6d-b780-c04884af3ca9",
+                        "number": 1,
+                        "matricula": null,
+                        "formato": "HDPA",
+                        "course21": {
+                            "id": "a395d93d-5d72-472b-930a-c0d79961c54c",
+                            "key": "FSC21",
+                            "name": "Fisica 2",
+                            "capacity": 30,
+                            "semester": "4",
+                            "initialWeek": 6,
+                            "weeks": 10,
+                            "avenue": [
+                                "ICN"
+                            ],
+                            "typeUF": "M"
+                        }
+                    },
+                    "classroom": {
+                        "id": "43d189b1-72cf-42c3-a70c-53dcc720416a",
+                        "classroom": 238,
+                        "building": "EIAD",
+                        "capacity": 30,
+                        "comments": "Cool comments",
+                        "type": "L",
+                        "school": "Ciencias",
+                        "entrance": "B",
+                        "currentDiv": "NV",
+                        "administrator": "MVLKA",
+                        "status": "activo"
+                    },
+                    "module": {
+                        "id": "bc8983d5-c8ab-4781-9719-6c25e22d077e",
+                        "name": "module1"
+                    }
+                },
+                "professors": [
+                    {
+                        "id": 9,
+                        "responsabilityPercent": 1,
+                        "professor": {
+                            "id": "6949889b-7203-489c-88d4-378152a5ba90",
+                            "nomina": "2M",
+                            "name": "Candi",
+                            "area": [
+                                "matemáticas"
+                            ],
+                            "coordination": "Chongqing",
+                            "email": "l01234567@tec.mx",
+                            "loadLimit": 14
+                        }
+                    }
+                ]
+            },
+            {
                 "id": "fe541f5b-87f1-4ee9-a041-938077d8a5e8",
                 "startTime": "09:00:00",
                 "startTimeString": "9:00",
@@ -118,11 +182,15 @@ periodId | The ID of the period.
                         "currentDiv": "NV",
                         "administrator": "MVLKA",
                         "status": "activo"
+                    },
+                    "module": {
+                        "id": "9c211296-eb21-413b-9035-47899c1b2da2",
+                        "name": "module2"
                     }
                 },
                 "professors": [
                     {
-                        "ProfessorsToBloqueModulesId": 7,
+                        "id": 7,
                         "responsabilityPercent": 1,
                         "professor": {
                             "id": "8715bb45-e2d4-4144-975a-cd59ca8a13f2",
