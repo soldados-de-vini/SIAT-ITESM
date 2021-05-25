@@ -7,12 +7,14 @@ import { EventsEntity } from './entity/events.entity';
 import { EventsService } from './events.service';
 import { ProfessorsToBloqueModules } from '../professorsToBloqueModules/entity/professorsToBloqueModules.entity';
 import { ProfessorsEntity } from '../professors/entity/professors.entity';
+import { BloqueGroupsEntity } from '../bloque-groups/entity/bloqueGroups.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       EventsEntity,
       GroupsEntity,
+      BloqueGroupsEntity,
       BloqueGroupModulesEntity,
       ProfessorsToGroups,
       ProfessorsToBloqueModules,
