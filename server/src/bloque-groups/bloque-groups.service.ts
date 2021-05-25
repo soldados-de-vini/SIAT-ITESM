@@ -8,6 +8,7 @@ import { ResponseStatus } from '../utils/interfaces/response';
 import { CreateBloqueGroupReq } from './interfaces/create-req-group.interface';
 import { BloqueGroupsEntity } from './entity/bloqueGroups.entity';
 import { UpdateGroupDto } from '../groups/dto/update-group.dto';
+import { BloqueGroupModulesEntity } from '../bloque-group-modules/entity/bloque-modules.entity';
 
 @Injectable()
 export class BloqueGroupsService {
@@ -18,6 +19,8 @@ export class BloqueGroupsService {
     private periodRepository: Repository<PeriodsEntity>,
     @InjectRepository(Course21Entity)
     private course21Repository: Repository<Course21Entity>,
+    @InjectRepository(BloqueGroupModulesEntity)
+    private moduleGroupRep: Repository<BloqueGroupModulesEntity>,
   ) {}
 
   /**
@@ -43,6 +46,7 @@ export class BloqueGroupsService {
     if (period) {
       const courseEntities: Course21Entity[] = [];
       const newEntities: BloqueGroupsEntity[] = [];
+      const newModules: BloqueGroupModulesEntity[] = [];
       for (const group of createReq.groups) {
         // Check if the groups to be created are less than one.
         if (group.groupsAmount < 1) {
@@ -54,6 +58,7 @@ export class BloqueGroupsService {
         // Grab the corresponding course to verify that it exists.
         const course = await this.course21Repository.findOne({
           where: { key: group.courseKey, user: uuid },
+          relations: ['modules']
         });
         if (course) {
           // Create the requested groups.
@@ -74,6 +79,13 @@ export class BloqueGroupsService {
             newEntities.push(newEntity);
             // Assign the new entity to the corresponding period and course.
             period.bloqueGroups.push(newEntity);
+            
+            for (let module of course.modules) {
+              const newModule = this.moduleGroupRep.create();
+              newModule.module = module;
+              newModule.group = newEntity;
+              newModules.push(newModule);
+            }
           }
           courseEntities.push(course);
         } else {
@@ -88,7 +100,7 @@ export class BloqueGroupsService {
       await this.bloqueGroupRepository.save(newEntities);
       await this.periodRepository.save(period);
       await this.course21Repository.save(courseEntities);
-
+      await this.moduleGroupRep.save(newModules);
       const response = this._insertCourseKey(newEntities);
 
       return db.createResponseStatus(
