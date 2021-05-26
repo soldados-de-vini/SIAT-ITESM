@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { elementAt } from 'rxjs/operators';
 import { Classroom } from 'src/app/models/classroom.model';
 import { Group20 } from 'src/app/models/group20.model';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -16,6 +17,8 @@ export class GroupClassroomComponent implements OnInit {
   private periodId: string;
   private classroomId: string;
 
+  public weeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  public week = 1;
   public loading: boolean;
   public remainingGroups: Array<Group20> = [];
   public remainingModules: Array<any> = [];
@@ -99,6 +102,21 @@ export class GroupClassroomComponent implements OnInit {
     });
 
     allGroups = [...this.assignedGroups, ...mappedModules];
+
+    allGroups = allGroups.filter((el) => {
+      let initialWeek = null;
+      let finalWeek = null;
+
+      if (el.isModule){
+        initialWeek = el.group.group.course21.initialWeek;
+        finalWeek = initialWeek + el.group.group.course21.weeks - 1;
+      } else {
+        initialWeek = el.group.course.initialWeek;
+        finalWeek = initialWeek + el.group.course.weeks - 1;
+      }
+
+      return this.week >= initialWeek && this.week <= finalWeek;
+    });
 
     return allGroups;
   }
