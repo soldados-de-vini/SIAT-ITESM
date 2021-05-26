@@ -161,7 +161,7 @@ export class EventsService {
     eventDtos: BaseEventDto[],
     groupInitialWeek: number,
     groupEndWeek: number,
-  ): Promise<boolean> {
+  ): Promise<string> {
     const groups = await this.groupsRepository.find({
       where: { classroom: classroom },
       relations: ['events', 'course'],
@@ -182,7 +182,7 @@ export class EventsService {
                 group.course.initialWeek + group.course.weeks,
               )
             ) {
-              return true;
+              return `El salón está ocupado a esa hora por "${group.course.key}"`;
             }
           }
         }
@@ -209,13 +209,13 @@ export class EventsService {
                 group.group.course21.initialWeek + group.group.course21.weeks,
               )
             ) {
-              return true;
+              return `El salón está ocupado a esa hora por "${group.group.course21.key}"`;
             }
           }
         }
       }
     }
-    return false;
+    return null;
   }
 
   /**
@@ -229,9 +229,10 @@ export class EventsService {
     eventDtos: BaseEventDto[],
     groupInitialWeek: number,
     groupEndWeek: number,
-  ): Promise<boolean> {
+  ): Promise<string> {
     const entitiesTec20 = await this.professorsToGroupsRepository
       .createQueryBuilder('rel')
+      .innerJoinAndSelect('rel.professor', 'professor')
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
       .innerJoinAndSelect('group.course', 'course')
@@ -251,7 +252,7 @@ export class EventsService {
                 groupEndWeek,
               )
             ) {
-              return true;
+              return `El profesor "${entity.professor.name}" está ocupado esa hora.`;
             }
           }
         }
@@ -260,6 +261,7 @@ export class EventsService {
 
     const entitiesTec21 = await this.professorModuleGroupRepository
       .createQueryBuilder('rel')
+      .innerJoinAndSelect('rel.professor', 'professor')
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
       .innerJoinAndSelect('group.group', 'innerGroup')
@@ -281,13 +283,13 @@ export class EventsService {
                 groupEndWeek,
               )
             ) {
-              return true;
+              return `El profesor "${entity.professor.name}" está ocupado esa hora.`;
             }
           }
         }
       }
     }
-    return false;
+    return null;
   }
 
   /**

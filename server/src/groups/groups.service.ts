@@ -279,10 +279,10 @@ export class GroupsService {
       group.course.initialWeek,
       group.course.initialWeek + group.course.weeks,
     );
-    if (classroomCollision.valueOf()) {
+    if (classroomCollision) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
-        'Classroom collision!',
+        classroomCollision.valueOf(),
       );
     }
     // Get the professors.
@@ -301,10 +301,10 @@ export class GroupsService {
       group.course.initialWeek,
       group.course.initialWeek + group.course.weeks,
     );
-    if (professorCollision.valueOf()) {
+    if (professorCollision) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
-        'Professor collision!',
+        professorCollision.valueOf(),
       );
     }
 

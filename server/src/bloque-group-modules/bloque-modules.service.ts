@@ -188,10 +188,10 @@ export class BloqueModulesService {
       group.group.course21.initialWeek,
       group.group.course21.initialWeek + group.group.course21.weeks,
     );
-    if (classroomCollision.valueOf()) {
+    if (classroomCollision) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
-        'Classroom collision!',
+        classroomCollision.valueOf(),
       );
     }
     // Get the professors.
@@ -210,10 +210,10 @@ export class BloqueModulesService {
       group.group.course21.initialWeek,
       group.group.course21.initialWeek + group.group.course21.weeks,
     );
-    if (professorCollision.valueOf()) {
+    if (professorCollision) {
       return db.createResponseStatus(
         HttpStatus.BAD_REQUEST,
-        'Professor collision!',
+        professorCollision.valueOf(),
       );
     }
 
