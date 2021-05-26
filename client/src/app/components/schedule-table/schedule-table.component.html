@@ -1,4 +1,4 @@
-<nz-table [nzBordered]="true" [nzData]="hourKeyIndexes" [nzShowPagination]="false" [nzScroll]="{ y: '70vh' }">
+<nz-table [nzBordered]="true" [nzData]="hourKeyIndexes" [nzShowPagination]="false" [nzScroll]="{ y: '75vh' }">
   <thead>
     <tr>
       <th>Hora</th>
@@ -29,6 +29,18 @@
                   </small>
                   <br>
                   <small>
+                    Semana Inicial {{event.group.group.course21.initialWeek}}
+                  </small>
+                  <br>
+                  <small>
+                    Semana Final {{event.group.group.course21.initialWeek + event.group.group.course21.weeks - 1}}
+                  </small>
+                  <br>
+                  <small>
+                    Duración {{event.group.group.course21.weeks}}
+                  </small>
+                  <br>
+                  <small>
                     {{event.startTimeString}} - {{event.endTimeString}}
                   </small>
                   <br>
@@ -55,6 +67,18 @@
                 <br>
                 <small>
                   {{event.startTimeString}} - {{event.endTimeString}}
+                </small>
+                <br>
+                <small>
+                  Semana Inicial: {{event.group.course.initialWeek}}
+                </small>
+                <br>
+                <small>
+                  Semana Final: {{event.group.course.initialWeek + event.group.course.weeks - 1}}
+                </small>
+                <br>
+                <small>
+                  Duración: {{event.group.course.weeks}} semanas
                 </small>
                 <br>
                 <ng-container *ngFor="let cursor of event.professors">

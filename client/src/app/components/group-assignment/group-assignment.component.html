@@ -1,4 +1,29 @@
-<h3>Seleccionar Días</h3>
+<h3>Información de Semanas</h3>
+<ng-container *ngIf="isModule; else course">
+  <p>
+    Semana Inicial {{group.group.course21.initialWeek}}
+  </p>
+  <p>
+    Semana Final {{group.group.course21.initialWeek + group.group.course21.weeks - 1}}
+  </p>
+  <p>
+    Duración {{group.group.course21.weeks}}
+  </p>
+</ng-container>
+
+<ng-template #course>
+  <p>
+    Semana Inicial: {{group.course.initialWeek}}
+  </p>
+  <p>
+    Semana Final: {{group.course.initialWeek + group.course.weeks}}
+  </p>
+  <p>
+    Duración: {{group.course.weeks}} semanas
+  </p>
+</ng-template>
+
+<h3 style="margin-top: 16px; margin-bottom: 16px;">Seleccionar Días</h3>
 <label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 0)">Lunes</label>
 <label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 1)">Martes</label>
 <label nz-checkbox [ngModel]="false" (ngModelChange)="toggleEvent($event, 2)">Miércoles</label>

@@ -4,6 +4,14 @@
 <div nz-row [nzGutter]="16">
   <div nz-col [nzSpan]="6">
     <div nz-row [nzGutter]="[16, 16]">
+      <div nz-col [nzSpan]="24">
+        <h3>
+          Semana
+        </h3>
+        <nz-select [(ngModel)]="week" style="width: 100%;">
+          <nz-option *ngFor="let w of weeks" [nzValue]="w" [nzLabel]="w"></nz-option>
+        </nz-select>
+      </div>
       <div nz-col [nzSpan]="24" #groups>
         <h3>Grupos Tec 20</h3>
         <nz-list [nzBordered]="true" class="group-list" nzSize="small">
@@ -32,6 +40,7 @@
     </div>
   </div>
   <div nz-col [nzSpan]="18">
-    <siat-schedule-table [events]="getFlattenedAssignedGroups()" (deleteGroupEvent)="addRemainingGroup($event)" (deleteModuleEvent)="addRemainingModule($event)"></siat-schedule-table>
+    <siat-schedule-table [events]="getFlattenedAssignedGroups()" (deleteGroupEvent)="addRemainingGroup($event)"
+      (deleteModuleEvent)="addRemainingModule($event)" [week]="week"></siat-schedule-table>
   </div>
 </div>

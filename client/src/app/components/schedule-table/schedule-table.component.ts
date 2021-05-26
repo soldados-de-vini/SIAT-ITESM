@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 })
 export class ScheduleTableComponent implements OnInit, OnChanges{
   @Input() events: Array<any>;
+  @Input() week: number;
   @Output() deleteGroupEvent = new EventEmitter<any>();
   @Output() deleteModuleEvent = new EventEmitter<any>();
 
