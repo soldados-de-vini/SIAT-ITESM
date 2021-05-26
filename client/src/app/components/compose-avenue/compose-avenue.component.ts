@@ -57,7 +57,7 @@ export class ComposeAvenueComponent implements OnInit {
 
   private createAvenue(){
     this.loading = true;
-    this.apiService.post('/avenues', {avenues: [this.avenueForm.value]}).subscribe(
+    this.apiService.post('/avenues', {avenues: [this.avenueForm.value.name]}).subscribe(
       (response) => {
         this.loading = false;
         if (response.status?.statusCode === 201){
