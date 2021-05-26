@@ -191,7 +191,9 @@ export class GroupAssignmentComponent implements OnInit {
           if (response.status?.statusCode === 201) {
             this.nzMessageService.success('Grupo asignado con éxito');
             this.nzModalRef.close({ events: response.result });
-          } else {
+          } else if (response.status?.statusCode === 400) {
+            this.nzMessageService.error(response.status.message);
+          } else {
             this.nzMessageService.error('Error al asignar grupo');
           }
         },
@@ -215,7 +217,9 @@ export class GroupAssignmentComponent implements OnInit {
               events: response.result,
               isModule: this.isModule,
             });
-          } else {
+          } else if (response.status?.statusCode === 400) {
+            this.nzMessageService.error(response.status.message);
+          } else {
             this.nzMessageService.error('Error al asignar grupo');
           }
         },
