@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  Header,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Header, Param } from '@nestjs/common';
 import { ExportService } from './export.service';
 
 @Controller('export')
@@ -15,7 +10,7 @@ export class ExportController {
   @Header('Content-Disposition', 'attachment; filename=tec20.csv')
   csvTec20(
     @Param('periodId') periodId: string,
-    @Param('userId') userId: string
+    @Param('userId') userId: string,
   ): Promise<Buffer> {
     return this.exportService.createTec20Csv(userId, periodId);
   }
@@ -25,7 +20,7 @@ export class ExportController {
   @Header('Content-Disposition', 'attachment; filename=tec21.csv')
   csvTec21(
     @Param('periodId') periodId: string,
-    @Param('userId') userId: string
+    @Param('userId') userId: string,
   ): Promise<Buffer> {
     return this.exportService.createTec21Csv(userId, periodId);
   }
