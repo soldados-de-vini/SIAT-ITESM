@@ -69,7 +69,21 @@ export class CsvUploaderComponent implements OnInit {
   public handleUpload() {
     this.loadingUpload = true;
     const object = new Object();
-    object[this.objectPrefix] = this.objectToUpload;
+
+    if (this.isGroup){
+      object[`periodId`] =  this.periodId;
+      object[this.objectPrefix] = this.objectToUpload.map(
+        (el) => {
+          el.groupsAmount = Number.parseInt(el.groupsAmount, 10);
+          return el;
+        }
+      );
+    } else {
+      object[this.objectPrefix] = this.objectToUpload;
+    }
+
+    console.log(object);
+
     this.apiService.post(this.endpoint, object).subscribe(
       (response) => {
         this.loadingUpload = false;

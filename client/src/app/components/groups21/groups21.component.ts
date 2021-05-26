@@ -11,7 +11,7 @@ import { ComposeGroupComponent } from '../compose-group/compose-group.component'
 export class Groups21Component implements OnInit {
 
   // tslint:disable-next-line: variable-name
-  private _periodId: string;
+  public _periodId: string;
 
   @Input() set periodId(value: string) {
     this._periodId = value;
@@ -24,7 +24,7 @@ export class Groups21Component implements OnInit {
     {display: 'Formato', prop: 'formato'},
     {display: 'Matricula', prop: 'matricula'},
   ];
-  public groups: any;
+  public groups: any = [];
   public loading: boolean;
 
   constructor(
@@ -102,6 +102,7 @@ export class Groups21Component implements OnInit {
 
   public afterCsvSuccess(data){
     this.groups = [...data, ...this.groups];
+    this.parseGroups();
   }
 
   public onDelete(id) {
