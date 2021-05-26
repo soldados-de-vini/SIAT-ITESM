@@ -1,6 +1,8 @@
 <div nz-row nzJustify="end">
-  <siat-csv-uploader [endpoint]="'/professors'" [objectPrefix]="'professors'" [columns]="columnsToDisplay"
-    [areArray]="[2]" (afterSuccess)="afterCsvSuccess($event)"></siat-csv-uploader>
+  <siat-csv-uploader [endpoint]="'/groups'" [objectPrefix]="'groups'" [columns]="[{display: 'Clave', prop: 'courseKey'},
+  {display: 'Cantidad de grupos', prop: 'groupsAmount'}]" [periodId]="_periodId"
+    (afterSuccess)="afterCsvSuccess($event)" [isGroup]="true"></siat-csv-uploader>
   <button nz-button nzType="primary" style="margin-left: 16px;" (click)="createGroup()">Agregar Grupos Tec 20</button>
 </div>
-<siat-table [loading]="loading" [tableData]="groups" [columns]="columnsToDisplay" (delete)="onDelete($event)" (edit)="onEdit($event)"></siat-table>
+<siat-table [loading]="loading" [tableData]="groups" [columns]="columnsToDisplay" (delete)="onDelete($event)"
+  (edit)="onEdit($event)"></siat-table>

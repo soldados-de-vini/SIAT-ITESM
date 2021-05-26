@@ -1,0 +1,46 @@
+key,name,capacity,semester,initialWeek,weeks,avenue,typeUF
+Q1001S,Taller de seguridad en laboratoris,30,5,6,1,IIT|ICT|IBQ|ICI,M
+Q1028,Análisis de la estructura propiedades y transformación de la materia I,30,1,1,5,IIT|ICT|IBQ|ICI,M
+Q1029,Análisis de la estructura propiedades y transformación de la materia II,30,1,11,5,IIT|IBQ|ICI,M
+Q1024,Aplicación del análisis químico,30,3,6,5,IBQ,M
+Q1025,Experimentación en química analítica,30,3,11,5,IBQ,M
+Q1026,Análisis estructural de moléculas orgánicas y sus propiedades,30,3,1,10,IBQ,M
+Q1027,Fundamentación de la estructura y propiedades de biomoléculas,30,3,11,5,IBQ,M
+Q1021,Experimentación química y pensamiento estadístico fundamental,30,2,6,5,IIT|ICT|IBQ|ICI,M
+Q1022,Análisis de la transformación de la materia en procesos químicos,30,2,11,5,IBQ,M
+Q1023,Experimentación química y pensamiento estadístico intermedio,30,2,11,5,IBQ,M
+MA1028,Modelación matemática fundamental,30,1,6,10,IIT|ICT|IBQ|ICI,M
+MA1042 ,Matemáticas y ciencia de datos para la toma de decisiones,30,1,1,15,EG,M
+MA1022,Pensamiento matemático I,30,1,1,15,CSG,M
+MA1025,Métodos cuantitativos II,30,3,11,5,CSG,M
+MA1026,Pensamiento matemático III,30,3,1,10,CSG,M
+MA1027,Razonamiento matemático,30,1,11,5,NEG,M
+MA1030,Modelación matricial,30,2,11,5,IIT|ICT|ICI,M
+MA1031,Análisis estadístico,30,2,11,5,IIT|ICT|ICI,M
+MA1029,Modelación matemática intermedia,30,2,1,10,IIT|ICT|IBQ|ICI,M
+MA1047,Razonamiento basado en matemáticas,30,1,1,15,IC,M
+MA1034,Modelación de procesos mediante algebra lineal,30,3,1,5,IIT,M
+MA1035,Modelación en ingeniería mediante sistemas dinámicos,30,3,6,10,IIT,M
+MA1033,Análisis de ecuaciones diferenciales,30,3,1,5,ICI,M
+MA1036,Fundamentación del álgebra lineal,30,3,1,5,ICI,M
+MA2014,Análisis de métodos de razonamiento e incertidumbre ,30,5,1,10,ICI,M
+MA2015,Diseño de algoritmos matemáticos bioinspirados ,30,5,6,5,ICI,M
+MA1001S ,DEFINIR UF Y NOMBRE,30,5,12,1,EG,M
+F1008,Experimentación física y pensamiento estadístico,30,2,1,5,IIT|ICT|IBQ|ICI,M
+F1009,Análisis de métodos matemáticos para la física,30,3,1,15,ICI,M
+F1010,Modelación con ecuaciones diferenciales,30,3,6,10,ICI,M
+F1001S,Taller de escritura científica,30,,12,1,EG,M
+WKIC1001S ,Semana 18 cierre de etapa exploración ICI-4,30,3,18,1,ICI,M
+WKIC2001S ,Semana 18 cierre de etapa exploración ICI-3,30,3,18,1,ICI,M
+WKBQ-1001S,Semana 18 cierre de etapa exploración IBQ-3,30,3,18,1,IBQ,M
+WKCT-1001S,Semana 18 cierre de etapa exploración ICT-3,30,3,18,1,ICT,M
+WKITE-1001S,Semana 18 cierre de etapa exploración ICT-4,30,3,18,1,ICT,M
+WKIN1001S,Semana 18 -1,30,1,18,1,IIT|ICT|IBQ|ICI,M
+WKIIN1002S,Semana 18 -2,30,2,18,1,IIT|ICT|IBQ|ICI,M
+WKIN1003S,Semana 18 -3,30,3,18,1,IIT|ICT|IBQ|ICI,M
+WKAC1002S1,Semana 18 -1.1,30,1,18,1,IC,M
+WKAC1004S1,Semana 18 -2.1,30,2,18,1,IC,M
+WKIC3001S,SEMANA 18- 5,30,5,18,1,IC,M
+TC1028,Pensamiento computacional para ingeniería,30,1,18,1,IIT|ICT|IBQ|ICI,M
+TC1033,Pensamiento computacional orie,30,1,18,1,IIT|ICT|IBQ|ICI,M
+Q2015,Laboratorio de Mediciones fisico quimicas ,30,3,1,16,TEC20,TEC 20
