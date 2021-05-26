@@ -28,7 +28,7 @@ export class AvenuesComponent implements OnInit {
     this.apiService.get('/avenues').subscribe((response) => {
       this.loading = false;
       if (response.status?.statusCode === 200){
-          this.avenues = response.result;
+        this.avenues = response.result;
       } else {
         this.nzMessageService.error('Error al cargar avenidas');
       }
