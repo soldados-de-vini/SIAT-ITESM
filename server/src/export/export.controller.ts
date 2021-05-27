@@ -31,7 +31,7 @@ export class ExportController {
   csvProfesors(
     @Param('periodId') periodId: string,
     @Param('userId') userId: string,
-  ):Promise<Buffer> {
+  ): Promise<Buffer> {
     return this.exportService.createProfessorsCsv(userId, periodId);
   }
 }
