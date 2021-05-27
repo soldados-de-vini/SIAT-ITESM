@@ -9,3 +9,4 @@ initialWeek | int | Week in which the course must start on a period.
 weeks | int | Duration of the course in a period.
 avenue | string[] | The set of avenues that this course belongs to.
 typeUF | string | Identifies the type of course. Must be "M" | "TEC20"
+udc | number | The total UDCs that this course has.

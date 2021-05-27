@@ -23,6 +23,10 @@ export class Course20Dto {
   weeks: number;
 
   @ApiProperty()
+  @IsNotEmpty()
+  udc: number;
+
+  @ApiProperty()
   semester: string;
 
   @ApiProperty()
