@@ -9,4 +9,5 @@ export interface Course {
   typeUF: string;
   initialWeek: number;
   weeks: number;
+  udc?: number;
 }
