@@ -35,7 +35,8 @@ Authorization | Bearer Token
             "avenue": [
                 "ICN"
             ],
-            "typeUF": "M"
+            "typeUF": "M",
+            "udc": 10
         },
         {
             "id": "dffba7b9-8ab8-4d32-a71e-da0d02fd767d",
@@ -49,7 +50,8 @@ Authorization | Bearer Token
                 "ICN",
                 "ISC"
             ],
-            "typeUF": "B"
+            "typeUF": "B",
+            "udc": 10
         }
     ]
 }

@@ -23,6 +23,7 @@ initialWeek | int | [x] | Week in which the course must start on a period.
 weeks | int | [x] | Duration of the course in a period.
 avenue | string[] | [x] | The set of avenues that this course belongs to.
 typeUF | string | [x] | Identifies the type of course.
+udc | number | The total UDCs that this course has.
 
 ## Example
 ### Request
@@ -39,7 +40,8 @@ typeUF | string | [x] | Identifies the type of course.
     "initialWeek": 11,
     "weeks": 5,
     "avenue": ["ICN", "ISC"],
-    "typeUF": "B"
+    "typeUF": "B",
+    "udc": 10,
 }
 ```
 
@@ -62,7 +64,8 @@ typeUF | string | [x] | Identifies the type of course.
             "ICN",
             "ISC"
         ],
-        "typeUF": "B"
+        "typeUF": "B",
+        "udc": 10
     }
 }
 ```

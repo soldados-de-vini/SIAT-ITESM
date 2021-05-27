@@ -34,7 +34,8 @@ courses | [CourseInfo][] | [X] | The set of courses 20 to be created.
         "initialWeek": 6,
         "weeks": 5,
         "avenue": ["ICN", "ISC"],
-        "typeUF": "TEC20"
+        "typeUF": "TEC20",
+        "udc": 10
     }]
 }
 ```
@@ -59,6 +60,7 @@ courses | [CourseInfo][] | [X] | The set of courses 20 to be created.
                 "ISC"
             ],
             "typeUF": "TEC20",
+            "udc": 10,
             "id": "dffba7b9-8ab8-4d32-a71e-da0d02fd767d"
         }
     ]
