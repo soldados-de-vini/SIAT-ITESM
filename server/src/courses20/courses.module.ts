@@ -10,5 +10,6 @@ import { UsersEntity } from '../users/entity/users.entity';
   imports: [TypeOrmModule.forFeature([CourseEntity, UsersEntity])],
   controllers: [CoursesController],
   providers: [CoursesService, JwtStrategy],
+  exports: [CoursesService],
 })
 export class CoursesModule {}

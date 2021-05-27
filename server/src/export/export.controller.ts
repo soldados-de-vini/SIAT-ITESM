@@ -24,4 +24,14 @@ export class ExportController {
   ): Promise<Buffer> {
     return this.exportService.createTec21Csv(userId, periodId);
   }
+
+  @Get('professors/:userId/period/:periodId')
+  @Header('Content-type', 'application/csv')
+  @Header('Content-Disposition', 'attachment; filename=professors.csv')
+  csvProfesors(
+    @Param('periodId') periodId: string,
+    @Param('userId') userId: string,
+  ):Promise<Buffer> {
+    return this.exportService.createProfessorsCsv(userId, periodId);
+  }
 }

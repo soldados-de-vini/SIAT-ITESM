@@ -103,9 +103,84 @@ export class ProfessorsService {
    * @param professorId The ID of the professor to be deleted.
    * @returns A resposne stating success or failure.
    */
-  remove(userId: string, professorId: string) {
+  async remove(userId: string, professorId: string): Promise<ResponseStatus> {
     return db.remove(userId, professorId, this.professorsRepository, {
       id: professorId,
     });
+  }
+
+  /**
+   * Gets the TEC 20 period data of the professor.
+   * @param uuid The UUID of the user.
+   * @param periodId The UUID of the period.
+   * @returns The professor data separated by TEC 20 and TEC 21.
+   */
+  async getProfessorPeriodDataTec20(uuid: string, periodId: string) {
+    const tec20Info = await this.professorsRepository
+      .createQueryBuilder('professor')
+      .innerJoin('professor.user', 'user')
+      .innerJoin('professor.groups20', 'groups20')
+      .innerJoin('groups20.group', 'group20')
+      .innerJoin('group20.course', 'course20')
+      .innerJoin('group20.period', 'period20')
+      .innerJoin('group20.events', 'events20')
+      .select('professor.nomina', 'nomina')
+      .addSelect('professor.name', 'nombre')
+      .addSelect('professor.area', 'area')
+      .addSelect('professor.coordination', 'coordinacion')
+      .addSelect('professor.email', 'email')
+      .addSelect('professor.loadLimit', 'limite_carga')
+      .addSelect('sum(events20.endTime - events20.startTime)', 'sumTec20')
+      .addSelect('sum(course20.weeks)::integer', 'sumWeeks20')
+      .where('(user.id = :userId::uuid) AND (period20.id = :periodId::uuid)', {
+        userId: uuid,
+        periodId: periodId,
+      })
+      .groupBy('professor.nomina')
+      .addGroupBy('professor.name')
+      .addGroupBy('professor.area')
+      .addGroupBy('professor.coordination')
+      .addGroupBy('professor.email')
+      .addGroupBy('professor.loadLimit')
+      .getRawMany();
+    return tec20Info;
+  }
+
+  /**
+   * Gets the TEC 21 period data of the professor.
+   * @param uuid The UUID of the user.
+   * @param periodId The UUID of the period.
+   * @returns The professor data separated by TEC 20 and TEC 21.
+   */
+  async getProfessorPeriodDataTec21(uuid: string, periodId: string) {
+    const tec21Info = await this.professorsRepository
+      .createQueryBuilder('professor')
+      .innerJoin('professor.user', 'user')
+      .innerJoin('professor.groups21', 'groups21')
+      .innerJoin('groups21.group', 'moduleG21')
+      .innerJoin('moduleG21.group', 'group21')
+      .innerJoin('group21.course21', 'course21')
+      .innerJoin('group21.period', 'period21')
+      .innerJoin('moduleG21.events', 'events21')
+      .select('professor.nomina', 'nomina')
+      .addSelect('professor.name', 'nombre')
+      .addSelect('professor.area', 'area')
+      .addSelect('professor.coordination', 'coordinacion')
+      .addSelect('professor.email', 'email')
+      .addSelect('professor.loadLimit', 'limite_carga')
+      .addSelect('sum(events21.endTime - events21.startTime)', 'sumTec21')
+      .addSelect('sum(course21.weeks)::integer', 'sumWeeks21')
+      .where('(user.id = :userId::uuid) AND (period21.id = :periodId::uuid)', {
+        userId: uuid,
+        periodId: periodId,
+      })
+      .groupBy('professor.nomina')
+      .addGroupBy('professor.name')
+      .addGroupBy('professor.area')
+      .addGroupBy('professor.coordination')
+      .addGroupBy('professor.email')
+      .addGroupBy('professor.loadLimit')
+      .getRawMany();
+    return tec21Info;
   }
 }

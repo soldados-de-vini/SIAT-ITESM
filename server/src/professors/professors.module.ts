@@ -14,5 +14,6 @@ import { EventsModule } from '../events/events.module';
   ],
   controllers: [ProfessorsController],
   providers: [ProfessorsService, JwtStrategy],
+  exports: [ProfessorsService],
 })
 export class ProfessorsModule {}
