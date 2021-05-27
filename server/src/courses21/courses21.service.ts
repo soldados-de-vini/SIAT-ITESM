@@ -141,4 +141,35 @@ export class Courses21Service {
     }
     return newCourse;
   }
+
+  /**
+   * Gets all the TEC21 assigned data of the current period.
+   * @param uuid The UUID of the user.
+   * @param periodId The UUID of the period.
+   * @returns All the courses with the groups that have been assigned for this period.
+   */
+  async getTec21PeriodData(
+    uuid: string,
+    periodId: string,
+  ): Promise<Course21Entity[]> {
+    return await this.coursesRepository
+      .createQueryBuilder('course')
+      .innerJoin('course.user', 'user')
+      .innerJoinAndSelect('course.bloqueGroups', 'bloqueGroups')
+      .innerJoin('bloqueGroups.period', 'period21')
+      .innerJoinAndSelect('bloqueGroups.bloqueModules', 'bloqueModules')
+      .innerJoinAndSelect('bloqueModules.classroom', 'classroom')
+      .innerJoinAndSelect('bloqueModules.professors', 'professors')
+      .innerJoinAndSelect('bloqueModules.module', 'module')
+      .innerJoinAndSelect('bloqueModules.events', 'events')
+      .innerJoinAndSelect('professors.professor', 'professor')
+      .where('(user.id = :userId::uuid) AND (period21.id = :periodId::uuid)', {
+        userId: uuid,
+        periodId: periodId,
+      })
+      .orderBy('course', 'ASC')
+      .addOrderBy('bloqueGroups.number', 'ASC')
+      .addOrderBy('events.weekDay', 'ASC')
+      .getMany();
+  }
 }

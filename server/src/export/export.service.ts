@@ -1,78 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ExportToCsv } from 'export-to-csv';
-import { CourseEntity } from '../courses20/entity/course20.entity';
-import { Course21Entity } from '../courses21/entities/course21.entity';
-import { Repository } from 'typeorm';
+import { CoursesService } from '../courses20/courses.service';
+import { Courses21Service } from '../courses21/courses21.service';
+import { ProfessorsService } from '../professors/professors.service';
+import * as udc from '../utils/udc.utils';
 
 @Injectable()
 export class ExportService {
   constructor(
-    @InjectRepository(CourseEntity)
-    private coursesRepository: Repository<CourseEntity>,
-    @InjectRepository(Course21Entity)
-    private courses21Repository: Repository<Course21Entity>,
+    private readonly courses20Service: CoursesService,
+    private readonly courses21Service: Courses21Service,
+    private readonly professorsService: ProfessorsService,
   ) {}
-
-  /**
-   * Gets all the TEC20 assigned data of the current period.
-   * @param uuid The UUID of the user.
-   * @param periodId The UUID of the period.
-   * @returns All the courses with the groups that have been assigned for this period.
-   */
-  async getTec20PeriodData(
-    uuid: string,
-    periodId: string,
-  ): Promise<CourseEntity[]> {
-    return await this.coursesRepository
-      .createQueryBuilder('course')
-      .innerJoin('course.user', 'user')
-      .innerJoinAndSelect('course.groups', 'groups20')
-      .innerJoin('groups20.period', 'groupPeriod20')
-      .innerJoinAndSelect('groups20.classroom', 'classroom')
-      .innerJoinAndSelect('groups20.professors', 'professors')
-      .innerJoinAndSelect('professors.professor', 'professor')
-      .innerJoinAndSelect('groups20.events', 'events')
-      .where(
-        '(user.id = :userId::uuid) AND (groupPeriod20.id = :periodId::uuid)',
-        { userId: uuid, periodId: periodId },
-      )
-      .orderBy('course', 'ASC')
-      .addOrderBy('groups20.number', 'ASC')
-      .addOrderBy('events.weekDay', 'ASC')
-      .getMany();
-  }
-
-  /**
-   * Gets all the TEC21 assigned data of the current period.
-   * @param uuid The UUID of the user.
-   * @param periodId The UUID of the period.
-   * @returns All the courses with the groups that have been assigned for this period.
-   */
-  async getTec21PeriodData(
-    uuid: string,
-    periodId: string,
-  ): Promise<Course21Entity[]> {
-    return await this.courses21Repository
-      .createQueryBuilder('course')
-      .innerJoin('course.user', 'user')
-      .innerJoinAndSelect('course.bloqueGroups', 'bloqueGroups')
-      .innerJoin('bloqueGroups.period', 'period21')
-      .innerJoinAndSelect('bloqueGroups.bloqueModules', 'bloqueModules')
-      .innerJoinAndSelect('bloqueModules.classroom', 'classroom')
-      .innerJoinAndSelect('bloqueModules.professors', 'professors')
-      .innerJoinAndSelect('bloqueModules.module', 'module')
-      .innerJoinAndSelect('bloqueModules.events', 'events')
-      .innerJoinAndSelect('professors.professor', 'professor')
-      .where('(user.id = :userId::uuid) AND (period21.id = :periodId::uuid)', {
-        userId: uuid,
-        periodId: periodId,
-      })
-      .orderBy('course', 'ASC')
-      .addOrderBy('bloqueGroups.number', 'ASC')
-      .addOrderBy('events.weekDay', 'ASC')
-      .getMany();
-  }
 
   /**
    * Creates a CSV file of the TEC 20 groups of the period of the user.
@@ -81,7 +20,10 @@ export class ExportService {
    * @returns The CSV file.
    */
   async createTec20Csv(uuid: string, periodId: string) {
-    const periodData = await this.getTec20PeriodData(uuid, periodId);
+    const periodData = await this.courses20Service.getTec20PeriodData(
+      uuid,
+      periodId,
+    );
     const data = [];
     for (const course of periodData) {
       const courseData = {
@@ -152,7 +94,10 @@ export class ExportService {
    * @returns A CSV file.
    */
   async createTec21Csv(uuid: string, periodId: string) {
-    const periodData = await this.getTec21PeriodData(uuid, periodId);
+    const periodData = await this.courses21Service.getTec21PeriodData(
+      uuid,
+      periodId,
+    );
     const data = [];
     for (const course of periodData) {
       const courseData = {
@@ -220,6 +165,68 @@ export class ExportService {
       }
     }
     return this._createCsvFile(data);
+  }
+
+  async createProfessorsCsv(uuid: string, periodId: string) {
+    const tec20Data = await this.professorsService.getProfessorPeriodDataTec20(
+      uuid,
+      periodId,
+    );
+    const tec21Data = await this.professorsService.getProfessorPeriodDataTec21(
+      uuid,
+      periodId,
+    );
+    const professorsData = {};
+    for (const professor of tec20Data) {
+      const hours = udc.calculateTotalHours(
+        professor.sumTec20.hours,
+        professor.sumTec20.minutes,
+      );
+      const weeks = professor.sumWeeks20;
+      delete professor.sumTec20;
+      delete professor.sumWeeks20;
+      professorsData[professor.nomina] = this._createProfessorData(
+        professor,
+        udc.convertHoursToUdc(hours * weeks),
+      );
+    }
+    for (const professor of tec21Data) {
+      // Since the professor can be repeated in these data, we need
+      // to check to add the hours of courses that belong to TEC 21.
+      const professorData = professorsData[professor.nomina];
+      const hours = udc.calculateTotalHours(
+        professor.sumTec21.hours,
+        professor.sumTec21.minutes,
+      );
+      if (professorData) {
+        professorData.udc += udc.convertHoursToUdc(
+          hours * professor.sumWeeks21,
+        );
+      } else {
+        const weeks = professor.sumWeeks21;
+        delete professor.sumTec21;
+        delete professor.sumWeeks21;
+        professorsData[professor.nomina] = this._createProfessorData(
+          professor,
+          udc.convertHoursToUdc(hours * weeks),
+        );
+      }
+    }
+    var keys = Object.keys(professorsData);
+    const values = keys.map(function(v) { return professorsData[v]; });
+    return this._createCsvFile(values);
+  }
+
+  _createProfessorData(professor: any, udc: number) {
+    return {
+      nomina: professor.nomina,
+      nombre: professor.nombre,
+      area: professor.area.join(' '),
+      coordinacion: professor.coordinacion,
+      email: professor.email,
+      limite_carga: professor.limite_carga,
+      udc: udc,
+    };
   }
 
   /**

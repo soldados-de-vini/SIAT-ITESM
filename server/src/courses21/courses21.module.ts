@@ -14,5 +14,6 @@ import { ModuleService } from '../module/module.service';
   ],
   controllers: [Courses21Controller],
   providers: [Courses21Service, ModuleService, JwtStrategy],
+  exports: [Courses21Service],
 })
 export class Courses21Module {}
