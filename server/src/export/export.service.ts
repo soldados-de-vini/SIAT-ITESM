@@ -212,8 +212,10 @@ export class ExportService {
         );
       }
     }
-    var keys = Object.keys(professorsData);
-    const values = keys.map(function(v) { return professorsData[v]; });
+    const keys = Object.keys(professorsData);
+    const values = keys.map(function (v) {
+      return professorsData[v];
+    });
     return this._createCsvFile(values);
   }
 

@@ -159,13 +159,21 @@ export class EventsService {
   async searchClassroomCollision(
     classroom: ClassroomsEntity,
     eventDtos: BaseEventDto[],
+    periodId: string,
     groupInitialWeek: number,
     groupEndWeek: number,
   ): Promise<string> {
-    const groups = await this.groupsRepository.find({
-      where: { classroom: classroom },
-      relations: ['events', 'course'],
-    });
+    const groups = await this.groupsRepository
+      .createQueryBuilder('groups')
+      .innerJoinAndSelect('groups.period', 'period')
+      .innerJoinAndSelect('groups.classroom', 'classroom')
+      .innerJoinAndSelect('groups.events', 'events')
+      .innerJoinAndSelect('groups.course', 'course')
+      .where(
+        'classroom.id = :classroomId::uuid AND period.id = :periodId::uuid',
+        { classroomId: classroom.id, periodId: periodId },
+      )
+      .getMany();
     if (groups.length > 0) {
       // There must be another way to do this faster using the query builder,
       // but because of time will leave it on a nice to have.
@@ -188,11 +196,18 @@ export class EventsService {
         }
       }
     }
-
-    const groups21 = await this.moduleGroupsRepository.find({
-      where: { classroom: classroom },
-      relations: ['events', 'group', 'group.course21'],
-    });
+    const groups21 = await this.moduleGroupsRepository
+      .createQueryBuilder('groups')
+      .innerJoinAndSelect('groups.classroom', 'classroom')
+      .innerJoinAndSelect('groups.events', 'events')
+      .innerJoinAndSelect('groups.group', 'group')
+      .innerJoinAndSelect('group.course21', 'course21')
+      .innerJoinAndSelect('group.period', 'period')
+      .where(
+        '(classroom.id = :classroomId::uuid) AND (period.id = :periodId::uuid)',
+        { classroomId: classroom.id, periodId: periodId },
+      )
+      .getMany();
     if (groups21.length > 0) {
       // There must be another way to do this faster using the query builder,
       // but because of time will leave it on a nice to have.
@@ -227,6 +242,7 @@ export class EventsService {
   async searchProfessorsCollision(
     professors: string[],
     eventDtos: BaseEventDto[],
+    periodId: string,
     groupInitialWeek: number,
     groupEndWeek: number,
   ): Promise<string> {
@@ -236,7 +252,11 @@ export class EventsService {
       .innerJoinAndSelect('rel.group', 'group')
       .innerJoinAndSelect('group.events', 'events')
       .innerJoinAndSelect('group.course', 'course')
-      .where('rel.professor IN(:...ids)', { ids: professors })
+      .innerJoinAndSelect('group.period', 'period')
+      .where('rel.professor IN(:...ids) AND period.id = :periodId::uuid', {
+        ids: professors,
+        periodId: periodId,
+      })
       .getMany();
     if (entitiesTec20.length > 0) {
       for (const entity of entitiesTec20) {
@@ -266,7 +286,11 @@ export class EventsService {
       .innerJoinAndSelect('group.events', 'events')
       .innerJoinAndSelect('group.group', 'innerGroup')
       .innerJoinAndSelect('innerGroup.course21', 'course')
-      .where('rel.professor IN(:...ids)', { ids: professors })
+      .innerJoinAndSelect('innerGroup.period', 'period')
+      .where('rel.professor IN(:...ids) AND period.id = :periodId::uuid', {
+        ids: professors,
+        periodId: periodId,
+      })
       .getMany();
     if (entitiesTec21.length > 0) {
       for (const entity of entitiesTec21) {

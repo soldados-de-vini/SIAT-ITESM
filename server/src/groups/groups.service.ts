@@ -255,7 +255,7 @@ export class GroupsService {
     // Check if the group exists.
     const group = await this.groupRepository.findOne({
       where: { id: groupId },
-      relations: ['course'],
+      relations: ['course', 'period'],
     });
     if (!group) {
       return db.createResponseStatus(
@@ -276,6 +276,7 @@ export class GroupsService {
     const classroomCollision = await this.eventsService.searchClassroomCollision(
       classroom,
       dtoData.events,
+      group.period.id,
       group.course.initialWeek,
       group.course.initialWeek + group.course.weeks,
     );
@@ -298,6 +299,7 @@ export class GroupsService {
     const professorCollision = await this.eventsService.searchProfessorsCollision(
       dtoData.professorsIds,
       dtoData.events,
+      group.period.id,
       group.course.initialWeek,
       group.course.initialWeek + group.course.weeks,
     );

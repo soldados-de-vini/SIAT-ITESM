@@ -164,7 +164,7 @@ export class BloqueModulesService {
     // Check if the group exists.
     const group = await this.moduleGroupRep.findOne({
       where: { id: groupId },
-      relations: ['group', 'group.course21', 'module'],
+      relations: ['group', 'group.course21', 'module', 'period'],
     });
     if (!group) {
       return db.createResponseStatus(
@@ -185,6 +185,7 @@ export class BloqueModulesService {
     const classroomCollision = await this.eventsService.searchClassroomCollision(
       classroom,
       dtoData.events,
+      group.group.period.id,
       group.group.course21.initialWeek,
       group.group.course21.initialWeek + group.group.course21.weeks,
     );
@@ -207,6 +208,7 @@ export class BloqueModulesService {
     const professorCollision = await this.eventsService.searchProfessorsCollision(
       dtoData.professorsIds,
       dtoData.events,
+      group.group.period.id,
       group.group.course21.initialWeek,
       group.group.course21.initialWeek + group.group.course21.weeks,
     );
