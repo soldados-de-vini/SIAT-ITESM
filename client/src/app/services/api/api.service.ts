@@ -13,7 +13,7 @@ export class ApiService {
   private options = {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: ''
+      Authorization: '',
     }
   };
 
@@ -45,8 +45,11 @@ export class ApiService {
    *
    * @param endpoint endpoint to be called
    */
-  public get<T>(endpoint: string): Observable<any> {
-    return this.http.get(environment.api_url + endpoint, this.options).pipe(
+  public get<T>(endpoint: string, responseType?: string): Observable<any> {
+    return this.http.get(environment.api_url + endpoint, {
+      headers: this.options.headers,
+      responseType: responseType as 'json' || 'json'
+    } ).pipe(
       retry(2),
       catchError(this.handleError)
     );
