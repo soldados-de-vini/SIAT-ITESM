@@ -14,6 +14,7 @@ export class BloqueGroupModulesEntity {
   @ManyToOne(
     () => BloqueGroupsEntity,
     (BloqueGroupsEntity) => BloqueGroupsEntity.bloqueModules,
+    { onDelete: 'CASCADE' },
   )
   group: BloqueGroupsEntity;
 
@@ -26,9 +27,12 @@ export class BloqueGroupModulesEntity {
   @OneToMany(
     () => ProfessorsToBloqueModules,
     (ProfessorsToBloqueModules) => ProfessorsToBloqueModules.group,
+    { onDelete: 'CASCADE' },
   )
   professors: ProfessorsToBloqueModules[];
 
-  @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.bloqueGroup)
+  @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.bloqueGroup, {
+    onDelete: 'CASCADE',
+  })
   events: EventsEntity[];
 }

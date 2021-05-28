@@ -38,12 +38,17 @@ export class BloqueGroupsEntity {
   )
   course21: Course21Entity;
 
-  @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.bloqueGroups)
+  @ManyToOne(
+    () => PeriodsEntity,
+    (PeriodsEntity) => PeriodsEntity.bloqueGroups,
+    { onDelete: 'CASCADE' },
+  )
   period: PeriodsEntity;
 
   @OneToMany(
     () => BloqueGroupModulesEntity,
     (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
+    { onDelete: 'CASCADE' },
   )
   bloqueModules: BloqueGroupModulesEntity[];
 }

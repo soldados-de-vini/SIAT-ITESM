@@ -43,12 +43,15 @@ export class EventsEntity {
   @Index()
   weekDay: number;
 
-  @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.events)
+  @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.events, {
+    onDelete: 'CASCADE',
+  })
   group: GroupsEntity;
 
   @ManyToOne(
     () => BloqueGroupModulesEntity,
     (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.events,
+    { onDelete: 'CASCADE' },
   )
   bloqueGroup: BloqueGroupModulesEntity;
 

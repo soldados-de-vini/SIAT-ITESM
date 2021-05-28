@@ -21,6 +21,7 @@ export class ProfessorsToBloqueModules {
   @ManyToOne(
     () => BloqueGroupModulesEntity,
     (BloqueGroupModulesEntity) => BloqueGroupModulesEntity.group,
+    { onDelete: 'CASCADE' },
   )
   group: BloqueGroupModulesEntity;
 }

@@ -38,7 +38,9 @@ export class GroupsEntity {
   @ManyToOne(() => CourseEntity, (CourseEntity) => CourseEntity.groups)
   course: CourseEntity;
 
-  @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.groups)
+  @ManyToOne(() => PeriodsEntity, (PeriodsEntity) => PeriodsEntity.groups, {
+    onDelete: 'CASCADE',
+  })
   period: PeriodsEntity;
 
   @ManyToOne(() => ClassroomsEntity)
@@ -48,9 +50,12 @@ export class GroupsEntity {
   @OneToMany(
     () => ProfessorsToGroups,
     (ProfessorsToGroups) => ProfessorsToGroups.group,
+    { onDelete: 'CASCADE' },
   )
   professors: ProfessorsToGroups[];
 
-  @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.group)
+  @OneToMany(() => EventsEntity, (EventsEntity) => EventsEntity.group, {
+    onDelete: 'CASCADE',
+  })
   events: EventsEntity[];
 }
