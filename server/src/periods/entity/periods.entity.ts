@@ -71,12 +71,15 @@ export class PeriodsEntity {
   @ManyToOne(() => UsersEntity, (UsersEntity) => UsersEntity.periods)
   user: UsersEntity;
 
-  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.period)
+  @OneToMany(() => GroupsEntity, (GroupsEntity) => GroupsEntity.period, {
+    onDelete: 'CASCADE',
+  })
   groups: GroupsEntity[];
 
   @OneToMany(
     () => BloqueGroupsEntity,
     (BloqueGroupsEntity) => BloqueGroupsEntity.period,
+    { onDelete: 'CASCADE' },
   )
   bloqueGroups: BloqueGroupsEntity[];
 }

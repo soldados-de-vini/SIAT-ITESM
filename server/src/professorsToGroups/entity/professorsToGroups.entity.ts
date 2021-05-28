@@ -18,6 +18,8 @@ export class ProfessorsToGroups {
   )
   professor: ProfessorsEntity;
 
-  @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.professors)
+  @ManyToOne(() => GroupsEntity, (GroupsEntity) => GroupsEntity.professors, {
+    onDelete: 'CASCADE',
+  })
   group: GroupsEntity;
 }
