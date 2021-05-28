@@ -178,16 +178,11 @@ export class ExportService {
     );
     const professorsData = {};
     for (const professor of tec20Data) {
-      const hours = udc.calculateTotalHours(
-        professor.sumTec20.hours,
-        professor.sumTec20.minutes,
-      );
-      const weeks = professor.sumWeeks20;
-      delete professor.sumTec20;
-      delete professor.sumWeeks20;
+      const udcs = professor.udcs;
+      delete professor.udcs;
       professorsData[professor.nomina] = this._createProfessorData(
         professor,
-        udc.convertHoursToUdc(hours * weeks),
+        udcs,
       );
     }
     for (const professor of tec21Data) {
@@ -200,12 +195,12 @@ export class ExportService {
       );
       if (professorData) {
         professorData.udc += udc.convertHoursToUdc(
-          hours * professor.sumWeeks21,
+          hours * professor.courseWeeks,
         );
       } else {
         const weeks = professor.sumWeeks21;
         delete professor.sumTec21;
-        delete professor.sumWeeks21;
+        delete professor.courseWeeks;
         professorsData[professor.nomina] = this._createProfessorData(
           professor,
           udc.convertHoursToUdc(hours * weeks),

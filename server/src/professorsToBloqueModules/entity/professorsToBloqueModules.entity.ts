@@ -7,7 +7,7 @@ export class ProfessorsToBloqueModules {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
+  @Column('real', {
     nullable: false,
   })
   responsabilityPercent: number;
