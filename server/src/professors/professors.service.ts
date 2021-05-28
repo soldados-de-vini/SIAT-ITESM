@@ -123,15 +123,16 @@ export class ProfessorsService {
       .innerJoin('groups20.group', 'group20')
       .innerJoin('group20.course', 'course20')
       .innerJoin('group20.period', 'period20')
-      .innerJoin('group20.events', 'events20')
       .select('professor.nomina', 'nomina')
       .addSelect('professor.name', 'nombre')
       .addSelect('professor.area', 'area')
       .addSelect('professor.coordination', 'coordinacion')
       .addSelect('professor.email', 'email')
       .addSelect('professor.loadLimit', 'limite_carga')
-      .addSelect('sum(events20.endTime - events20.startTime)', 'sumTec20')
-      .addSelect('sum(course20.weeks)::integer', 'sumWeeks20')
+      .addSelect(
+        'sum(course20.udc::real * groups20."responsabilityPercent"::real)::real',
+        'udcs',
+      )
       .where('(user.id = :userId::uuid) AND (period20.id = :periodId::uuid)', {
         userId: uuid,
         periodId: periodId,
@@ -142,6 +143,8 @@ export class ProfessorsService {
       .addGroupBy('professor.coordination')
       .addGroupBy('professor.email')
       .addGroupBy('professor.loadLimit')
+      .addGroupBy('groups20.responsabilityPercent')
+      .addGroupBy('course20.udc')
       .getRawMany();
     return tec20Info;
   }
@@ -168,8 +171,11 @@ export class ProfessorsService {
       .addSelect('professor.coordination', 'coordinacion')
       .addSelect('professor.email', 'email')
       .addSelect('professor.loadLimit', 'limite_carga')
-      .addSelect('sum(events21.endTime - events21.startTime)', 'sumTec21')
-      .addSelect('sum(course21.weeks)::integer', 'sumWeeks21')
+      .addSelect('course21.weeks::integer', 'courseWeeks')
+      .addSelect(
+        'sum((events21.endTime - events21.startTime) * groups21.responsabilityPercent)',
+        'sumTec21',
+      )
       .where('(user.id = :userId::uuid) AND (period21.id = :periodId::uuid)', {
         userId: uuid,
         periodId: periodId,
@@ -180,6 +186,7 @@ export class ProfessorsService {
       .addGroupBy('professor.coordination')
       .addGroupBy('professor.email')
       .addGroupBy('professor.loadLimit')
+      .addGroupBy('course21.weeks')
       .getRawMany();
     return tec21Info;
   }
