@@ -22,7 +22,8 @@ export class CoursesComponent implements OnInit {
     {display: 'Semana inicial', prop: 'initialWeek'},
     {display: 'Semanas', prop: 'weeks'},
     {display: 'Avenida(s)', prop: 'avenue'},
-    {display: 'Tipo', prop: 'type'}
+    {display: 'Tipo', prop: 'type'},
+    {display: 'UDC', prop: 'udc'}
   ];
   public courses: Array<Course> = [];
 

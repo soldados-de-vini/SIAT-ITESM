@@ -1,5 +1,5 @@
 export interface Course {
-  id?: number;
+  id?: string;
   key: string;
   name: string;
   capacity: number;
@@ -9,4 +9,5 @@ export interface Course {
   typeUF: string;
   initialWeek: number;
   weeks: number;
+  udc?: number;
 }

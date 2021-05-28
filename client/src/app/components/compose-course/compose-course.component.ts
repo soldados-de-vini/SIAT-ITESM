@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
+import { Course } from 'src/app/models/course.model';
 import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class ComposeCourseComponent implements OnInit {
 
   courseForm!: FormGroup;
   loading: boolean;
-  @Input() course;
+  @Input() course: Course;
   @Input() isEditing;
   avenues: any;
 
@@ -89,6 +90,7 @@ export class ComposeCourseComponent implements OnInit {
       weeks: [null, [Validators.required]],
       avenue: [],
       typeUF: ['TEC20'],
+      udc: [null, Validators.required],
     });
   }
 
@@ -102,6 +104,7 @@ export class ComposeCourseComponent implements OnInit {
       weeks: [this.course.weeks, [Validators.required]],
       avenue: [this.course.avenue],
       typeUF: [this.course.typeUF],
+      udc: [this.course.udc, Validators.required],
     });
   }
 
