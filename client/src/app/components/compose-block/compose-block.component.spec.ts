@@ -98,7 +98,7 @@ describe('ComposeBlockComponent', () => {
   });
 
   it('should be able to edit a block', () => {
-    const blockId = 1;
+    const blockId = 'abcd1234';
     const blockDummy: Course = {
       key: 'FSC21',
       name: 'Fisica 2',

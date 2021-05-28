@@ -57,7 +57,8 @@ describe('ComposeCourseComponent', () => {
       typeUF: 'TEC20',
       semester: '4',
       initialWeek: 5,
-      weeks: 5
+      weeks: 5,
+      udc: 10
     };
 
     component.courseForm.setValue(testCourse);
@@ -87,9 +88,10 @@ describe('ComposeCourseComponent', () => {
       capacity: 50,
       avenue: ['IIC'],
       typeUF: 'TEC20',
-      semester: '4',
+      semester: 4,
       initialWeek: 5,
-      weeks: 5
+      weeks: 5,
+      udc: 10
     };
     component.isEditing = true;
     component.courseForm.setValue(testCourse);
