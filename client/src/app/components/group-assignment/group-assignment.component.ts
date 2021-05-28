@@ -43,6 +43,10 @@ export class GroupAssignmentComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  disabledHours(): number[] {
+    return [0, 1, 2, 3, 4, 5, 6, ,22, 23];
+  }
+
   public getProfessors() {
     this.isLoadingProfessors = true;
     this.professors = [];
@@ -158,8 +162,8 @@ export class GroupAssignmentComponent implements OnInit {
   }
 
   public deleteProfessor() {
-    this.professors.pop();
     this.professorsResponsability.pop();
+    this.professors.pop();
   }
 
   public cancel() {
