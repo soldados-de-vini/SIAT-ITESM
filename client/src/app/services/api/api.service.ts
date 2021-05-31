@@ -13,7 +13,7 @@ export class ApiService {
   private options = {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: ''
+      Authorization: '',
     }
   };
 

@@ -1,8 +1,32 @@
 <nz-skeleton [nzActive]="true" *ngIf="loading"></nz-skeleton>
 
 <ng-container *ngIf="!loading">
-  <nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="period?.name" style="padding-left: 0; padding-top: 0;">
-  </nz-page-header>
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <nz-page-header (nzBack)="onBack()" nzBackIcon [nzTitle]="period?.name" style="padding-left: 0; padding-top: 0;">
+      </nz-page-header>
+    </div>
+    <div nz-col nzSpan="12">
+      <a [href]="exportTec20()" target="_blank">
+        <button nz-button nzType="default" class="csv">
+          <i nz-icon nzType="export" nzTheme="outline"></i>
+          Exportar Tec 20
+        </button>
+      </a>
+      <a [href]="exportTec21()" target="_blank">
+        <button nz-button nzType="default" class="csv">
+          <i nz-icon nzType="export" nzTheme="outline"></i>
+          Exportar Tec 21
+        </button>
+      </a>
+      <a [href]="exportProfessors()" target="_blank">
+        <button nz-button nzType="default" class="csv">
+          <i nz-icon nzType="export" nzTheme="outline"></i>
+          Exportar maestros
+        </button>
+      </a>
+    </div>
+  </div>
 
   <nz-descriptions nzTitle="Información del Periodo">
     <nz-descriptions-item nzTitle="Fecha de Inicio">{{period?.startDate | date}}</nz-descriptions-item>
