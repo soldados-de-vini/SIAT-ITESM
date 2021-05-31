@@ -66,14 +66,14 @@ export class PeriodComponent implements OnInit {
   }
 
   public exportTec20(){
-    this.apiService.get(`/export/tec20/${this.userId}/period/${this.period.id}`, 'blob').subscribe((res) => {
-      console.log(res);
-    });
+    return environment.api_url + `/export/tec20/${this.userId}/period/${this.period.id}`;
   }
 
   public exportTec21(){
-    this.apiService.get(`/export/tec21/${this.userId}/period/${this.period.id}`).subscribe((res) => {
+    return environment.api_url + `/export/tec21/${this.userId}/period/${this.period.id}`;
+  }
 
-    });
+  public exportProfessors(){
+    return environment.api_url + `/export/professors/${this.userId}/period/${this.period.id}`;
   }
 }
