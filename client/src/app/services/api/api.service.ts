@@ -45,7 +45,7 @@ export class ApiService {
    *
    * @param endpoint endpoint to be called
    */
-  public get<T>(endpoint: string, responseType?: string): Observable<any> {
+  public get<T>(endpoint: string): Observable<any> {
     return this.http.get(environment.api_url + endpoint, this.options);
   }
 
