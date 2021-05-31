@@ -44,7 +44,7 @@ export class GroupAssignmentComponent implements OnInit {
   ngOnInit(): void {}
 
   disabledHours(): number[] {
-    return [0, 1, 2, 3, 4, 5, 6, ,22, 23];
+    return [0, 1, 2, 3, 4, 5, 6, 22, 23];
   }
 
   public getProfessors() {
