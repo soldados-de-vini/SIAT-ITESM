@@ -6,11 +6,9 @@ import { NzSelectModule, NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Overlay } from '@angular/cdk/overlay';
 
-import { Module } from 'src/app/models/module.model';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 import { ComposeAvenueComponent } from './compose-avenue.component';
-import { Avenue } from 'src/app/models/avenue.model';
 
 describe('ComposeAvenueComponent', () => {
   let component: ComposeAvenueComponent;
