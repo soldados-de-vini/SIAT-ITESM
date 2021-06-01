@@ -13,7 +13,3 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
-
-# Environmental Variables
-ormconfig.*
-*.env
