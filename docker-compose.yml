@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  siat-db:
+    image: "postgres:13.3"
+    container_name: siat-db
+    volumes:
+        - siat-data:/var/lib/postgresql/data
+    ports:
+        - 5432
+    environment:
+        POSTGRES_DB: 'siat-tec'
+        POSTGRES_USER: 'siat'
+        POSTGRES_PASSWORD: 'testpass'
+
+  siat-api:
+    build: ./server
+    container_name: siat-api
+    environment:
+        - DB_HOST=siat-db
+    ports:
+        - 8000:8000
+    links:
+        - siat-db
+
+  siat-client:
+    build: ./client
+    container_name: siat-client
+    ports:
+        - 80:80
+    links:
+        - siat-api
+
+volumes:
+    siat-data:
