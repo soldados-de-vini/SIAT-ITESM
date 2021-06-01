@@ -11,7 +11,7 @@ import { Overlay } from '@angular/cdk/overlay';
 
 import { ComposeBlockComponent } from './compose-block.component';
 import { Course } from 'src/app/models/course.model';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 describe('ComposeBlockComponent', () => {
   let component: ComposeBlockComponent;

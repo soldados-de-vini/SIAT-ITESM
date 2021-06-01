@@ -8,7 +8,7 @@ import { Overlay } from '@angular/cdk/overlay';
 
 import { ComposeModuleComponent } from './compose-module.component';
 import { Module } from 'src/app/models/module.model';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 describe('ComposeModuleComponent', () => {
   let component: ComposeModuleComponent;
