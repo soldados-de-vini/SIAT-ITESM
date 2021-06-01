@@ -14,7 +14,7 @@ services:
         POSTGRES_PASSWORD: 'testpass'
 
   siat-api:
-    build: ./server
+    image: "vini24/siat-tec:api"
     container_name: siat-api
     environment:
         - DB_HOST=siat-db
@@ -24,7 +24,7 @@ services:
         - siat-db
 
   siat-client:
-    build: ./client
+    image: "vini24/siat-tec:client"
     container_name: siat-client
     ports:
         - 80:80
