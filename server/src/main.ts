@@ -5,10 +5,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 
-const WHITELIST = ['http://localhost:4200'];
+const WHITELIST = ['http://localhost/', 'http://129.146.30.58'];
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.setGlobalPrefix('api');
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.enableCors({
