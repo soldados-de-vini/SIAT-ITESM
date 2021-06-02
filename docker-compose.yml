@@ -24,12 +24,18 @@ services:
         - siat-db
 
   siat-client:
-    image: "vini24/siat-tec:client"
+    build: ./client
     container_name: siat-client
+    restart: always
+    volumes:
+        - ./nginx/config/conf.d/prod:/etc/nginx/conf.d
+        - letsencrypt:/etc/letsencrypt
     ports:
         - 80:80
+        - 443:443
     links:
         - siat-api
 
 volumes:
     siat-data:
+    letsencrypt:
