@@ -24,11 +24,11 @@ services:
         - siat-db
 
   siat-client:
-    image: "vini24/siat-tec:client"
+    build: "vini24/siat-tec:client"
     container_name: siat-client
     restart: always
     volumes:
-        - ./nginx/config/conf.d/prod:/etc/nginx/conf.d
+        - ./nginx:/etc/nginx/conf.d
         - letsencrypt:/etc/letsencrypt
     environment:
         CERTBOT_EMAIL: 'diegoar7@live.com'
