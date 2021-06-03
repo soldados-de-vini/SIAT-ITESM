@@ -47,6 +47,11 @@ export class GroupAssignmentComponent implements OnInit {
     return [0, 1, 2, 3, 4, 5, 6, 22, 23];
   }
 
+  defaultDate(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7, 0, 0);
+  }
+
   public getProfessors() {
     this.isLoadingProfessors = true;
     this.professors = [];

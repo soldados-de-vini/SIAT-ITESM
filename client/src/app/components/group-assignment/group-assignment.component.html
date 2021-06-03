@@ -43,11 +43,11 @@
       <div nz-row [nzGutter]="6">
         <div nz-col [nzSpan]="12">
           <nz-time-picker [(ngModel)]="sharedTime.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
-            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours"></nz-time-picker>
+            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours" [nzDefaultOpenValue]="defaultDate()"></nz-time-picker>
         </div>
         <div nz-col [nzSpan]="12">
           <nz-time-picker [(ngModel)]="sharedTime.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
-            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours"></nz-time-picker>
+            nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours" [nzDefaultOpenValue]="defaultDate()"></nz-time-picker>
         </div>
       </div>
     </div>
@@ -62,11 +62,11 @@
         <div nz-row [nzGutter]="6">
           <div nz-col [nzSpan]="12">
             <nz-time-picker [(ngModel)]="event.startTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Inicio'"
-              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours"></nz-time-picker>
+              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours" [nzDefaultOpenValue]="defaultDate()"></nz-time-picker>
           </div>
           <div nz-col [nzSpan]="12">
             <nz-time-picker [(ngModel)]="event.endTime" style="width: 100%;" [nzPlaceHolder]="'Hora de Fin'"
-              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours"></nz-time-picker>
+              nzFormat="HH:mm" [nzMinuteStep]="30" (ngModelChange)="getProfessors()" [nzDisabledHours]="disabledHours" [nzDefaultOpenValue]="defaultDate()"></nz-time-picker>
           </div>
         </div>
       </div>
