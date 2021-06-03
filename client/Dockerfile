@@ -7,5 +7,5 @@ COPY . .
 RUN npm run build-prod
 
 ## Setup NGINX ##
-FROM jonasal/nginx-certbot:latest
+FROM nginx:alpine
 COPY --from=build /usr/src/app/dist/siat /usr/share/nginx/html
