@@ -33,6 +33,7 @@ export class ExportService {
         Semestre: course.semester,
         SemanaInicial: course.initialWeek,
         Duracion: `${course.weeks} semanas`,
+        Udcs: course.udc,
         TipoUF: course.typeUF,
         Avenidas: course.avenue.join(' '),
       };
@@ -198,7 +199,7 @@ export class ExportService {
           hours * professor.courseWeeks,
         );
       } else {
-        const weeks = professor.sumWeeks21;
+        const weeks = professor.courseWeeks;
         delete professor.sumTec21;
         delete professor.courseWeeks;
         professorsData[professor.nomina] = this._createProfessorData(
