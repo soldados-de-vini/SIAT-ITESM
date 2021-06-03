@@ -24,7 +24,7 @@ services:
         - siat-db
 
   siat-client:
-    build: ./client
+    image: "vini24/siat-tec:client"
     container_name: siat-client
     restart: always
     volumes:
